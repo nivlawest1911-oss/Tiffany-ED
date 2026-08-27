@@ -1,10 +1,16 @@
 import { streamText } from 'ai';
 import { getGoogleAIKey, googleProvider, AI_MODELS } from '@/lib/ai-config';
+import { assertHumanRequest } from '@/lib/security/ironshield-gate';
 
 export const runtime = 'nodejs';
 
 export async function POST(req: Request) {
     try {
+        const gate = await assertHumanRequest(req, { routeName: 'chat/gemini' });
+        if (!gate.allowed && gate.response) {
+            return gate.response;
+        }
+
         const { messages } = await req.json();
 
         if (!getGoogleAIKey()) {

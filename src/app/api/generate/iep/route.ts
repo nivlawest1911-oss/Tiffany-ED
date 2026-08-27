@@ -2,11 +2,18 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getSession } from '@/lib/auth';
 import { generateIEPAction } from '@/lib/gemini-service';
 import { prisma } from '@/lib/prisma';
+import { assertHumanRequest } from '@/lib/security/ironshield-gate';
+import { withGovernanceEnvelope } from '@/lib/ai/governance-gate';
 
 export const runtime = 'nodejs';
 
 export async function POST(request: NextRequest) {
     try {
+        const gate = await assertHumanRequest(request, { routeName: 'generate/iep' });
+        if (!gate.allowed && gate.response) {
+            return gate.response;
+        }
+
         const params = await request.json();
         const { studentNeeds, gradeLevel } = params;
 
@@ -40,12 +47,17 @@ export async function POST(request: NextRequest) {
             protocolContext
         });
 
-        return NextResponse.json({ content: result });
+        const envelopedResult = withGovernanceEnvelope(
+            { content: result },
+            { domain: 'iep', isHighStakes: true }
+        );
+
+        return NextResponse.json(envelopedResult);
     } catch (error: any) {
         console.error('[IEP Generator API] Error:', error);
 
         if (error.message?.includes('503') || error.message?.includes('overloaded') || error.message?.includes('exhausted')) {
-            return NextResponse.json({
+            const fallbackEnvelope = withGovernanceEnvelope({
                 content: `# [SIMULATION PROTOCOL ACTIVE]
 **Note:** AI capacity is temporarily exhausted. The following is a high-fidelity mock IEP draft.
 
@@ -55,8 +67,10 @@ Student demonstrates strengths in visual learning but requires support with audi
 ## Measurable Annual Goals
 By the end of the term, the student will improve reading comprehension by 20% using structured scaffolds.
 
-*EdIntel System Status: AWAITING_BANDWIDTH â€” Please retry in a moment.*`
-            });
+*EdIntel System Status: AWAITING_BANDWIDTH — Please retry in a moment.*`
+            }, { domain: 'iep', isHighStakes: true });
+
+            return NextResponse.json(fallbackEnvelope);
         }
 
         return NextResponse.json({ error: 'Generation failed' }, { status: 500 });

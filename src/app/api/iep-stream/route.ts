@@ -27,10 +27,17 @@ function getModel(provider: string = 'google') {
     }
 }
 
+import { assertHumanRequest } from '@/lib/security/ironshield-gate';
+
 export const runtime = 'nodejs';
 
 export async function POST(req: NextRequest) {
     try {
+        const gate = await assertHumanRequest(req, { routeName: 'iep-stream' });
+        if (!gate.allowed && gate.response) {
+            return gate.response;
+        }
+
         const { messages, gradeLevel, subject, specialNeeds, provider = 'google' } = await req.json();
         const { ALABAMA_STRATEGIC_DIRECTIVE } = await import('@/lib/ai-resilience');
 

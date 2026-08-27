@@ -11,11 +11,17 @@ import { getSession } from '@/lib/auth';
 import { TokenService } from '@/lib/services/token-service';
 import { ALABAMA_STRATEGIC_DIRECTIVE } from '@/lib/ai-resilience';
 import { lexileToGrade } from '@/types/differentiation';
+import { assertHumanRequest } from '@/lib/security/ironshield-gate';
 
 export const runtime = 'nodejs';
 
 export async function POST(request: NextRequest) {
   try {
+    const gate = await assertHumanRequest(request, { routeName: 'differentiate/stream' });
+    if (!gate.allowed && gate.response) {
+      return gate.response;
+    }
+
     const { 
       sourceInput, 
       targetLexile, 

@@ -3,6 +3,7 @@ import { INTELLIGENCE_MAP } from '@/lib/intelligence-engine';
 import { queryEdIntelVault } from '@/lib/rag/rag-core';
 import { getBirthCertificate } from '@/lib/supabase';
 import { googleProvider, AI_MODELS } from '@/lib/ai-config';
+import { assertHumanRequest } from '@/lib/security/ironshield-gate';
 
 // BigQuery logic moved to proxy API to prevent SDK leakage
 export const runtime = 'nodejs';
@@ -11,6 +12,11 @@ export async function POST(req: Request) {
     const start = Date.now();
 
     try {
+        const gate = await assertHumanRequest(req, { routeName: 'ai/chat' });
+        if (!gate.allowed && gate.response) {
+            return gate.response;
+        }
+
         const { messages: rawMessages, protocolContext, companionId } = await req.json();
 
         // 1. Map messages from frontend format

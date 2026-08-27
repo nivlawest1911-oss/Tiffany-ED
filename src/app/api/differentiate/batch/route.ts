@@ -4,11 +4,17 @@ import { TokenService } from '@/lib/services/token-service';
 import { differentiationEngine } from '@/lib/differentiation-engine';
 import { BatchDifferentiationRequest, DifferentiationResponse } from '@/types/differentiation';
 import { prisma } from '@/lib/prisma';
+import { assertHumanRequest } from '@/lib/security/ironshield-gate';
 
 export const runtime = 'nodejs';
 
 export async function POST(request: NextRequest) {
   try {
+    const gate = await assertHumanRequest(request, { routeName: 'differentiate/batch' });
+    if (!gate.allowed && gate.response) {
+      return gate.response;
+    }
+
     const body = await request.json();
     const { 
       sourceInput, 

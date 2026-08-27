@@ -1,7 +1,8 @@
-﻿import { NextRequest } from 'next/server';
+import { NextRequest } from 'next/server';
 import { google } from '@ai-sdk/google';
 import { streamText } from 'ai';
 import { ALABAMA_STRATEGIC_DIRECTIVE, EdIntel_PERSONA, SOVEREIGN_PERSONAS, type Persona } from '@/lib/ai-resilience';
+import { assertHumanRequest } from '@/lib/security/ironshield-gate';
 
 export const runtime = 'edge';
 
@@ -16,6 +17,11 @@ const USER_CREDENTIALS = {
 
 export async function POST(request: NextRequest) {
     try {
+        const gate = await assertHumanRequest(request, { routeName: 'chat' });
+        if (!gate.allowed && gate.response) {
+            return gate.response;
+        }
+
         const { messages, avatarName, avatarRole, pathname } = await request.json();
 
         if (!messages || !Array.isArray(messages) || messages.length === 0) {

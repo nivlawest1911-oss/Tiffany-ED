@@ -3,6 +3,7 @@ import { createClient } from '@supabase/supabase-js';
 import { generateObject } from 'ai';
 import { getGoogleAIKey, googleProvider, AI_MODELS } from '@/lib/ai-config';
 import { AmbientMeetingSummarySchema } from '@/lib/ai/signatures';
+import { assertHumanRequest } from '@/lib/security/ironshield-gate';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
 const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
@@ -15,6 +16,11 @@ export const maxDuration = 60; // 60s max for audio fetch + multimodal processin
 export async function POST(req: NextRequest) {
   const startTime = Date.now();
   try {
+    const gate = await assertHumanRequest(req, { routeName: 'ambient-ingest' });
+    if (!gate.allowed && gate.response) {
+      return gate.response;
+    }
+
     const payload = await req.json();
     const { deviceId, audioUrl, transcript, text, userId } = payload;
 

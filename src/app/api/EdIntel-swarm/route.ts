@@ -1,7 +1,8 @@
-﻿import { createClient } from '@supabase/supabase-js';
-import { openai } from '@ai-sdk/openai';
+import { createClient } from '@supabase/supabase-js';
 import { streamText } from 'ai';
+import { openaiProvider, AI_MODELS } from '@/lib/ai-config';
 import { rateLimit } from '@/lib/EdIntel-connections';
+import { assertHumanRequest } from '@/lib/security/ironshield-gate';
 
 // Initialize Supabase client
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -13,6 +14,11 @@ const _supabase = supabaseUrl && supabaseKey
 
 export async function POST(req: Request) {
     try {
+        const gate = await assertHumanRequest(req, { routeName: 'EdIntel-swarm' });
+        if (!gate.allowed && gate.response) {
+            return gate.response;
+        }
+
         // --- EdIntel GATEKEEPER (Rate Limiting) ---
         // Ensuring the Token Economy is respected via Upstash
         const ip = req.headers.get('x-forwarded-for') ?? '127.0.0.1';
@@ -69,7 +75,7 @@ export async function POST(req: Request) {
         // 3. GENERATIVE OUTPUT
         // Using Vercel AI SDK to stream the response
         const result = streamText({
-            model: openai('gpt-4o'),
+            model: openaiProvider(AI_MODELS.OPENAI.PRIMARY),
             system: systemPrompt,
             prompt: `Execute protocol for: ${intent}.`,
         });
