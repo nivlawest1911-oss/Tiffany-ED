@@ -9,6 +9,7 @@ import {
     openaiProvider, 
     AI_MODELS 
 } from '@/lib/ai-config';
+import { recordLlmUsage, extractUsageFromResult } from '@/lib/ai/token-meter';
 
 /**
  * EdIntel Professional Shield: AI Resilience Utility
@@ -402,22 +403,61 @@ export class IntelligenceEngine {
 
         const model = modelTier === 'premium' ? AI_MODELS.OPENAI.PRIMARY : AI_MODELS.OPENAI.ROUTINE;
         const fallbackModel = modelTier === 'premium' ? AI_MODELS.GOOGLE.PRO : AI_MODELS.GOOGLE.FLASH;
+        const start = Date.now();
 
         try {
             // Attempt Primary (OpenAI)
-            return await streamText({
+            const result = await streamText({
                 model: openaiProvider(model),
                 messages,
                 temperature: 0.7,
+                onFinish: (event) => {
+                    const usage = extractUsageFromResult(event);
+                    void recordLlmUsage({
+                        modelId: model,
+                        provider: 'openai',
+                        operation: 'streamText',
+                        inputTokens: usage.inputTokens,
+                        outputTokens: usage.outputTokens,
+                        totalTokens: usage.totalTokens,
+                        latencyMs: Date.now() - start,
+                        success: true,
+                    });
+                },
             });
+            return result;
         } catch (err: any) {
             console.warn(`[Shield] Primary stream failed, pivoting to Google. Reason: ${err.message}`);
+            void recordLlmUsage({
+                modelId: model,
+                provider: 'openai',
+                operation: 'streamText',
+                latencyMs: Date.now() - start,
+                success: false,
+                errorCode: err?.name || 'PRIMARY_FAILOVER',
+            });
+
             // Attempt Secondary (Google)
-            return await streamText({
+            const secondStart = Date.now();
+            const result = await streamText({
                 model: googleProvider(fallbackModel),
                 messages,
                 temperature: 0.7,
+                onFinish: (event) => {
+                    const usage = extractUsageFromResult(event);
+                    void recordLlmUsage({
+                        modelId: fallbackModel,
+                        provider: 'google',
+                        operation: 'streamText',
+                        inputTokens: usage.inputTokens,
+                        outputTokens: usage.outputTokens,
+                        totalTokens: usage.totalTokens,
+                        latencyMs: Date.now() - secondStart,
+                        success: true,
+                    });
+                },
             });
+            return result;
         }
     }
 
@@ -436,6 +476,7 @@ export class IntelligenceEngine {
         const googleModel = modelTier === 'premium' ? AI_MODELS.GOOGLE.PRO : AI_MODELS.GOOGLE.FLASH;
         const openaiModel = modelTier === 'premium' ? AI_MODELS.OPENAI.PRIMARY : AI_MODELS.OPENAI.ROUTINE;
         const errors: any[] = [];
+        const start = Date.now();
 
         // 1. Primary Vector: Google Gemini
         try {
@@ -447,6 +488,18 @@ export class IntelligenceEngine {
                 temperature,
             });
 
+            const usage = extractUsageFromResult(result);
+            void recordLlmUsage({
+                modelId: googleModel,
+                provider: 'google',
+                operation: 'generateObject',
+                inputTokens: usage.inputTokens,
+                outputTokens: usage.outputTokens,
+                totalTokens: usage.totalTokens,
+                latencyMs: Date.now() - start,
+                success: true,
+            });
+
             return {
                 object: result.object,
                 provider: 'google',
@@ -455,9 +508,18 @@ export class IntelligenceEngine {
         } catch (err: any) {
             console.warn(`[Structured Failover] Primary (Google: ${googleModel}) failed. Switching to Secondary (OpenAI: ${openaiModel}). Reason:`, err.message);
             errors.push({ provider: 'google', error: err.message });
+            void recordLlmUsage({
+                modelId: googleModel,
+                provider: 'google',
+                operation: 'generateObject',
+                latencyMs: Date.now() - start,
+                success: false,
+                errorCode: err?.name || 'PRIMARY_FAILOVER',
+            });
         }
 
         // 2. Secondary Vector: OpenAI
+        const secondStart = Date.now();
         try {
             const result = await generateObject({
                 model: openaiProvider(openaiModel),
@@ -465,6 +527,18 @@ export class IntelligenceEngine {
                 system: systemPrompt,
                 prompt: userPrompt,
                 temperature,
+            });
+
+            const usage = extractUsageFromResult(result);
+            void recordLlmUsage({
+                modelId: openaiModel,
+                provider: 'openai',
+                operation: 'generateObject',
+                inputTokens: usage.inputTokens,
+                outputTokens: usage.outputTokens,
+                totalTokens: usage.totalTokens,
+                latencyMs: Date.now() - secondStart,
+                success: true,
             });
 
             return {
@@ -475,6 +549,14 @@ export class IntelligenceEngine {
         } catch (err: any) {
             console.warn(`[Structured Failover] Secondary (OpenAI: ${openaiModel}) failed. Reason:`, err.message);
             errors.push({ provider: 'openai', error: err.message });
+            void recordLlmUsage({
+                modelId: openaiModel,
+                provider: 'openai',
+                operation: 'generateObject',
+                latencyMs: Date.now() - secondStart,
+                success: false,
+                errorCode: err?.name || 'SECONDARY_EXHAUSTED',
+            });
         }
 
         throw new Error(`[Structured Generation Failed] All vectors exhausted: ${JSON.stringify(errors)}`);

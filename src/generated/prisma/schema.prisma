@@ -653,6 +653,30 @@ model UsageMetric {
   @@index([sessionType])
 }
 
+model LlmUsageEvent {
+  id           String   @id @default(cuid())
+  createdAt    DateTime @default(now())
+  modelId      String
+  provider     String?  @default("google")
+  operation    String
+  route        String?
+  inputTokens  Int      @default(0)
+  outputTokens Int      @default(0)
+  totalTokens  Int      @default(0)
+  latencyMs    Int?     @default(0)
+  success      Boolean  @default(true)
+  errorCode    String?
+  userId       String?
+  requestId    String?
+  metadata     Json?    @default("{}")
+
+  @@index([createdAt])
+  @@index([modelId])
+  @@index([provider])
+  @@index([userId])
+  @@index([route])
+}
+
 enum aal_level {
   aal1
   aal2

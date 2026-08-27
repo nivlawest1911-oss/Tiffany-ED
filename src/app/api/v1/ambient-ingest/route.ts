@@ -4,6 +4,7 @@ import { generateObject } from 'ai';
 import { getGoogleAIKey, googleProvider, AI_MODELS } from '@/lib/ai-config';
 import { AmbientMeetingSummarySchema } from '@/lib/ai/signatures';
 import { assertHumanRequest } from '@/lib/security/ironshield-gate';
+import { recordLlmUsage } from '@/lib/ai/token-meter';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
 const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
@@ -136,6 +137,19 @@ export async function POST(req: NextRequest) {
     }
 
     const durationMs = Date.now() - startTime;
+
+    // Record model telemetry in LlmUsageEvent
+    void recordLlmUsage({
+      modelId: AI_MODELS.GOOGLE.FLASH,
+      provider: 'google',
+      operation: 'ambient-ingest',
+      route: 'v1/ambient-ingest',
+      userId,
+      totalTokens: tokensConsumed,
+      latencyMs: durationMs,
+      success: true,
+      metadata: { deviceId: deviceId || 'plaud-notepin-default' }
+    });
 
     // Persist structured execution log to Supabase
     const { data, error } = await supabase

@@ -35,14 +35,14 @@ const nextConfig = {
     },
   },
 
-  webpack: (config, { dev, isServer, webpack }) => {
-    if (!isServer) {
-      config.resolve.alias['@/lib/prisma'] = false;
-      config.resolve.alias['@/lib/auth'] = false;
-      config.resolve.alias['@prisma/client'] = false;
-      config.resolve.alias['@generated/prisma/client'] = false;
-      config.resolve.alias['pg'] = false;
-      config.resolve.alias['@prisma/adapter-pg'] = false;
+  webpack: (config, { dev, isServer, nextRuntime, webpack }) => {
+    if (!isServer || nextRuntime === 'edge') {
+      config.resolve.alias['@/lib/prisma'] = emptyStub;
+      config.resolve.alias['@/lib/auth'] = emptyStub;
+      config.resolve.alias['@prisma/client'] = emptyStub;
+      config.resolve.alias['@generated/prisma/client'] = emptyStub;
+      config.resolve.alias['pg'] = emptyStub;
+      config.resolve.alias['@prisma/adapter-pg'] = emptyStub;
 
       config.resolve.fallback = {
         ...config.resolve.fallback,
@@ -51,11 +51,13 @@ const nextConfig = {
         crypto: false,
         module: false,
         path: false,
+        stream: false,
         'node:fs': false,
         'node:os': false,
         'node:crypto': false,
         'node:module': false,
         'node:path': false,
+        'node:stream': false,
       };
 
       config.plugins.push(

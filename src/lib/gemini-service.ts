@@ -3,6 +3,7 @@ import Replicate from "replicate";
 import { put } from "@vercel/blob";
 import { UserContext, protocolRouter } from "./protocol-router";
 import { getGoogleAIKey, AI_MODELS } from "@/lib/ai-config";
+import { recordLlmUsage } from "@/lib/ai/token-meter";
 
 const getApiKey = () => getGoogleAIKey();
 
@@ -73,6 +74,9 @@ export class GeminiService {
     }
 
     async generateText(prompt: string, history: any[] = []): Promise<string> {
+        const start = Date.now();
+        const currentModel = this.model?.model || GEMINI_CONFIG.model;
+
         try {
             const chat = this.model.startChat({
                 history: history.map(h => ({
@@ -83,8 +87,37 @@ export class GeminiService {
 
             const result = await chat.sendMessage(prompt);
             const response = await result.response;
+            const latencyMs = Date.now() - start;
+
+            const usageMeta = (response as any)?.usageMetadata;
+            const inputTokens = usageMeta?.promptTokenCount || 0;
+            const outputTokens = usageMeta?.candidatesTokenCount || 0;
+            const totalTokens = usageMeta?.totalTokenCount || (inputTokens + outputTokens);
+
+            void recordLlmUsage({
+                modelId: currentModel,
+                provider: 'google',
+                operation: 'generateText',
+                inputTokens,
+                outputTokens,
+                totalTokens,
+                latencyMs,
+                success: true,
+            });
+
             return response.text();
         } catch (error: any) {
+            const latencyMs = Date.now() - start;
+
+            void recordLlmUsage({
+                modelId: currentModel,
+                provider: 'google',
+                operation: 'generateText',
+                latencyMs,
+                success: false,
+                errorCode: error?.name || 'GENERATE_TEXT_ERROR',
+            });
+
             if (error.message?.includes("404") || error.message?.includes("not found")) {
                 console.warn(`[GeminiService] Model not found (404). Current model: ${this.model.model}.`);
                 
