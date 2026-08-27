@@ -1,15 +1,18 @@
-﻿import React from 'react';
+import React from 'react';
+import { cookies } from 'next/headers';
 import EdIntelShell from '@/components/layout/EdIntelShell';
 import AnalyticsClient from './AnalyticsClient';
-
 import { Metadata } from 'next';
+
+export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
     title: 'District Analytics | EdIntel EdIntel',
     description: 'BigQuery Powered School Performance Metrics.',
 };
 
-export default function AnalyticsPage() {
+export default async function AnalyticsPage() {
+    await cookies();
     return (
         <EdIntelShell>
             <div className="pb-20">

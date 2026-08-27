@@ -1,7 +1,12 @@
-﻿import { ROIDashboard } from '@/components/admin/ROIDashboard';
+import React from 'react';
+import { cookies } from 'next/headers';
+import { ROIDashboard } from '@/components/admin/ROIDashboard';
 import { UsageMetrics } from '@/lib/roi-logic';
 
-export default function AdminROIPage() {
+export const dynamic = 'force-dynamic';
+
+export default async function AdminROIPage() {
+    await cookies();
     // Mock Data - In a real app, fetch this from DB/Analytics
     const mockMetrics: UsageMetrics = {
         legalDocumentsReviewed: 45,

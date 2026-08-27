@@ -1,13 +1,10 @@
-﻿'use client';
-
 import React from 'react';
-import EdIntelShell from '@/components/layout/EdIntelShell';
-import StudentRosterClient from './StudentRosterClient';
+import { cookies } from 'next/headers';
+import RosterClient from './RosterClient';
 
-export default function StudentRosterPage() {
-    return (
-        <EdIntelShell>
-            <StudentRosterClient />
-        </EdIntelShell>
-    );
+export const dynamic = 'force-dynamic';
+
+export default async function RosterPage() {
+    await cookies();
+    return <RosterClient />;
 }
