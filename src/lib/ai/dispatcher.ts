@@ -8,9 +8,10 @@ import {
     googleProvider, 
     xaiProvider, 
     anthropicProvider, 
-    openaiProvider,
+    openaiProvider, 
     AI_MODELS 
 } from '@/lib/ai-config';
+import { recordLlmUsage, extractUsageFromResult } from '@/lib/ai/token-meter';
 
 export type AIProvider = 'google' | 'xai' | 'anthropic' | 'openai';
 
@@ -28,48 +29,102 @@ export interface DispatchOptions {
     messages: any[];
     temperature?: number;
     maxTokens?: number;
+    userId?: string;
+    orgId?: string;
+    districtId?: string;
+    route?: string;
+    operation?: string;
 }
 
 export class AIDispatcher {
     /**
-     * Resolve the requested model based on provider and complexity
+     * Resolve the requested model string and provider instance
      */
-    private static getModel(provider: AIProvider, modelName?: string, complexity?: TaskComplexity) {
-        // If an explicit model name is provided, use it
-        if (modelName) {
-            switch (provider) {
-                case 'google': return googleProvider(modelName);
-                case 'xai': return xaiProvider(modelName);
-                case 'anthropic': return anthropicProvider(modelName);
-                case 'openai': return openaiProvider(modelName);
-                default: return googleProvider(modelName);
+    private static resolveModelInfo(provider: AIProvider, modelName?: string, complexity?: TaskComplexity) {
+        let resolvedModelId = modelName;
+        if (!resolvedModelId) {
+            switch (complexity) {
+                case TaskComplexity.ROUTINE:
+                    resolvedModelId = AI_MODELS.GOOGLE.FLASH;
+                    break;
+                case TaskComplexity.EXECUTIVE:
+                    resolvedModelId = AI_MODELS.ANTHROPIC.SONNET;
+                    break;
+                case TaskComplexity.ANALYSIS:
+                default:
+                    resolvedModelId = AI_MODELS.GOOGLE.PRO;
+                    break;
             }
         }
 
-        // Otherwise, resolve via complexity tiers
-        switch (complexity) {
-            case TaskComplexity.ROUTINE:
-                return googleProvider(AI_MODELS.GOOGLE.FLASH);
-            case TaskComplexity.EXECUTIVE:
-                return anthropicProvider(AI_MODELS.ANTHROPIC.SONNET); // Premium reasoning
-            case TaskComplexity.ANALYSIS:
+        let modelInstance: any;
+        switch (provider) {
+            case 'google':
+                modelInstance = googleProvider(resolvedModelId);
+                break;
+            case 'xai':
+                modelInstance = xaiProvider(resolvedModelId);
+                break;
+            case 'anthropic':
+                modelInstance = anthropicProvider(resolvedModelId);
+                break;
+            case 'openai':
+                modelInstance = openaiProvider(resolvedModelId);
+                break;
             default:
-                return googleProvider(AI_MODELS.GOOGLE.PRO); // Standard high-quality
+                modelInstance = googleProvider(resolvedModelId);
+                break;
         }
+
+        return { modelId: resolvedModelId, modelInstance };
     }
 
     /**
      * Stream AI response
      */
     static async stream(options: DispatchOptions) {
-        const { provider = 'google', model, complexity, system, messages, temperature = 0.7, maxTokens } = options;
+        const { 
+            provider = 'google', 
+            model, 
+            complexity, 
+            system, 
+            messages, 
+            temperature = 0.7, 
+            maxTokens,
+            userId,
+            orgId,
+            districtId,
+            route = 'ai/dispatcher',
+            operation = 'stream'
+        } = options;
+
+        const start = Date.now();
+        const { modelId, modelInstance } = this.resolveModelInfo(provider, model, complexity);
 
         return streamText({
-            model: this.getModel(provider, model, complexity),
+            model: modelInstance,
             system,
             messages,
             temperature,
             maxTokens,
+            onFinish: (event: any) => {
+                const usage = extractUsageFromResult(event);
+                void recordLlmUsage({
+                    modelId,
+                    provider,
+                    operation,
+                    route,
+                    inputTokens: usage.inputTokens,
+                    outputTokens: usage.outputTokens,
+                    totalTokens: usage.totalTokens,
+                    isEstimated: usage.isEstimated,
+                    latencyMs: Date.now() - start,
+                    success: true,
+                    userId,
+                    orgId,
+                    districtId,
+                });
+            },
         } as any);
     }
 
@@ -77,14 +132,65 @@ export class AIDispatcher {
      * Generate static AI response
      */
     static async generate(options: DispatchOptions) {
-        const { provider = 'google', model, complexity, system, messages, temperature = 0.7, maxTokens } = options;
-
-        return generateText({
-            model: this.getModel(provider, model, complexity),
-            system,
-            messages,
-            temperature,
+        const { 
+            provider = 'google', 
+            model, 
+            complexity, 
+            system, 
+            messages, 
+            temperature = 0.7, 
             maxTokens,
-        } as any);
+            userId,
+            orgId,
+            districtId,
+            route = 'ai/dispatcher',
+            operation = 'generate'
+        } = options;
+
+        const start = Date.now();
+        const { modelId, modelInstance } = this.resolveModelInfo(provider, model, complexity);
+
+        try {
+            const result = await generateText({
+                model: modelInstance,
+                system,
+                messages,
+                temperature,
+                maxTokens,
+            } as any);
+
+            const usage = extractUsageFromResult(result);
+            void recordLlmUsage({
+                modelId,
+                provider,
+                operation,
+                route,
+                inputTokens: usage.inputTokens,
+                outputTokens: usage.outputTokens,
+                totalTokens: usage.totalTokens,
+                isEstimated: usage.isEstimated,
+                latencyMs: Date.now() - start,
+                success: true,
+                userId,
+                orgId,
+                districtId,
+            });
+
+            return result;
+        } catch (error: any) {
+            void recordLlmUsage({
+                modelId,
+                provider,
+                operation,
+                route,
+                latencyMs: Date.now() - start,
+                success: false,
+                errorCode: error?.name || 'DISPATCHER_GENERATE_ERROR',
+                userId,
+                orgId,
+                districtId,
+            });
+            throw error;
+        }
     }
 }

@@ -595,6 +595,24 @@ exports.Prisma.UsageMetricScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.LlmUsageEventScalarFieldEnum = {
+  id: 'id',
+  createdAt: 'createdAt',
+  modelId: 'modelId',
+  provider: 'provider',
+  operation: 'operation',
+  route: 'route',
+  inputTokens: 'inputTokens',
+  outputTokens: 'outputTokens',
+  totalTokens: 'totalTokens',
+  latencyMs: 'latencyMs',
+  success: 'success',
+  errorCode: 'errorCode',
+  userId: 'userId',
+  requestId: 'requestId',
+  metadata: 'metadata'
+};
+
 exports.Prisma.Student_profilesScalarFieldEnum = {
   id: 'id',
   user_id: 'user_id',
@@ -874,6 +892,7 @@ exports.Prisma.ModelName = {
   vault_documents: 'vault_documents',
   vault_ocr: 'vault_ocr',
   UsageMetric: 'UsageMetric',
+  LlmUsageEvent: 'LlmUsageEvent',
   student_profiles: 'student_profiles',
   screener_results: 'screener_results',
   differentiated_materials: 'differentiated_materials',

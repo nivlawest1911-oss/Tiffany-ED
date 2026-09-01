@@ -196,6 +196,11 @@ export type vault_ocr = $Result.DefaultSelection<Prisma.$vault_ocrPayload>
  */
 export type UsageMetric = $Result.DefaultSelection<Prisma.$UsageMetricPayload>
 /**
+ * Model LlmUsageEvent
+ * 
+ */
+export type LlmUsageEvent = $Result.DefaultSelection<Prisma.$LlmUsageEventPayload>
+/**
  * Model student_profiles
  * Student academic profiles with Lexile tracking and ALA skill data
  */
@@ -796,6 +801,16 @@ export class PrismaClient<
     * ```
     */
   get usageMetric(): Prisma.UsageMetricDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.llmUsageEvent`: Exposes CRUD operations for the **LlmUsageEvent** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more LlmUsageEvents
+    * const llmUsageEvents = await prisma.llmUsageEvent.findMany()
+    * ```
+    */
+  get llmUsageEvent(): Prisma.LlmUsageEventDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.student_profiles`: Exposes CRUD operations for the **student_profiles** model.
@@ -1406,6 +1421,7 @@ export namespace Prisma {
     vault_documents: 'vault_documents',
     vault_ocr: 'vault_ocr',
     UsageMetric: 'UsageMetric',
+    LlmUsageEvent: 'LlmUsageEvent',
     student_profiles: 'student_profiles',
     screener_results: 'screener_results',
     differentiated_materials: 'differentiated_materials',
@@ -1435,7 +1451,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "analytics_events" | "analytics_insights" | "avatar_sessions" | "avatars" | "companion_certificates" | "conversation_messages" | "district_nodes" | "districts" | "documents" | "evidence_folders" | "generated_content_hub" | "generations" | "graph_edges" | "graph_nodes" | "knowledge_documents" | "legacy_ledger" | "observations" | "organizations" | "saved_items" | "schools" | "semantic_caches" | "strategic_vault" | "subscriptions" | "system_feedback" | "tiers" | "token_ledger" | "token_wallets" | "usage_tracking" | "user" | "session" | "account" | "verification" | "vault_audits" | "vault_documents" | "vault_ocr" | "usageMetric" | "student_profiles" | "screener_results" | "differentiated_materials" | "reading_improvement_plans" | "district_listening" | "infra_monitors" | "infra_alerts" | "auditLog" | "educatorAIInteraction" | "ltiPlatform" | "ltiLineItem" | "stateReport" | "skillNode" | "masteryScore"
+      modelProps: "analytics_events" | "analytics_insights" | "avatar_sessions" | "avatars" | "companion_certificates" | "conversation_messages" | "district_nodes" | "districts" | "documents" | "evidence_folders" | "generated_content_hub" | "generations" | "graph_edges" | "graph_nodes" | "knowledge_documents" | "legacy_ledger" | "observations" | "organizations" | "saved_items" | "schools" | "semantic_caches" | "strategic_vault" | "subscriptions" | "system_feedback" | "tiers" | "token_ledger" | "token_wallets" | "usage_tracking" | "user" | "session" | "account" | "verification" | "vault_audits" | "vault_documents" | "vault_ocr" | "usageMetric" | "llmUsageEvent" | "student_profiles" | "screener_results" | "differentiated_materials" | "reading_improvement_plans" | "district_listening" | "infra_monitors" | "infra_alerts" | "auditLog" | "educatorAIInteraction" | "ltiPlatform" | "ltiLineItem" | "stateReport" | "skillNode" | "masteryScore"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -4103,6 +4119,80 @@ export namespace Prisma {
           }
         }
       }
+      LlmUsageEvent: {
+        payload: Prisma.$LlmUsageEventPayload<ExtArgs>
+        fields: Prisma.LlmUsageEventFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.LlmUsageEventFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LlmUsageEventPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.LlmUsageEventFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LlmUsageEventPayload>
+          }
+          findFirst: {
+            args: Prisma.LlmUsageEventFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LlmUsageEventPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.LlmUsageEventFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LlmUsageEventPayload>
+          }
+          findMany: {
+            args: Prisma.LlmUsageEventFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LlmUsageEventPayload>[]
+          }
+          create: {
+            args: Prisma.LlmUsageEventCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LlmUsageEventPayload>
+          }
+          createMany: {
+            args: Prisma.LlmUsageEventCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.LlmUsageEventCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LlmUsageEventPayload>[]
+          }
+          delete: {
+            args: Prisma.LlmUsageEventDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LlmUsageEventPayload>
+          }
+          update: {
+            args: Prisma.LlmUsageEventUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LlmUsageEventPayload>
+          }
+          deleteMany: {
+            args: Prisma.LlmUsageEventDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.LlmUsageEventUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.LlmUsageEventUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LlmUsageEventPayload>[]
+          }
+          upsert: {
+            args: Prisma.LlmUsageEventUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LlmUsageEventPayload>
+          }
+          aggregate: {
+            args: Prisma.LlmUsageEventAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateLlmUsageEvent>
+          }
+          groupBy: {
+            args: Prisma.LlmUsageEventGroupByArgs<ExtArgs>
+            result: $Utils.Optional<LlmUsageEventGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.LlmUsageEventCountArgs<ExtArgs>
+            result: $Utils.Optional<LlmUsageEventCountAggregateOutputType> | number
+          }
+        }
+      }
       student_profiles: {
         payload: Prisma.$student_profilesPayload<ExtArgs>
         fields: Prisma.student_profilesFieldRefs
@@ -5283,6 +5373,7 @@ export namespace Prisma {
     vault_documents?: vault_documentsOmit
     vault_ocr?: vault_ocrOmit
     usageMetric?: UsageMetricOmit
+    llmUsageEvent?: LlmUsageEventOmit
     student_profiles?: student_profilesOmit
     screener_results?: screener_resultsOmit
     differentiated_materials?: differentiated_materialsOmit
@@ -48898,6 +48989,1178 @@ export namespace Prisma {
 
 
   /**
+   * Model LlmUsageEvent
+   */
+
+  export type AggregateLlmUsageEvent = {
+    _count: LlmUsageEventCountAggregateOutputType | null
+    _avg: LlmUsageEventAvgAggregateOutputType | null
+    _sum: LlmUsageEventSumAggregateOutputType | null
+    _min: LlmUsageEventMinAggregateOutputType | null
+    _max: LlmUsageEventMaxAggregateOutputType | null
+  }
+
+  export type LlmUsageEventAvgAggregateOutputType = {
+    inputTokens: number | null
+    outputTokens: number | null
+    totalTokens: number | null
+    latencyMs: number | null
+  }
+
+  export type LlmUsageEventSumAggregateOutputType = {
+    inputTokens: number | null
+    outputTokens: number | null
+    totalTokens: number | null
+    latencyMs: number | null
+  }
+
+  export type LlmUsageEventMinAggregateOutputType = {
+    id: string | null
+    createdAt: Date | null
+    modelId: string | null
+    provider: string | null
+    operation: string | null
+    route: string | null
+    inputTokens: number | null
+    outputTokens: number | null
+    totalTokens: number | null
+    latencyMs: number | null
+    success: boolean | null
+    errorCode: string | null
+    userId: string | null
+    requestId: string | null
+  }
+
+  export type LlmUsageEventMaxAggregateOutputType = {
+    id: string | null
+    createdAt: Date | null
+    modelId: string | null
+    provider: string | null
+    operation: string | null
+    route: string | null
+    inputTokens: number | null
+    outputTokens: number | null
+    totalTokens: number | null
+    latencyMs: number | null
+    success: boolean | null
+    errorCode: string | null
+    userId: string | null
+    requestId: string | null
+  }
+
+  export type LlmUsageEventCountAggregateOutputType = {
+    id: number
+    createdAt: number
+    modelId: number
+    provider: number
+    operation: number
+    route: number
+    inputTokens: number
+    outputTokens: number
+    totalTokens: number
+    latencyMs: number
+    success: number
+    errorCode: number
+    userId: number
+    requestId: number
+    metadata: number
+    _all: number
+  }
+
+
+  export type LlmUsageEventAvgAggregateInputType = {
+    inputTokens?: true
+    outputTokens?: true
+    totalTokens?: true
+    latencyMs?: true
+  }
+
+  export type LlmUsageEventSumAggregateInputType = {
+    inputTokens?: true
+    outputTokens?: true
+    totalTokens?: true
+    latencyMs?: true
+  }
+
+  export type LlmUsageEventMinAggregateInputType = {
+    id?: true
+    createdAt?: true
+    modelId?: true
+    provider?: true
+    operation?: true
+    route?: true
+    inputTokens?: true
+    outputTokens?: true
+    totalTokens?: true
+    latencyMs?: true
+    success?: true
+    errorCode?: true
+    userId?: true
+    requestId?: true
+  }
+
+  export type LlmUsageEventMaxAggregateInputType = {
+    id?: true
+    createdAt?: true
+    modelId?: true
+    provider?: true
+    operation?: true
+    route?: true
+    inputTokens?: true
+    outputTokens?: true
+    totalTokens?: true
+    latencyMs?: true
+    success?: true
+    errorCode?: true
+    userId?: true
+    requestId?: true
+  }
+
+  export type LlmUsageEventCountAggregateInputType = {
+    id?: true
+    createdAt?: true
+    modelId?: true
+    provider?: true
+    operation?: true
+    route?: true
+    inputTokens?: true
+    outputTokens?: true
+    totalTokens?: true
+    latencyMs?: true
+    success?: true
+    errorCode?: true
+    userId?: true
+    requestId?: true
+    metadata?: true
+    _all?: true
+  }
+
+  export type LlmUsageEventAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which LlmUsageEvent to aggregate.
+     */
+    where?: LlmUsageEventWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LlmUsageEvents to fetch.
+     */
+    orderBy?: LlmUsageEventOrderByWithRelationInput | LlmUsageEventOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: LlmUsageEventWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LlmUsageEvents from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LlmUsageEvents.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned LlmUsageEvents
+    **/
+    _count?: true | LlmUsageEventCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: LlmUsageEventAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: LlmUsageEventSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: LlmUsageEventMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: LlmUsageEventMaxAggregateInputType
+  }
+
+  export type GetLlmUsageEventAggregateType<T extends LlmUsageEventAggregateArgs> = {
+        [P in keyof T & keyof AggregateLlmUsageEvent]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateLlmUsageEvent[P]>
+      : GetScalarType<T[P], AggregateLlmUsageEvent[P]>
+  }
+
+
+
+
+  export type LlmUsageEventGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: LlmUsageEventWhereInput
+    orderBy?: LlmUsageEventOrderByWithAggregationInput | LlmUsageEventOrderByWithAggregationInput[]
+    by: LlmUsageEventScalarFieldEnum[] | LlmUsageEventScalarFieldEnum
+    having?: LlmUsageEventScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: LlmUsageEventCountAggregateInputType | true
+    _avg?: LlmUsageEventAvgAggregateInputType
+    _sum?: LlmUsageEventSumAggregateInputType
+    _min?: LlmUsageEventMinAggregateInputType
+    _max?: LlmUsageEventMaxAggregateInputType
+  }
+
+  export type LlmUsageEventGroupByOutputType = {
+    id: string
+    createdAt: Date
+    modelId: string
+    provider: string | null
+    operation: string
+    route: string | null
+    inputTokens: number
+    outputTokens: number
+    totalTokens: number
+    latencyMs: number | null
+    success: boolean
+    errorCode: string | null
+    userId: string | null
+    requestId: string | null
+    metadata: JsonValue | null
+    _count: LlmUsageEventCountAggregateOutputType | null
+    _avg: LlmUsageEventAvgAggregateOutputType | null
+    _sum: LlmUsageEventSumAggregateOutputType | null
+    _min: LlmUsageEventMinAggregateOutputType | null
+    _max: LlmUsageEventMaxAggregateOutputType | null
+  }
+
+  type GetLlmUsageEventGroupByPayload<T extends LlmUsageEventGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<LlmUsageEventGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof LlmUsageEventGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], LlmUsageEventGroupByOutputType[P]>
+            : GetScalarType<T[P], LlmUsageEventGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type LlmUsageEventSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    createdAt?: boolean
+    modelId?: boolean
+    provider?: boolean
+    operation?: boolean
+    route?: boolean
+    inputTokens?: boolean
+    outputTokens?: boolean
+    totalTokens?: boolean
+    latencyMs?: boolean
+    success?: boolean
+    errorCode?: boolean
+    userId?: boolean
+    requestId?: boolean
+    metadata?: boolean
+  }, ExtArgs["result"]["llmUsageEvent"]>
+
+  export type LlmUsageEventSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    createdAt?: boolean
+    modelId?: boolean
+    provider?: boolean
+    operation?: boolean
+    route?: boolean
+    inputTokens?: boolean
+    outputTokens?: boolean
+    totalTokens?: boolean
+    latencyMs?: boolean
+    success?: boolean
+    errorCode?: boolean
+    userId?: boolean
+    requestId?: boolean
+    metadata?: boolean
+  }, ExtArgs["result"]["llmUsageEvent"]>
+
+  export type LlmUsageEventSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    createdAt?: boolean
+    modelId?: boolean
+    provider?: boolean
+    operation?: boolean
+    route?: boolean
+    inputTokens?: boolean
+    outputTokens?: boolean
+    totalTokens?: boolean
+    latencyMs?: boolean
+    success?: boolean
+    errorCode?: boolean
+    userId?: boolean
+    requestId?: boolean
+    metadata?: boolean
+  }, ExtArgs["result"]["llmUsageEvent"]>
+
+  export type LlmUsageEventSelectScalar = {
+    id?: boolean
+    createdAt?: boolean
+    modelId?: boolean
+    provider?: boolean
+    operation?: boolean
+    route?: boolean
+    inputTokens?: boolean
+    outputTokens?: boolean
+    totalTokens?: boolean
+    latencyMs?: boolean
+    success?: boolean
+    errorCode?: boolean
+    userId?: boolean
+    requestId?: boolean
+    metadata?: boolean
+  }
+
+  export type LlmUsageEventOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "modelId" | "provider" | "operation" | "route" | "inputTokens" | "outputTokens" | "totalTokens" | "latencyMs" | "success" | "errorCode" | "userId" | "requestId" | "metadata", ExtArgs["result"]["llmUsageEvent"]>
+
+  export type $LlmUsageEventPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "LlmUsageEvent"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      createdAt: Date
+      modelId: string
+      provider: string | null
+      operation: string
+      route: string | null
+      inputTokens: number
+      outputTokens: number
+      totalTokens: number
+      latencyMs: number | null
+      success: boolean
+      errorCode: string | null
+      userId: string | null
+      requestId: string | null
+      metadata: Prisma.JsonValue | null
+    }, ExtArgs["result"]["llmUsageEvent"]>
+    composites: {}
+  }
+
+  type LlmUsageEventGetPayload<S extends boolean | null | undefined | LlmUsageEventDefaultArgs> = $Result.GetResult<Prisma.$LlmUsageEventPayload, S>
+
+  type LlmUsageEventCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<LlmUsageEventFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: LlmUsageEventCountAggregateInputType | true
+    }
+
+  export interface LlmUsageEventDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['LlmUsageEvent'], meta: { name: 'LlmUsageEvent' } }
+    /**
+     * Find zero or one LlmUsageEvent that matches the filter.
+     * @param {LlmUsageEventFindUniqueArgs} args - Arguments to find a LlmUsageEvent
+     * @example
+     * // Get one LlmUsageEvent
+     * const llmUsageEvent = await prisma.llmUsageEvent.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends LlmUsageEventFindUniqueArgs>(args: SelectSubset<T, LlmUsageEventFindUniqueArgs<ExtArgs>>): Prisma__LlmUsageEventClient<$Result.GetResult<Prisma.$LlmUsageEventPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one LlmUsageEvent that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {LlmUsageEventFindUniqueOrThrowArgs} args - Arguments to find a LlmUsageEvent
+     * @example
+     * // Get one LlmUsageEvent
+     * const llmUsageEvent = await prisma.llmUsageEvent.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends LlmUsageEventFindUniqueOrThrowArgs>(args: SelectSubset<T, LlmUsageEventFindUniqueOrThrowArgs<ExtArgs>>): Prisma__LlmUsageEventClient<$Result.GetResult<Prisma.$LlmUsageEventPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first LlmUsageEvent that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LlmUsageEventFindFirstArgs} args - Arguments to find a LlmUsageEvent
+     * @example
+     * // Get one LlmUsageEvent
+     * const llmUsageEvent = await prisma.llmUsageEvent.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends LlmUsageEventFindFirstArgs>(args?: SelectSubset<T, LlmUsageEventFindFirstArgs<ExtArgs>>): Prisma__LlmUsageEventClient<$Result.GetResult<Prisma.$LlmUsageEventPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first LlmUsageEvent that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LlmUsageEventFindFirstOrThrowArgs} args - Arguments to find a LlmUsageEvent
+     * @example
+     * // Get one LlmUsageEvent
+     * const llmUsageEvent = await prisma.llmUsageEvent.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends LlmUsageEventFindFirstOrThrowArgs>(args?: SelectSubset<T, LlmUsageEventFindFirstOrThrowArgs<ExtArgs>>): Prisma__LlmUsageEventClient<$Result.GetResult<Prisma.$LlmUsageEventPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more LlmUsageEvents that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LlmUsageEventFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all LlmUsageEvents
+     * const llmUsageEvents = await prisma.llmUsageEvent.findMany()
+     * 
+     * // Get first 10 LlmUsageEvents
+     * const llmUsageEvents = await prisma.llmUsageEvent.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const llmUsageEventWithIdOnly = await prisma.llmUsageEvent.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends LlmUsageEventFindManyArgs>(args?: SelectSubset<T, LlmUsageEventFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LlmUsageEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a LlmUsageEvent.
+     * @param {LlmUsageEventCreateArgs} args - Arguments to create a LlmUsageEvent.
+     * @example
+     * // Create one LlmUsageEvent
+     * const LlmUsageEvent = await prisma.llmUsageEvent.create({
+     *   data: {
+     *     // ... data to create a LlmUsageEvent
+     *   }
+     * })
+     * 
+     */
+    create<T extends LlmUsageEventCreateArgs>(args: SelectSubset<T, LlmUsageEventCreateArgs<ExtArgs>>): Prisma__LlmUsageEventClient<$Result.GetResult<Prisma.$LlmUsageEventPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many LlmUsageEvents.
+     * @param {LlmUsageEventCreateManyArgs} args - Arguments to create many LlmUsageEvents.
+     * @example
+     * // Create many LlmUsageEvents
+     * const llmUsageEvent = await prisma.llmUsageEvent.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends LlmUsageEventCreateManyArgs>(args?: SelectSubset<T, LlmUsageEventCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many LlmUsageEvents and returns the data saved in the database.
+     * @param {LlmUsageEventCreateManyAndReturnArgs} args - Arguments to create many LlmUsageEvents.
+     * @example
+     * // Create many LlmUsageEvents
+     * const llmUsageEvent = await prisma.llmUsageEvent.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many LlmUsageEvents and only return the `id`
+     * const llmUsageEventWithIdOnly = await prisma.llmUsageEvent.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends LlmUsageEventCreateManyAndReturnArgs>(args?: SelectSubset<T, LlmUsageEventCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LlmUsageEventPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a LlmUsageEvent.
+     * @param {LlmUsageEventDeleteArgs} args - Arguments to delete one LlmUsageEvent.
+     * @example
+     * // Delete one LlmUsageEvent
+     * const LlmUsageEvent = await prisma.llmUsageEvent.delete({
+     *   where: {
+     *     // ... filter to delete one LlmUsageEvent
+     *   }
+     * })
+     * 
+     */
+    delete<T extends LlmUsageEventDeleteArgs>(args: SelectSubset<T, LlmUsageEventDeleteArgs<ExtArgs>>): Prisma__LlmUsageEventClient<$Result.GetResult<Prisma.$LlmUsageEventPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one LlmUsageEvent.
+     * @param {LlmUsageEventUpdateArgs} args - Arguments to update one LlmUsageEvent.
+     * @example
+     * // Update one LlmUsageEvent
+     * const llmUsageEvent = await prisma.llmUsageEvent.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends LlmUsageEventUpdateArgs>(args: SelectSubset<T, LlmUsageEventUpdateArgs<ExtArgs>>): Prisma__LlmUsageEventClient<$Result.GetResult<Prisma.$LlmUsageEventPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more LlmUsageEvents.
+     * @param {LlmUsageEventDeleteManyArgs} args - Arguments to filter LlmUsageEvents to delete.
+     * @example
+     * // Delete a few LlmUsageEvents
+     * const { count } = await prisma.llmUsageEvent.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends LlmUsageEventDeleteManyArgs>(args?: SelectSubset<T, LlmUsageEventDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more LlmUsageEvents.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LlmUsageEventUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many LlmUsageEvents
+     * const llmUsageEvent = await prisma.llmUsageEvent.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends LlmUsageEventUpdateManyArgs>(args: SelectSubset<T, LlmUsageEventUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more LlmUsageEvents and returns the data updated in the database.
+     * @param {LlmUsageEventUpdateManyAndReturnArgs} args - Arguments to update many LlmUsageEvents.
+     * @example
+     * // Update many LlmUsageEvents
+     * const llmUsageEvent = await prisma.llmUsageEvent.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more LlmUsageEvents and only return the `id`
+     * const llmUsageEventWithIdOnly = await prisma.llmUsageEvent.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends LlmUsageEventUpdateManyAndReturnArgs>(args: SelectSubset<T, LlmUsageEventUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LlmUsageEventPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one LlmUsageEvent.
+     * @param {LlmUsageEventUpsertArgs} args - Arguments to update or create a LlmUsageEvent.
+     * @example
+     * // Update or create a LlmUsageEvent
+     * const llmUsageEvent = await prisma.llmUsageEvent.upsert({
+     *   create: {
+     *     // ... data to create a LlmUsageEvent
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the LlmUsageEvent we want to update
+     *   }
+     * })
+     */
+    upsert<T extends LlmUsageEventUpsertArgs>(args: SelectSubset<T, LlmUsageEventUpsertArgs<ExtArgs>>): Prisma__LlmUsageEventClient<$Result.GetResult<Prisma.$LlmUsageEventPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of LlmUsageEvents.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LlmUsageEventCountArgs} args - Arguments to filter LlmUsageEvents to count.
+     * @example
+     * // Count the number of LlmUsageEvents
+     * const count = await prisma.llmUsageEvent.count({
+     *   where: {
+     *     // ... the filter for the LlmUsageEvents we want to count
+     *   }
+     * })
+    **/
+    count<T extends LlmUsageEventCountArgs>(
+      args?: Subset<T, LlmUsageEventCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], LlmUsageEventCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a LlmUsageEvent.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LlmUsageEventAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends LlmUsageEventAggregateArgs>(args: Subset<T, LlmUsageEventAggregateArgs>): Prisma.PrismaPromise<GetLlmUsageEventAggregateType<T>>
+
+    /**
+     * Group by LlmUsageEvent.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LlmUsageEventGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends LlmUsageEventGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: LlmUsageEventGroupByArgs['orderBy'] }
+        : { orderBy?: LlmUsageEventGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, LlmUsageEventGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetLlmUsageEventGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the LlmUsageEvent model
+   */
+  readonly fields: LlmUsageEventFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for LlmUsageEvent.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__LlmUsageEventClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the LlmUsageEvent model
+   */
+  interface LlmUsageEventFieldRefs {
+    readonly id: FieldRef<"LlmUsageEvent", 'String'>
+    readonly createdAt: FieldRef<"LlmUsageEvent", 'DateTime'>
+    readonly modelId: FieldRef<"LlmUsageEvent", 'String'>
+    readonly provider: FieldRef<"LlmUsageEvent", 'String'>
+    readonly operation: FieldRef<"LlmUsageEvent", 'String'>
+    readonly route: FieldRef<"LlmUsageEvent", 'String'>
+    readonly inputTokens: FieldRef<"LlmUsageEvent", 'Int'>
+    readonly outputTokens: FieldRef<"LlmUsageEvent", 'Int'>
+    readonly totalTokens: FieldRef<"LlmUsageEvent", 'Int'>
+    readonly latencyMs: FieldRef<"LlmUsageEvent", 'Int'>
+    readonly success: FieldRef<"LlmUsageEvent", 'Boolean'>
+    readonly errorCode: FieldRef<"LlmUsageEvent", 'String'>
+    readonly userId: FieldRef<"LlmUsageEvent", 'String'>
+    readonly requestId: FieldRef<"LlmUsageEvent", 'String'>
+    readonly metadata: FieldRef<"LlmUsageEvent", 'Json'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * LlmUsageEvent findUnique
+   */
+  export type LlmUsageEventFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LlmUsageEvent
+     */
+    select?: LlmUsageEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LlmUsageEvent
+     */
+    omit?: LlmUsageEventOmit<ExtArgs> | null
+    /**
+     * Filter, which LlmUsageEvent to fetch.
+     */
+    where: LlmUsageEventWhereUniqueInput
+  }
+
+  /**
+   * LlmUsageEvent findUniqueOrThrow
+   */
+  export type LlmUsageEventFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LlmUsageEvent
+     */
+    select?: LlmUsageEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LlmUsageEvent
+     */
+    omit?: LlmUsageEventOmit<ExtArgs> | null
+    /**
+     * Filter, which LlmUsageEvent to fetch.
+     */
+    where: LlmUsageEventWhereUniqueInput
+  }
+
+  /**
+   * LlmUsageEvent findFirst
+   */
+  export type LlmUsageEventFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LlmUsageEvent
+     */
+    select?: LlmUsageEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LlmUsageEvent
+     */
+    omit?: LlmUsageEventOmit<ExtArgs> | null
+    /**
+     * Filter, which LlmUsageEvent to fetch.
+     */
+    where?: LlmUsageEventWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LlmUsageEvents to fetch.
+     */
+    orderBy?: LlmUsageEventOrderByWithRelationInput | LlmUsageEventOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for LlmUsageEvents.
+     */
+    cursor?: LlmUsageEventWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LlmUsageEvents from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LlmUsageEvents.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of LlmUsageEvents.
+     */
+    distinct?: LlmUsageEventScalarFieldEnum | LlmUsageEventScalarFieldEnum[]
+  }
+
+  /**
+   * LlmUsageEvent findFirstOrThrow
+   */
+  export type LlmUsageEventFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LlmUsageEvent
+     */
+    select?: LlmUsageEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LlmUsageEvent
+     */
+    omit?: LlmUsageEventOmit<ExtArgs> | null
+    /**
+     * Filter, which LlmUsageEvent to fetch.
+     */
+    where?: LlmUsageEventWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LlmUsageEvents to fetch.
+     */
+    orderBy?: LlmUsageEventOrderByWithRelationInput | LlmUsageEventOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for LlmUsageEvents.
+     */
+    cursor?: LlmUsageEventWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LlmUsageEvents from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LlmUsageEvents.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of LlmUsageEvents.
+     */
+    distinct?: LlmUsageEventScalarFieldEnum | LlmUsageEventScalarFieldEnum[]
+  }
+
+  /**
+   * LlmUsageEvent findMany
+   */
+  export type LlmUsageEventFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LlmUsageEvent
+     */
+    select?: LlmUsageEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LlmUsageEvent
+     */
+    omit?: LlmUsageEventOmit<ExtArgs> | null
+    /**
+     * Filter, which LlmUsageEvents to fetch.
+     */
+    where?: LlmUsageEventWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LlmUsageEvents to fetch.
+     */
+    orderBy?: LlmUsageEventOrderByWithRelationInput | LlmUsageEventOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing LlmUsageEvents.
+     */
+    cursor?: LlmUsageEventWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LlmUsageEvents from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LlmUsageEvents.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of LlmUsageEvents.
+     */
+    distinct?: LlmUsageEventScalarFieldEnum | LlmUsageEventScalarFieldEnum[]
+  }
+
+  /**
+   * LlmUsageEvent create
+   */
+  export type LlmUsageEventCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LlmUsageEvent
+     */
+    select?: LlmUsageEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LlmUsageEvent
+     */
+    omit?: LlmUsageEventOmit<ExtArgs> | null
+    /**
+     * The data needed to create a LlmUsageEvent.
+     */
+    data: XOR<LlmUsageEventCreateInput, LlmUsageEventUncheckedCreateInput>
+  }
+
+  /**
+   * LlmUsageEvent createMany
+   */
+  export type LlmUsageEventCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many LlmUsageEvents.
+     */
+    data: LlmUsageEventCreateManyInput | LlmUsageEventCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * LlmUsageEvent createManyAndReturn
+   */
+  export type LlmUsageEventCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LlmUsageEvent
+     */
+    select?: LlmUsageEventSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the LlmUsageEvent
+     */
+    omit?: LlmUsageEventOmit<ExtArgs> | null
+    /**
+     * The data used to create many LlmUsageEvents.
+     */
+    data: LlmUsageEventCreateManyInput | LlmUsageEventCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * LlmUsageEvent update
+   */
+  export type LlmUsageEventUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LlmUsageEvent
+     */
+    select?: LlmUsageEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LlmUsageEvent
+     */
+    omit?: LlmUsageEventOmit<ExtArgs> | null
+    /**
+     * The data needed to update a LlmUsageEvent.
+     */
+    data: XOR<LlmUsageEventUpdateInput, LlmUsageEventUncheckedUpdateInput>
+    /**
+     * Choose, which LlmUsageEvent to update.
+     */
+    where: LlmUsageEventWhereUniqueInput
+  }
+
+  /**
+   * LlmUsageEvent updateMany
+   */
+  export type LlmUsageEventUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update LlmUsageEvents.
+     */
+    data: XOR<LlmUsageEventUpdateManyMutationInput, LlmUsageEventUncheckedUpdateManyInput>
+    /**
+     * Filter which LlmUsageEvents to update
+     */
+    where?: LlmUsageEventWhereInput
+    /**
+     * Limit how many LlmUsageEvents to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * LlmUsageEvent updateManyAndReturn
+   */
+  export type LlmUsageEventUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LlmUsageEvent
+     */
+    select?: LlmUsageEventSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the LlmUsageEvent
+     */
+    omit?: LlmUsageEventOmit<ExtArgs> | null
+    /**
+     * The data used to update LlmUsageEvents.
+     */
+    data: XOR<LlmUsageEventUpdateManyMutationInput, LlmUsageEventUncheckedUpdateManyInput>
+    /**
+     * Filter which LlmUsageEvents to update
+     */
+    where?: LlmUsageEventWhereInput
+    /**
+     * Limit how many LlmUsageEvents to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * LlmUsageEvent upsert
+   */
+  export type LlmUsageEventUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LlmUsageEvent
+     */
+    select?: LlmUsageEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LlmUsageEvent
+     */
+    omit?: LlmUsageEventOmit<ExtArgs> | null
+    /**
+     * The filter to search for the LlmUsageEvent to update in case it exists.
+     */
+    where: LlmUsageEventWhereUniqueInput
+    /**
+     * In case the LlmUsageEvent found by the `where` argument doesn't exist, create a new LlmUsageEvent with this data.
+     */
+    create: XOR<LlmUsageEventCreateInput, LlmUsageEventUncheckedCreateInput>
+    /**
+     * In case the LlmUsageEvent was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<LlmUsageEventUpdateInput, LlmUsageEventUncheckedUpdateInput>
+  }
+
+  /**
+   * LlmUsageEvent delete
+   */
+  export type LlmUsageEventDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LlmUsageEvent
+     */
+    select?: LlmUsageEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LlmUsageEvent
+     */
+    omit?: LlmUsageEventOmit<ExtArgs> | null
+    /**
+     * Filter which LlmUsageEvent to delete.
+     */
+    where: LlmUsageEventWhereUniqueInput
+  }
+
+  /**
+   * LlmUsageEvent deleteMany
+   */
+  export type LlmUsageEventDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which LlmUsageEvents to delete
+     */
+    where?: LlmUsageEventWhereInput
+    /**
+     * Limit how many LlmUsageEvents to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * LlmUsageEvent without action
+   */
+  export type LlmUsageEventDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LlmUsageEvent
+     */
+    select?: LlmUsageEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LlmUsageEvent
+     */
+    omit?: LlmUsageEventOmit<ExtArgs> | null
+  }
+
+
+  /**
    * Model student_profiles
    */
 
@@ -66007,6 +67270,27 @@ export namespace Prisma {
   export type UsageMetricScalarFieldEnum = (typeof UsageMetricScalarFieldEnum)[keyof typeof UsageMetricScalarFieldEnum]
 
 
+  export const LlmUsageEventScalarFieldEnum: {
+    id: 'id',
+    createdAt: 'createdAt',
+    modelId: 'modelId',
+    provider: 'provider',
+    operation: 'operation',
+    route: 'route',
+    inputTokens: 'inputTokens',
+    outputTokens: 'outputTokens',
+    totalTokens: 'totalTokens',
+    latencyMs: 'latencyMs',
+    success: 'success',
+    errorCode: 'errorCode',
+    userId: 'userId',
+    requestId: 'requestId',
+    metadata: 'metadata'
+  };
+
+  export type LlmUsageEventScalarFieldEnum = (typeof LlmUsageEventScalarFieldEnum)[keyof typeof LlmUsageEventScalarFieldEnum]
+
+
   export const Student_profilesScalarFieldEnum: {
     id: 'id',
     user_id: 'user_id',
@@ -69508,6 +70792,110 @@ export namespace Prisma {
     estimatedCost?: FloatWithAggregatesFilter<"UsageMetric"> | number
     modelUsed?: StringNullableWithAggregatesFilter<"UsageMetric"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"UsageMetric"> | Date | string
+  }
+
+  export type LlmUsageEventWhereInput = {
+    AND?: LlmUsageEventWhereInput | LlmUsageEventWhereInput[]
+    OR?: LlmUsageEventWhereInput[]
+    NOT?: LlmUsageEventWhereInput | LlmUsageEventWhereInput[]
+    id?: StringFilter<"LlmUsageEvent"> | string
+    createdAt?: DateTimeFilter<"LlmUsageEvent"> | Date | string
+    modelId?: StringFilter<"LlmUsageEvent"> | string
+    provider?: StringNullableFilter<"LlmUsageEvent"> | string | null
+    operation?: StringFilter<"LlmUsageEvent"> | string
+    route?: StringNullableFilter<"LlmUsageEvent"> | string | null
+    inputTokens?: IntFilter<"LlmUsageEvent"> | number
+    outputTokens?: IntFilter<"LlmUsageEvent"> | number
+    totalTokens?: IntFilter<"LlmUsageEvent"> | number
+    latencyMs?: IntNullableFilter<"LlmUsageEvent"> | number | null
+    success?: BoolFilter<"LlmUsageEvent"> | boolean
+    errorCode?: StringNullableFilter<"LlmUsageEvent"> | string | null
+    userId?: StringNullableFilter<"LlmUsageEvent"> | string | null
+    requestId?: StringNullableFilter<"LlmUsageEvent"> | string | null
+    metadata?: JsonNullableFilter<"LlmUsageEvent">
+  }
+
+  export type LlmUsageEventOrderByWithRelationInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    modelId?: SortOrder
+    provider?: SortOrderInput | SortOrder
+    operation?: SortOrder
+    route?: SortOrderInput | SortOrder
+    inputTokens?: SortOrder
+    outputTokens?: SortOrder
+    totalTokens?: SortOrder
+    latencyMs?: SortOrderInput | SortOrder
+    success?: SortOrder
+    errorCode?: SortOrderInput | SortOrder
+    userId?: SortOrderInput | SortOrder
+    requestId?: SortOrderInput | SortOrder
+    metadata?: SortOrderInput | SortOrder
+  }
+
+  export type LlmUsageEventWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: LlmUsageEventWhereInput | LlmUsageEventWhereInput[]
+    OR?: LlmUsageEventWhereInput[]
+    NOT?: LlmUsageEventWhereInput | LlmUsageEventWhereInput[]
+    createdAt?: DateTimeFilter<"LlmUsageEvent"> | Date | string
+    modelId?: StringFilter<"LlmUsageEvent"> | string
+    provider?: StringNullableFilter<"LlmUsageEvent"> | string | null
+    operation?: StringFilter<"LlmUsageEvent"> | string
+    route?: StringNullableFilter<"LlmUsageEvent"> | string | null
+    inputTokens?: IntFilter<"LlmUsageEvent"> | number
+    outputTokens?: IntFilter<"LlmUsageEvent"> | number
+    totalTokens?: IntFilter<"LlmUsageEvent"> | number
+    latencyMs?: IntNullableFilter<"LlmUsageEvent"> | number | null
+    success?: BoolFilter<"LlmUsageEvent"> | boolean
+    errorCode?: StringNullableFilter<"LlmUsageEvent"> | string | null
+    userId?: StringNullableFilter<"LlmUsageEvent"> | string | null
+    requestId?: StringNullableFilter<"LlmUsageEvent"> | string | null
+    metadata?: JsonNullableFilter<"LlmUsageEvent">
+  }, "id">
+
+  export type LlmUsageEventOrderByWithAggregationInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    modelId?: SortOrder
+    provider?: SortOrderInput | SortOrder
+    operation?: SortOrder
+    route?: SortOrderInput | SortOrder
+    inputTokens?: SortOrder
+    outputTokens?: SortOrder
+    totalTokens?: SortOrder
+    latencyMs?: SortOrderInput | SortOrder
+    success?: SortOrder
+    errorCode?: SortOrderInput | SortOrder
+    userId?: SortOrderInput | SortOrder
+    requestId?: SortOrderInput | SortOrder
+    metadata?: SortOrderInput | SortOrder
+    _count?: LlmUsageEventCountOrderByAggregateInput
+    _avg?: LlmUsageEventAvgOrderByAggregateInput
+    _max?: LlmUsageEventMaxOrderByAggregateInput
+    _min?: LlmUsageEventMinOrderByAggregateInput
+    _sum?: LlmUsageEventSumOrderByAggregateInput
+  }
+
+  export type LlmUsageEventScalarWhereWithAggregatesInput = {
+    AND?: LlmUsageEventScalarWhereWithAggregatesInput | LlmUsageEventScalarWhereWithAggregatesInput[]
+    OR?: LlmUsageEventScalarWhereWithAggregatesInput[]
+    NOT?: LlmUsageEventScalarWhereWithAggregatesInput | LlmUsageEventScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"LlmUsageEvent"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"LlmUsageEvent"> | Date | string
+    modelId?: StringWithAggregatesFilter<"LlmUsageEvent"> | string
+    provider?: StringNullableWithAggregatesFilter<"LlmUsageEvent"> | string | null
+    operation?: StringWithAggregatesFilter<"LlmUsageEvent"> | string
+    route?: StringNullableWithAggregatesFilter<"LlmUsageEvent"> | string | null
+    inputTokens?: IntWithAggregatesFilter<"LlmUsageEvent"> | number
+    outputTokens?: IntWithAggregatesFilter<"LlmUsageEvent"> | number
+    totalTokens?: IntWithAggregatesFilter<"LlmUsageEvent"> | number
+    latencyMs?: IntNullableWithAggregatesFilter<"LlmUsageEvent"> | number | null
+    success?: BoolWithAggregatesFilter<"LlmUsageEvent"> | boolean
+    errorCode?: StringNullableWithAggregatesFilter<"LlmUsageEvent"> | string | null
+    userId?: StringNullableWithAggregatesFilter<"LlmUsageEvent"> | string | null
+    requestId?: StringNullableWithAggregatesFilter<"LlmUsageEvent"> | string | null
+    metadata?: JsonNullableWithAggregatesFilter<"LlmUsageEvent">
   }
 
   export type student_profilesWhereInput = {
@@ -74243,6 +75631,132 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type LlmUsageEventCreateInput = {
+    id?: string
+    createdAt?: Date | string
+    modelId: string
+    provider?: string | null
+    operation: string
+    route?: string | null
+    inputTokens?: number
+    outputTokens?: number
+    totalTokens?: number
+    latencyMs?: number | null
+    success?: boolean
+    errorCode?: string | null
+    userId?: string | null
+    requestId?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type LlmUsageEventUncheckedCreateInput = {
+    id?: string
+    createdAt?: Date | string
+    modelId: string
+    provider?: string | null
+    operation: string
+    route?: string | null
+    inputTokens?: number
+    outputTokens?: number
+    totalTokens?: number
+    latencyMs?: number | null
+    success?: boolean
+    errorCode?: string | null
+    userId?: string | null
+    requestId?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type LlmUsageEventUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    modelId?: StringFieldUpdateOperationsInput | string
+    provider?: NullableStringFieldUpdateOperationsInput | string | null
+    operation?: StringFieldUpdateOperationsInput | string
+    route?: NullableStringFieldUpdateOperationsInput | string | null
+    inputTokens?: IntFieldUpdateOperationsInput | number
+    outputTokens?: IntFieldUpdateOperationsInput | number
+    totalTokens?: IntFieldUpdateOperationsInput | number
+    latencyMs?: NullableIntFieldUpdateOperationsInput | number | null
+    success?: BoolFieldUpdateOperationsInput | boolean
+    errorCode?: NullableStringFieldUpdateOperationsInput | string | null
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    requestId?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type LlmUsageEventUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    modelId?: StringFieldUpdateOperationsInput | string
+    provider?: NullableStringFieldUpdateOperationsInput | string | null
+    operation?: StringFieldUpdateOperationsInput | string
+    route?: NullableStringFieldUpdateOperationsInput | string | null
+    inputTokens?: IntFieldUpdateOperationsInput | number
+    outputTokens?: IntFieldUpdateOperationsInput | number
+    totalTokens?: IntFieldUpdateOperationsInput | number
+    latencyMs?: NullableIntFieldUpdateOperationsInput | number | null
+    success?: BoolFieldUpdateOperationsInput | boolean
+    errorCode?: NullableStringFieldUpdateOperationsInput | string | null
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    requestId?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type LlmUsageEventCreateManyInput = {
+    id?: string
+    createdAt?: Date | string
+    modelId: string
+    provider?: string | null
+    operation: string
+    route?: string | null
+    inputTokens?: number
+    outputTokens?: number
+    totalTokens?: number
+    latencyMs?: number | null
+    success?: boolean
+    errorCode?: string | null
+    userId?: string | null
+    requestId?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type LlmUsageEventUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    modelId?: StringFieldUpdateOperationsInput | string
+    provider?: NullableStringFieldUpdateOperationsInput | string | null
+    operation?: StringFieldUpdateOperationsInput | string
+    route?: NullableStringFieldUpdateOperationsInput | string | null
+    inputTokens?: IntFieldUpdateOperationsInput | number
+    outputTokens?: IntFieldUpdateOperationsInput | number
+    totalTokens?: IntFieldUpdateOperationsInput | number
+    latencyMs?: NullableIntFieldUpdateOperationsInput | number | null
+    success?: BoolFieldUpdateOperationsInput | boolean
+    errorCode?: NullableStringFieldUpdateOperationsInput | string | null
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    requestId?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type LlmUsageEventUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    modelId?: StringFieldUpdateOperationsInput | string
+    provider?: NullableStringFieldUpdateOperationsInput | string | null
+    operation?: StringFieldUpdateOperationsInput | string
+    route?: NullableStringFieldUpdateOperationsInput | string | null
+    inputTokens?: IntFieldUpdateOperationsInput | number
+    outputTokens?: IntFieldUpdateOperationsInput | number
+    totalTokens?: IntFieldUpdateOperationsInput | number
+    latencyMs?: NullableIntFieldUpdateOperationsInput | number | null
+    success?: BoolFieldUpdateOperationsInput | boolean
+    errorCode?: NullableStringFieldUpdateOperationsInput | string | null
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    requestId?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
   export type student_profilesCreateInput = {
     id?: string
     student_sis_id: string
@@ -78130,6 +79644,72 @@ export namespace Prisma {
   export type UsageMetricSumOrderByAggregateInput = {
     tokensUsed?: SortOrder
     estimatedCost?: SortOrder
+  }
+
+  export type LlmUsageEventCountOrderByAggregateInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    modelId?: SortOrder
+    provider?: SortOrder
+    operation?: SortOrder
+    route?: SortOrder
+    inputTokens?: SortOrder
+    outputTokens?: SortOrder
+    totalTokens?: SortOrder
+    latencyMs?: SortOrder
+    success?: SortOrder
+    errorCode?: SortOrder
+    userId?: SortOrder
+    requestId?: SortOrder
+    metadata?: SortOrder
+  }
+
+  export type LlmUsageEventAvgOrderByAggregateInput = {
+    inputTokens?: SortOrder
+    outputTokens?: SortOrder
+    totalTokens?: SortOrder
+    latencyMs?: SortOrder
+  }
+
+  export type LlmUsageEventMaxOrderByAggregateInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    modelId?: SortOrder
+    provider?: SortOrder
+    operation?: SortOrder
+    route?: SortOrder
+    inputTokens?: SortOrder
+    outputTokens?: SortOrder
+    totalTokens?: SortOrder
+    latencyMs?: SortOrder
+    success?: SortOrder
+    errorCode?: SortOrder
+    userId?: SortOrder
+    requestId?: SortOrder
+  }
+
+  export type LlmUsageEventMinOrderByAggregateInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    modelId?: SortOrder
+    provider?: SortOrder
+    operation?: SortOrder
+    route?: SortOrder
+    inputTokens?: SortOrder
+    outputTokens?: SortOrder
+    totalTokens?: SortOrder
+    latencyMs?: SortOrder
+    success?: SortOrder
+    errorCode?: SortOrder
+    userId?: SortOrder
+    requestId?: SortOrder
+  }
+
+  export type LlmUsageEventSumOrderByAggregateInput = {
+    inputTokens?: SortOrder
+    outputTokens?: SortOrder
+    totalTokens?: SortOrder
+    latencyMs?: SortOrder
   }
 
   export type Screener_resultsListRelationFilter = {

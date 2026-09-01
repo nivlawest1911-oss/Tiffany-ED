@@ -1,9 +1,10 @@
-﻿/**
+/**
  * Meta AI (Llama) Client
  * Integration for Meta's Llama models via various providers
  */
 
 import { withResilience, ALABAMA_STRATEGIC_DIRECTIVE } from '../ai-resilience';
+import { recordLlmUsage, estimateTokens } from '@/lib/ai/token-meter';
 
 export interface MetaAIConfig {
     apiKey?: string;
@@ -158,22 +159,56 @@ export class MetaAIClient {
      * Generate chat completion with Llama
      */
     async chat(request: ChatCompletionRequest, options?: { signal?: AbortSignal }): Promise<ChatCompletionResponse> {
-        if (this.provider === 'replicate') {
-            return this.chatReplicate(request, options);
-        }
+        const start = Date.now();
+        const modelId = request.model || this.model;
 
-        return this.request('/chat/completions', {
-            method: 'POST',
-            body: JSON.stringify({
-                model: request.model || this.model,
-                messages: request.messages,
-                temperature: request.temperature || 0.7,
-                max_tokens: request.max_tokens || 2048,
-                top_p: request.top_p || 0.9,
-                stream: request.stream || false,
-            }),
-            signal: options?.signal
-        });
+        try {
+            if (this.provider === 'replicate') {
+                return await this.chatReplicate(request, options);
+            }
+
+            const response: ChatCompletionResponse = await this.request('/chat/completions', {
+                method: 'POST',
+                body: JSON.stringify({
+                    model: modelId,
+                    messages: request.messages,
+                    temperature: request.temperature || 0.7,
+                    max_tokens: request.max_tokens || 2048,
+                    top_p: request.top_p || 0.9,
+                    stream: request.stream || false,
+                }),
+                signal: options?.signal
+            });
+
+            const inputTokens = response.usage?.prompt_tokens || 0;
+            const outputTokens = response.usage?.completion_tokens || 0;
+            const totalTokens = response.usage?.total_tokens || (inputTokens + outputTokens);
+
+            void recordLlmUsage({
+                modelId,
+                provider: this.provider,
+                operation: 'metaAiChat',
+                route: 'meta-ai/chat',
+                inputTokens,
+                outputTokens,
+                totalTokens,
+                latencyMs: Date.now() - start,
+                success: true,
+            });
+
+            return response;
+        } catch (error: any) {
+            void recordLlmUsage({
+                modelId,
+                provider: this.provider,
+                operation: 'metaAiChat',
+                route: 'meta-ai/chat',
+                latencyMs: Date.now() - start,
+                success: false,
+                errorCode: error?.name || 'META_AI_CHAT_ERROR',
+            });
+            throw error;
+        }
     }
 
     /**
@@ -245,53 +280,98 @@ export class MetaAIClient {
      * Stream chat completion
      */
     async *chatStream(request: ChatCompletionRequest): AsyncGenerator<string> {
-        const response = await fetch(`${this.baseUrl}/chat/completions`, {
-            method: 'POST',
-            headers: {
-                'Authorization': `Bearer ${this.apiKey}`,
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                ...request,
-                stream: true,
-            }),
-        });
+        const start = Date.now();
+        const modelId = request.model || this.model;
+        let streamedText = '';
 
-        if (!response.ok) {
-            const errorText = await response.text().catch(() => 'Unknown Error');
-            throw new Error(`Meta AI Stream Error: ${response.status} - ${errorText}`);
-        }
+        try {
+            const response = await fetch(`${this.baseUrl}/chat/completions`, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${this.apiKey}`,
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    ...request,
+                    stream: true,
+                }),
+            });
 
-        if (!response.body) {
-            throw new Error('No response body');
-        }
+            if (!response.ok) {
+                const errorText = await response.text().catch(() => 'Unknown Error');
+                throw new Error(`Meta AI Stream Error: ${response.status} - ${errorText}`);
+            }
 
-        const reader = response.body.getReader();
-        const decoder = new TextDecoder();
+            if (!response.body) {
+                throw new Error('No response body');
+            }
 
-        while (true) {
-            const { done, value } = await reader.read();
-            if (done) break;
+            const reader = response.body.getReader();
+            const decoder = new TextDecoder();
 
-            const chunk = decoder.decode(value);
-            const lines = chunk.split('\n').filter(line => line.trim() !== '');
+            while (true) {
+                const { done, value } = await reader.read();
+                if (done) break;
 
-            for (const line of lines) {
-                if (line.startsWith('data: ')) {
-                    const data = line.slice(6);
-                    if (data === '[DONE]') return;
+                const chunk = decoder.decode(value);
+                const lines = chunk.split('\n').filter(line => line.trim() !== '');
 
-                    try {
-                        const parsed = JSON.parse(data);
-                        const content = parsed.choices[0]?.delta?.content;
-                        if (content) {
-                            yield content;
+                for (const line of lines) {
+                    if (line.startsWith('data: ')) {
+                        const data = line.slice(6);
+                        if (data === '[DONE]') {
+                            const outputTokens = estimateTokens(streamedText);
+                            void recordLlmUsage({
+                                modelId,
+                                provider: this.provider,
+                                operation: 'chatStream',
+                                route: 'meta-ai/chatStream',
+                                outputTokens,
+                                totalTokens: outputTokens,
+                                isEstimated: true,
+                                latencyMs: Date.now() - start,
+                                success: true,
+                            });
+                            return;
                         }
-                    } catch (e) {
-                        // Skip invalid JSON
+
+                        try {
+                            const parsed = JSON.parse(data);
+                            const content = parsed.choices[0]?.delta?.content;
+                            if (content) {
+                                streamedText += content;
+                                yield content;
+                            }
+                        } catch (e) {
+                            // Skip invalid JSON
+                        }
                     }
                 }
             }
+
+            const outputTokens = estimateTokens(streamedText);
+            void recordLlmUsage({
+                modelId,
+                provider: this.provider,
+                operation: 'chatStream',
+                route: 'meta-ai/chatStream',
+                outputTokens,
+                totalTokens: outputTokens,
+                isEstimated: true,
+                latencyMs: Date.now() - start,
+                success: true,
+            });
+        } catch (error: any) {
+            void recordLlmUsage({
+                modelId,
+                provider: this.provider,
+                operation: 'chatStream',
+                route: 'meta-ai/chatStream',
+                latencyMs: Date.now() - start,
+                success: false,
+                errorCode: error?.name || 'META_AI_STREAM_ERROR',
+            });
+            throw error;
         }
     }
 

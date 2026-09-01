@@ -8,6 +8,7 @@
 import { generateText, generateObject } from 'ai';
 import { googleProvider, AI_MODELS } from '@/lib/ai-config';
 import { SwarmTaskDecompositionSchema, SwarmCriticValidationSchema } from '@/lib/ai/signatures';
+import { recordLlmUsage, extractUsageFromResult } from '@/lib/ai/token-meter';
 
 export interface SwarmTask {
     id: string;
@@ -131,8 +132,11 @@ export class SwarmOrchestrator {
     }
 
     private async decomposeGoal(goal: string): Promise<SwarmTask[]> {
+        const start = Date.now();
+        const modelId = AI_MODELS.GOOGLE.FLASH_2;
+
         try {
-            const { object } = await generateObject({
+            const result = await generateObject({
                 model: this.model,
                 schema: SwarmTaskDecompositionSchema,
                 system: `You are the EdIntel Swarm Supervisor. Break complex district goals into 3 distinct tasks:
@@ -143,15 +147,38 @@ export class SwarmOrchestrator {
                 prompt: goal,
             });
 
-            return object.map((t, i) => ({
+            const usage = extractUsageFromResult(result);
+            void recordLlmUsage({
+                modelId,
+                provider: 'google',
+                operation: 'swarmDecomposeGoal',
+                route: 'swarm/decompose',
+                inputTokens: usage.inputTokens,
+                outputTokens: usage.outputTokens,
+                totalTokens: usage.totalTokens,
+                isEstimated: usage.isEstimated,
+                latencyMs: Date.now() - start,
+                success: true,
+            });
+
+            return result.object.map((t, i) => ({
                 id: `task-${i}`,
                 agent: t.agent,
                 description: t.description,
                 dependencies: [],
                 status: 'PENDING'
             }));
-        } catch (e) {
+        } catch (e: any) {
             console.error('[SwarmOrchestrator] decomposeGoal failed, using fallback tasks:', e);
+            void recordLlmUsage({
+                modelId,
+                provider: 'google',
+                operation: 'swarmDecomposeGoal',
+                route: 'swarm/decompose',
+                latencyMs: Date.now() - start,
+                success: false,
+                errorCode: e?.name || 'DECOMPOSE_GOAL_ERROR',
+            });
             // Fallback if structured generation fails
             return [
                 { id: 't1', agent: 'ANALYST', description: 'Analyze budget and staffing vectors.', dependencies: [], status: 'PENDING' },
@@ -162,6 +189,9 @@ export class SwarmOrchestrator {
     }
 
     private async executeTask(task: SwarmTask, context: string): Promise<string> {
+        const start = Date.now();
+        const modelId = AI_MODELS.GOOGLE.FLASH_2;
+
         const personas = {
             ANALYST: "You are the EdIntel Chief Analyst. Extract data-driven insights.",
             ARCHITECT: "You are the EdIntel Systems Architect. Design robust implementation frameworks.",
@@ -169,27 +199,80 @@ export class SwarmOrchestrator {
             FORECASTER: "You are the EdIntel Predictive Forecaster. Use trend analysis to project future institutional outcomes and risks."
         };
 
-        const { text } = await generateText({
-            model: this.model,
-            system: personas[task.agent] + " Ground all outputs in EdIntel rigor.",
-            prompt: `Task: ${task.description}\nContext: ${context}`,
-        });
+        try {
+            const result = await generateText({
+                model: this.model,
+                system: personas[task.agent] + " Ground all outputs in EdIntel rigor.",
+                prompt: `Task: ${task.description}\nContext: ${context}`,
+            });
 
-        return text;
+            const usage = extractUsageFromResult(result);
+            void recordLlmUsage({
+                modelId,
+                provider: 'google',
+                operation: `swarmTask:${task.agent}`,
+                route: 'swarm/executeTask',
+                inputTokens: usage.inputTokens,
+                outputTokens: usage.outputTokens,
+                totalTokens: usage.totalTokens,
+                isEstimated: usage.isEstimated,
+                latencyMs: Date.now() - start,
+                success: true,
+            });
+
+            return result.text;
+        } catch (error: any) {
+            void recordLlmUsage({
+                modelId,
+                provider: 'google',
+                operation: `swarmTask:${task.agent}`,
+                route: 'swarm/executeTask',
+                latencyMs: Date.now() - start,
+                success: false,
+                errorCode: error?.name || 'SWARM_TASK_ERROR',
+            });
+            throw error;
+        }
     }
 
     private async validateResults(goal: string, tasks: SwarmTask[]): Promise<{ status: 'APPROVED' | 'REJECTED', feedback: string }> {
+        const start = Date.now();
+        const modelId = AI_MODELS.GOOGLE.FLASH_2;
+
         try {
-            const { object } = await generateObject({
+            const result = await generateObject({
                 model: this.model,
                 schema: SwarmCriticValidationSchema,
                 system: "You are the EdIntel Swarm Critic. Audit the worker reports for compliance with Alabama SDE statutes and instructional rigor. Be brutally honest.",
                 prompt: `Goal: ${goal}\n\nWorker Reports:\n${tasks.map(t => `${t.agent}: ${t.result}`).join('\n\n')}\n\nReturn structured analysis and status (APPROVED/REJECTED).`,
             });
 
-            return object;
-        } catch (e) {
+            const usage = extractUsageFromResult(result);
+            void recordLlmUsage({
+                modelId,
+                provider: 'google',
+                operation: 'swarmValidateResults',
+                route: 'swarm/validate',
+                inputTokens: usage.inputTokens,
+                outputTokens: usage.outputTokens,
+                totalTokens: usage.totalTokens,
+                isEstimated: usage.isEstimated,
+                latencyMs: Date.now() - start,
+                success: true,
+            });
+
+            return result.object;
+        } catch (e: any) {
             console.error('[SwarmOrchestrator] validateResults failed, defaulting to APPROVED:', e);
+            void recordLlmUsage({
+                modelId,
+                provider: 'google',
+                operation: 'swarmValidateResults',
+                route: 'swarm/validate',
+                latencyMs: Date.now() - start,
+                success: false,
+                errorCode: e?.name || 'VALIDATE_RESULTS_ERROR',
+            });
             return {
                 status: 'APPROVED',
                 feedback: 'Automatic approval via fallback.'
@@ -198,13 +281,43 @@ export class SwarmOrchestrator {
     }
 
     private async synthesizeResults(goal: string, tasks: SwarmTask[], criticFeedback: string): Promise<string> {
-        const { text } = await generateText({
-            model: this.model,
-            system: "You are the EdIntel Synthesis Engine. Merge worker reports and critic feedback into a single cohesive District Strategy Command Briefing.",
-            prompt: `Goal: ${goal}\n\nWorker Results:\n${tasks.map(t => `${t.agent}: ${t.result}`).join('\n\n')}\n\nCritic Feedback:\n${criticFeedback}\n\nFORMAT INSTRUCTION: Output exactly 4 lines in "LABEL: Content" format. Example:\nSTRATEGY: [Summary]\nVECTOR: [Metric/Growth]\nRISK: [Mitigation]\nACTION: [Directive]`,
-        });
+        const start = Date.now();
+        const modelId = AI_MODELS.GOOGLE.FLASH_2;
 
-        return text;
+        try {
+            const result = await generateText({
+                model: this.model,
+                system: "You are the EdIntel Synthesis Engine. Merge worker reports and critic feedback into a single cohesive District Strategy Command Briefing.",
+                prompt: `Goal: ${goal}\n\nWorker Results:\n${tasks.map(t => `${t.agent}: ${t.result}`).join('\n\n')}\n\nCritic Feedback:\n${criticFeedback}\n\nFORMAT INSTRUCTION: Output exactly 4 lines in "LABEL: Content" format. Example:\nSTRATEGY: [Summary]\nVECTOR: [Metric/Growth]\nRISK: [Mitigation]\nACTION: [Directive]`,
+            });
+
+            const usage = extractUsageFromResult(result);
+            void recordLlmUsage({
+                modelId,
+                provider: 'google',
+                operation: 'swarmSynthesizeResults',
+                route: 'swarm/synthesize',
+                inputTokens: usage.inputTokens,
+                outputTokens: usage.outputTokens,
+                totalTokens: usage.totalTokens,
+                isEstimated: usage.isEstimated,
+                latencyMs: Date.now() - start,
+                success: true,
+            });
+
+            return result.text;
+        } catch (error: any) {
+            void recordLlmUsage({
+                modelId,
+                provider: 'google',
+                operation: 'swarmSynthesizeResults',
+                route: 'swarm/synthesize',
+                latencyMs: Date.now() - start,
+                success: false,
+                errorCode: error?.name || 'SYNTHESIZE_RESULTS_ERROR',
+            });
+            throw error;
+        }
     }
 
     private logEvent(agent: string, message: string) {

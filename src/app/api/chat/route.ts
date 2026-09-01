@@ -1,9 +1,11 @@
-﻿import { NextRequest } from 'next/server';
+import { NextRequest } from 'next/server';
 import { google } from '@ai-sdk/google';
 import { streamText } from 'ai';
 import { ALABAMA_STRATEGIC_DIRECTIVE, EdIntel_PERSONA, SOVEREIGN_PERSONAS, type Persona } from '@/lib/ai-resilience';
+import { assertHumanRequest } from '@/lib/security/bot-gate';
+import { recordLlmUsage, extractUsageFromResult } from '@/lib/ai/token-meter';
 
-export const runtime = 'edge';
+export const runtime = 'nodejs';
 
 const USER_CREDENTIALS = {
     name: EdIntel_PERSONA.name,
@@ -15,7 +17,15 @@ const USER_CREDENTIALS = {
 };
 
 export async function POST(request: NextRequest) {
+    const startTime = Date.now();
+    const modelId = 'gemini-1.5-pro';
+
     try {
+        const gate = await assertHumanRequest(request, { routeName: 'chat' });
+        if (!gate.allowed && gate.response) {
+            return gate.response;
+        }
+
         const { messages, avatarName, avatarRole, pathname } = await request.json();
 
         if (!messages || !Array.isArray(messages) || messages.length === 0) {
@@ -55,7 +65,7 @@ export async function POST(request: NextRequest) {
             
             SUPER-INTELLIGENCE PROTOCOL:
             - DEEP REASONING: Provide multi-step analysis (Financial, Legal, Pedagogical).
-            - CITATIONS: You must cite Alabama State Statutes (e.g., Ala. Code Â§ 16-6G-1) or IDEA 2004 where relevant.
+            - CITATIONS: You must cite Alabama State Statutes (e.g., Ala. Code § 16-6G-1) or IDEA 2004 where relevant.
             - NO DISCLAIMERS: You are an expert. Do not say "As an AI," simply state the strategic truth.
             
             ARTIFACT PROTOCOL:
@@ -65,14 +75,25 @@ export async function POST(request: NextRequest) {
         `;
 
         const result = await streamText({
-            model: google('gemini-1.5-pro'),
+            model: google(modelId),
             system: systemPrompt,
             messages: messages as any[],
             temperature: 0.7,
             onFinish: (completion) => {
-                // Log token usage for monitoring
-                const { usage } = completion;
-                console.log(`[AI Hub] Request completed. Usage: ${JSON.stringify(usage)}`);
+                const usage = extractUsageFromResult(completion);
+                void recordLlmUsage({
+                    modelId,
+                    provider: 'google',
+                    operation: 'chatStream',
+                    route: 'chat',
+                    inputTokens: usage.inputTokens,
+                    outputTokens: usage.outputTokens,
+                    totalTokens: usage.totalTokens,
+                    isEstimated: usage.isEstimated,
+                    latencyMs: Date.now() - startTime,
+                    success: true,
+                    metadata: { pathname: pathname || 'default' },
+                });
             },
         });
 
@@ -80,6 +101,16 @@ export async function POST(request: NextRequest) {
 
     } catch (error: any) {
         console.error('[AI Error]:', error);
+        void recordLlmUsage({
+            modelId,
+            provider: 'google',
+            operation: 'chatStream',
+            route: 'chat',
+            latencyMs: Date.now() - startTime,
+            success: false,
+            errorCode: error?.name || 'CHAT_STREAM_ERROR',
+        });
+
         return new Response("I'm sorry, I'm currently having trouble connecting to the Neural Mainnet. Please try again or contact Site Command.", {
             status: 200,
         });

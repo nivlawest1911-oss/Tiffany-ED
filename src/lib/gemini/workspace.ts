@@ -6,6 +6,7 @@
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import { withResilience } from '../ai-resilience';
 import { getGoogleAIKey } from '@/lib/ai-config';
+import { recordLlmUsage } from '@/lib/ai/token-meter';
 
 const getGenAI = () => {
     const apiKey = getGoogleAIKey();
@@ -20,6 +21,46 @@ const getGenAI = () => {
 };
 
 const genAI = getGenAI();
+
+async function generateContentWithMetering(model: any, prompt: string, operation: string, options?: any) {
+    const start = Date.now();
+    const modelId = model?.model || 'gemini-2.0-flash';
+
+    try {
+        const result = await model.generateContent(prompt, options);
+        const response = result.response;
+
+        const usageMeta = (response as any)?.usageMetadata;
+        const inputTokens = usageMeta?.promptTokenCount || 0;
+        const outputTokens = usageMeta?.candidatesTokenCount || 0;
+        const totalTokens = usageMeta?.totalTokenCount || (inputTokens + outputTokens);
+
+        void recordLlmUsage({
+            modelId,
+            provider: 'google',
+            operation,
+            route: 'lib/gemini/workspace',
+            inputTokens,
+            outputTokens,
+            totalTokens,
+            latencyMs: Date.now() - start,
+            success: true,
+        });
+
+        return result;
+    } catch (error: any) {
+        void recordLlmUsage({
+            modelId,
+            provider: 'google',
+            operation,
+            route: 'lib/gemini/workspace',
+            latencyMs: Date.now() - start,
+            success: false,
+            errorCode: error?.name || 'WORKSPACE_GENERATE_ERROR',
+        });
+        throw error;
+    }
+}
 
 /**
  * Gemini Workspace Content Types
@@ -117,7 +158,7 @@ Return JSON with:
 
         return withResilience(async () => {
             try {
-                const result = await model.generateContent(analysisPrompt, { signal } as any);
+                const result = await generateContentWithMetering(model, analysisPrompt, 'workspaceAnalyzeContent', { signal });
                 return result.response.text();
             } finally {
                 signal?.removeEventListener('abort', onAbort);
@@ -161,7 +202,7 @@ Return JSON with:
 }`;
 
         return withResilience(async () => {
-            const result = await model.generateContent(prompt, { signal } as any);
+            const result = await generateContentWithMetering(model, prompt, 'workspaceConvertToWorkflow', { signal });
             const response = result.response.text();
 
             const jsonMatch = response.match(/\{[\s\S]*\}/);
@@ -199,7 +240,7 @@ Return JSON with:
 }`;
 
         return withResilience(async () => {
-            const result = await model.generateContent(prompt, { signal } as any);
+            const result = await generateContentWithMetering(model, prompt, 'workspaceExtractEducationalContent', { signal });
             const response = result.response.text();
 
             const jsonMatch = response.match(/\{[\s\S]*\}/);
@@ -236,7 +277,7 @@ Return JSON with:
 }`;
 
             return withResilience(async () => {
-                const result = await model.generateContent(analysisPrompt, { signal } as any);
+                const result = await generateContentWithMetering(model, analysisPrompt, 'workspaceSyncPrompts', { signal });
                 const response = result.response.text();
 
                 const jsonMatch = response.match(/\{[\s\S]*\}/);
@@ -304,7 +345,7 @@ Return JSON array of recommendations:
 ["recommendation 1", "recommendation 2", ...]`;
 
         const recommendations = await withResilience(async () => {
-            const result = await model.generateContent(prompt, { signal } as any);
+            const result = await generateContentWithMetering(model, prompt, 'workspaceCreateContentLibrary', { signal });
             const response = result.response.text();
             const jsonMatch = response.match(/\[[\s\S]*\]/);
             return jsonMatch ? JSON.parse(jsonMatch[0]) : [];
@@ -331,7 +372,7 @@ Return JSON array of 5-10 relevant tags:
 ["tag1", "tag2", ...]`;
 
         return withResilience(async () => {
-            const result = await model.generateContent(prompt, { signal } as any);
+            const result = await generateContentWithMetering(model, prompt, 'workspaceAutoTagContent', { signal });
             const response = result.response.text();
             const jsonMatch = response.match(/\[[\s\S]*\]/);
             return jsonMatch ? JSON.parse(jsonMatch[0]) : [];
@@ -364,7 +405,7 @@ Return JSON array of matching content IDs (by relevance):
 ["id1", "id2", ...]`;
 
         const matchingIds = await withResilience(async () => {
-            const result = await model.generateContent(prompt, { signal } as any);
+            const result = await generateContentWithMetering(model, prompt, 'workspaceSearchContent', { signal });
             const response = result.response.text();
             const jsonMatch = response.match(/\[[\s\S]*\]/);
             return jsonMatch ? JSON.parse(jsonMatch[0]) : [];
@@ -440,7 +481,7 @@ Return JSON with:
 }`;
 
         return withResilience(async () => {
-            const result = await model.generateContent(prompt, { signal } as any);
+            const result = await generateContentWithMetering(model, prompt, 'workspaceAnalyzeMedia', { signal });
             const response = result.response.text();
 
             const jsonMatch = response.match(/\{[\s\S]*\}/);

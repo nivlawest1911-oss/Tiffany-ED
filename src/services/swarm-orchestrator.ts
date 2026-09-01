@@ -1,6 +1,7 @@
-﻿import { OpenAI } from 'openai';
+import { OpenAI } from 'openai';
 import { EdIntelSystemState, initializeEdIntelState } from '@/lib/swarm-state';
 import { withResilience, ALABAMA_STRATEGIC_DIRECTIVE } from '@/lib/ai-resilience';
+import { recordLlmUsage } from '@/lib/ai/token-meter';
 
 /**
  * EdIntel SWARM ORCHESTRATOR
@@ -19,7 +20,7 @@ class SwarmOrchestrator {
         if (!this._openai) {
             const apiKey = process.env.OPENAI_API_KEY;
             if (!apiKey && process.env.NODE_ENV === 'production') {
-                console.warn('âš ï¸ [SwarmOrchestrator] OPENAI_API_KEY is missing. AI features will be disabled.');
+                console.warn('⚠️ [SwarmOrchestrator] OPENAI_API_KEY is missing. AI features will be disabled.');
             }
             this._openai = new OpenAI({ apiKey: apiKey || 'mock_key' });
         }
@@ -30,7 +31,6 @@ class SwarmOrchestrator {
      * SUPERVISOR NODE: Decomposes goals into worker tasks.
      */
     async dispatchGoal(goal: string, signal?: AbortSignal) {
-
         this.state.swarmMesh.supervisor.currentGoal = goal;
 
         // 1. Decompose
@@ -54,13 +54,46 @@ class SwarmOrchestrator {
         Ensure steps prioritize Alabama educational statutes and ROI.
         `;
 
+        const start = Date.now();
+        const modelId = "gpt-4o";
+
         return withResilience(async () => {
-            const res = await this.openai.chat.completions.create({
-                model: "gpt-4o", // Upgraded for strategic decomposition
-                messages: [{ role: "system", content: prompt }]
-            }, { signal });
-            const plan = res.choices[0].message.content?.split('\n').filter(s => s.trim().length > 0) || [];
-            return plan;
+            try {
+                const res = await this.openai.chat.completions.create({
+                    model: modelId, // Upgraded for strategic decomposition
+                    messages: [{ role: "system", content: prompt }]
+                }, { signal });
+
+                const inputTokens = res.usage?.prompt_tokens || 0;
+                const outputTokens = res.usage?.completion_tokens || 0;
+                const totalTokens = res.usage?.total_tokens || (inputTokens + outputTokens);
+
+                void recordLlmUsage({
+                    modelId,
+                    provider: 'openai',
+                    operation: 'swarmMeshDecompose',
+                    route: 'services/swarm-orchestrator',
+                    inputTokens,
+                    outputTokens,
+                    totalTokens,
+                    latencyMs: Date.now() - start,
+                    success: true,
+                });
+
+                const plan = res.choices[0].message.content?.split('\n').filter(s => s.trim().length > 0) || [];
+                return plan;
+            } catch (err: any) {
+                void recordLlmUsage({
+                    modelId,
+                    provider: 'openai',
+                    operation: 'swarmMeshDecompose',
+                    route: 'services/swarm-orchestrator',
+                    latencyMs: Date.now() - start,
+                    success: false,
+                    errorCode: err?.name || 'SWARM_DECOMPOSE_ERROR',
+                });
+                throw err;
+            }
         }, { signal });
     }
 
@@ -71,8 +104,6 @@ class SwarmOrchestrator {
         const workerId = `worker_${Date.now()}`;
         this.state.swarmMesh.workers[workerId] = { role: "ANALYST", status: "THINKING", currentTool: null };
 
-
-
         // 1. Propose Action
         const proposedAction = `Simulated Action for: ${task}`;
 
@@ -81,7 +112,6 @@ class SwarmOrchestrator {
 
         if (approved) {
             this.state.swarmMesh.workers[workerId].status = "ACTING";
-
 
             // Log to Episodic Memory
             this.state.episodicLog.push({
@@ -113,12 +143,45 @@ class SwarmOrchestrator {
         Return 'BLOCKED' if it violates FERPA, Alabama law, or EdIntel tone.
         `;
 
+        const start = Date.now();
+        const modelId = "gpt-4o-mini";
+
         const result = await withResilience(async () => {
-            const res = await this.openai.chat.completions.create({
-                model: "gpt-4o-mini",
-                messages: [{ role: "system", content: prompt }]
-            }, { signal });
-            return res.choices[0].message.content || 'BLOCKED';
+            try {
+                const res = await this.openai.chat.completions.create({
+                    model: modelId,
+                    messages: [{ role: "system", content: prompt }]
+                }, { signal });
+
+                const inputTokens = res.usage?.prompt_tokens || 0;
+                const outputTokens = res.usage?.completion_tokens || 0;
+                const totalTokens = res.usage?.total_tokens || (inputTokens + outputTokens);
+
+                void recordLlmUsage({
+                    modelId,
+                    provider: 'openai',
+                    operation: 'swarmMeshCriticAudit',
+                    route: 'services/swarm-orchestrator',
+                    inputTokens,
+                    outputTokens,
+                    totalTokens,
+                    latencyMs: Date.now() - start,
+                    success: true,
+                });
+
+                return res.choices[0].message.content || 'BLOCKED';
+            } catch (err: any) {
+                void recordLlmUsage({
+                    modelId,
+                    provider: 'openai',
+                    operation: 'swarmMeshCriticAudit',
+                    route: 'services/swarm-orchestrator',
+                    latencyMs: Date.now() - start,
+                    success: false,
+                    errorCode: err?.name || 'SWARM_CRITIC_ERROR',
+                });
+                throw err;
+            }
         }, { signal });
 
         return result.toUpperCase().includes('APPROVED');

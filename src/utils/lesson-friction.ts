@@ -2,6 +2,7 @@ import { generateObject } from 'ai';
 import { googleProvider, AI_MODELS } from '@/lib/ai-config';
 import { FrictionAnalysisSchema } from '@/lib/ai/signatures';
 import { z } from 'zod';
+import { recordLlmUsage, extractUsageFromResult } from '@/lib/ai/token-meter';
 
 export type FrictionAnalysis = z.infer<typeof FrictionAnalysisSchema>;
 
@@ -12,6 +13,9 @@ export type GymBreakSuggestion = {
 };
 
 export async function analyzeLessonFriction(lessonPlan: string): Promise<FrictionAnalysis> {
+    const start = Date.now();
+    const modelId = AI_MODELS.GOOGLE.PRO;
+
     const systemPrompt = `You are the Tiffany-ED Fortress Architect.
   Your goal is to screen lesson plans for "Cognitive Bottlenecks" that cause Decision Fatigue and behavior issues.
   
@@ -32,17 +36,40 @@ export async function analyzeLessonFriction(lessonPlan: string): Promise<Frictio
   `;
 
     try {
-        const { object } = await generateObject({
-            model: googleProvider(AI_MODELS.GOOGLE.PRO),
+        const result = await generateObject({
+            model: googleProvider(modelId),
             schema: FrictionAnalysisSchema,
             system: systemPrompt,
             prompt: `Analyze this lesson plan:\n"${lessonPlan}"`,
         });
 
-        return object;
+        const usage = extractUsageFromResult(result);
+        void recordLlmUsage({
+            modelId,
+            provider: 'google',
+            operation: 'analyzeLessonFriction',
+            route: 'utils/lesson-friction',
+            inputTokens: usage.inputTokens,
+            outputTokens: usage.outputTokens,
+            totalTokens: usage.totalTokens,
+            isEstimated: usage.isEstimated,
+            latencyMs: Date.now() - start,
+            success: true,
+        });
 
-    } catch (error) {
+        return result.object;
+
+    } catch (error: any) {
         console.error("Friction analysis failed:", error);
+        void recordLlmUsage({
+            modelId,
+            provider: 'google',
+            operation: 'analyzeLessonFriction',
+            route: 'utils/lesson-friction',
+            latencyMs: Date.now() - start,
+            success: false,
+            errorCode: error?.name || 'FRICTION_ANALYSIS_ERROR',
+        });
         return {
             frictionScore: 0,
             bottlenecks: ["Error analyzing lesson plan."],

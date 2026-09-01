@@ -1,14 +1,14 @@
-﻿import { generateObject } from 'ai';
+import { generateObject } from 'ai';
 import { googleProvider, AI_MODELS } from '@/lib/ai-config';
 import { GriotResourceArraySchema, GriotResourceSchema } from '@/lib/ai/signatures';
 import { z } from 'zod';
+import { recordLlmUsage, extractUsageFromResult } from '@/lib/ai/token-meter';
 
 export type GriotResource = z.infer<typeof GriotResourceSchema>;
 
 export async function searchGriotMedia(topic: string, gradeLevel: string): Promise<GriotResource[]> {
-    // In a real implementation, this would use a Search API (e.g., YouTube, Google Custom Search) 
-    // combined with an AI reasoning step to filter for cultural relevance.
-    // For now, we will simulate the AI acting as a "Cultural Curator" suggesting resources.
+    const start = Date.now();
+    const modelId = AI_MODELS.GOOGLE.PRO;
 
     const systemPrompt = `You are The Griot, an AI curator of African American and Diasporic history, culture, and excellence.
    Your goal is to suggest multimedia resources that connect a standard academic topic to Black history/culture.
@@ -28,17 +28,40 @@ export async function searchGriotMedia(topic: string, gradeLevel: string): Promi
    }`;
 
     try {
-        const { object } = await generateObject({
-            model: googleProvider(AI_MODELS.GOOGLE.PRO),
+        const result = await generateObject({
+            model: googleProvider(modelId),
             schema: GriotResourceArraySchema,
             system: systemPrompt,
             prompt: `Suggest 3 Griot resources for the topic: ${topic}`,
         });
 
-        return object;
+        const usage = extractUsageFromResult(result);
+        void recordLlmUsage({
+            modelId,
+            provider: 'google',
+            operation: 'searchGriotMedia',
+            route: 'utils/griot-search',
+            inputTokens: usage.inputTokens,
+            outputTokens: usage.outputTokens,
+            totalTokens: usage.totalTokens,
+            isEstimated: usage.isEstimated,
+            latencyMs: Date.now() - start,
+            success: true,
+        });
 
-    } catch (error) {
+        return result.object;
+
+    } catch (error: any) {
         console.error("Griot search failed", error);
+        void recordLlmUsage({
+            modelId,
+            provider: 'google',
+            operation: 'searchGriotMedia',
+            route: 'utils/griot-search',
+            latencyMs: Date.now() - start,
+            success: false,
+            errorCode: error?.name || 'GRIOT_SEARCH_ERROR',
+        });
         // Fallback mock
         return [
             {

@@ -1,7 +1,8 @@
-﻿import { OpenAI } from 'openai';
+import { OpenAI } from 'openai';
 import { sql } from '@/lib/db';
 import { withResilience, ALABAMA_STRATEGIC_DIRECTIVE } from '@/lib/ai-resilience';
 import { kv } from '@vercel/kv';
+import { recordLlmUsage } from '@/lib/ai/token-meter';
 
 /**
  * EdIntel AGENT SERVICE: Metacognitive Reasoning Layer
@@ -31,8 +32,6 @@ export class EdIntelAgentService {
      * MAIN ENTRY: Execute a Goal with Metacognitive Planning
      */
     async executeGoal(goal: string, userContext: any, signal?: AbortSignal) {
-
-
         // Phase 1: Planning (The "Thought" Step)
         const plan = await this.generatePlan(goal, userContext, signal);
 
@@ -52,7 +51,6 @@ export class EdIntelAgentService {
         try {
             const cached = await kv.get<string>(cacheKey);
             if (cached) {
-
                 return cached;
             }
         } catch (e) {
@@ -79,12 +77,45 @@ export class EdIntelAgentService {
         Provide a brief "Chain of Thought" explaining why this sequence is optimal and how it aligns with Alabama statutes.
         `;
 
+        const start = Date.now();
+        const modelId = "gpt-4o";
+
         const plan = await withResilience(async () => {
-            const response = await openai.chat.completions.create({
-                model: "gpt-4o", // Upgraded for superior multi-modal reasoning
-                messages: [{ role: "system", content: prompt }]
-            }, { signal });
-            return response.choices[0].message.content || "Plan Generation Failed";
+            try {
+                const response = await openai.chat.completions.create({
+                    model: modelId,
+                    messages: [{ role: "system", content: prompt }]
+                }, { signal });
+
+                const inputTokens = response.usage?.prompt_tokens || 0;
+                const outputTokens = response.usage?.completion_tokens || 0;
+                const totalTokens = response.usage?.total_tokens || (inputTokens + outputTokens);
+
+                void recordLlmUsage({
+                    modelId,
+                    provider: 'openai',
+                    operation: 'sovereignAgentPlan',
+                    route: 'services/sovereign-agent',
+                    inputTokens,
+                    outputTokens,
+                    totalTokens,
+                    latencyMs: Date.now() - start,
+                    success: true,
+                });
+
+                return response.choices[0].message.content || "Plan Generation Failed";
+            } catch (err: any) {
+                void recordLlmUsage({
+                    modelId,
+                    provider: 'openai',
+                    operation: 'sovereignAgentPlan',
+                    route: 'services/sovereign-agent',
+                    latencyMs: Date.now() - start,
+                    success: false,
+                    errorCode: err?.name || 'AGENT_PLAN_ERROR',
+                });
+                throw err;
+            }
         }, { signal });
 
         // Cache the plan for 30 minutes
@@ -115,17 +146,46 @@ export class EdIntelAgentService {
         If unsafe, rewrite the plan with corrections and initiate the [CORRECTED] tag.
         `;
 
+        const start = Date.now();
+        const modelId = "gpt-4o-mini";
+
         return withResilience(async () => {
-            const response = await openai.chat.completions.create({
-                model: "gpt-4o-mini", // Upgraded from 3.5 for high-speed precision
-                messages: [{ role: "system", content: prompt }]
-            }, { signal });
+            try {
+                const response = await openai.chat.completions.create({
+                    model: modelId,
+                    messages: [{ role: "system", content: prompt }]
+                }, { signal });
 
-            const reviewedPlan = response.choices[0].message.content;
-            if (reviewedPlan?.includes('[CORRECTED]')) {
+                const inputTokens = response.usage?.prompt_tokens || 0;
+                const outputTokens = response.usage?.completion_tokens || 0;
+                const totalTokens = response.usage?.total_tokens || (inputTokens + outputTokens);
 
+                void recordLlmUsage({
+                    modelId,
+                    provider: 'openai',
+                    operation: 'sovereignAgentCritic',
+                    route: 'services/sovereign-agent',
+                    inputTokens,
+                    outputTokens,
+                    totalTokens,
+                    latencyMs: Date.now() - start,
+                    success: true,
+                });
+
+                const reviewedPlan = response.choices[0].message.content;
+                return reviewedPlan || plan;
+            } catch (err: any) {
+                void recordLlmUsage({
+                    modelId,
+                    provider: 'openai',
+                    operation: 'sovereignAgentCritic',
+                    route: 'services/sovereign-agent',
+                    latencyMs: Date.now() - start,
+                    success: false,
+                    errorCode: err?.name || 'AGENT_CRITIC_ERROR',
+                });
+                throw err;
             }
-            return reviewedPlan || plan;
         }, { signal });
     }
 

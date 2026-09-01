@@ -7,6 +7,7 @@ import twilio from 'twilio';
 import speech from '@google-cloud/speech';
 import textToSpeech from '@google-cloud/text-to-speech';
 import { getGoogleAIKey, AI_MODELS } from '@/lib/ai-config';
+import { recordLlmUsage } from '@/lib/ai/token-meter';
 
 // Initialize clients
 const twilioClient = twilio(
@@ -215,12 +216,15 @@ export class AIPhoneAgentService {
         transcript: string,
         context: any
     ): Promise<string> {
+        const start = Date.now();
+        const modelId = AI_MODELS.GOOGLE.FLASH_2;
+
         // Use Google Gemini for intelligent response
         const { GoogleGenerativeAI } = await import('@google/generative-ai');
         const apiKey = getGoogleAIKey();
         if (!apiKey) throw new Error("Google AI Key is missing");
         const genAI = new GoogleGenerativeAI(apiKey);
-        const model = genAI.getGenerativeModel({ model: AI_MODELS.GOOGLE.FLASH_2 });
+        const model = genAI.getGenerativeModel({ model: modelId });
 
         const prompt = `You are ${context.agent || 'Dr. Alvin West'}, an AI assistant for EdIntel Professional, an educational technology platform for Alabama schools.
 
@@ -237,8 +241,40 @@ Be warm, professional, and educational. If you need to transfer to a human, say 
 
 Your response:`;
 
-        const result = await model.generateContent(prompt);
-        return result.response.text();
+        try {
+            const result = await model.generateContent(prompt);
+            const response = result.response;
+
+            const usageMeta = (response as any)?.usageMetadata;
+            const inputTokens = usageMeta?.promptTokenCount || 0;
+            const outputTokens = usageMeta?.candidatesTokenCount || 0;
+            const totalTokens = usageMeta?.totalTokenCount || (inputTokens + outputTokens);
+
+            void recordLlmUsage({
+                modelId,
+                provider: 'google',
+                operation: 'phoneAgentProcessInput',
+                route: 'lib/phone/agent',
+                inputTokens,
+                outputTokens,
+                totalTokens,
+                latencyMs: Date.now() - start,
+                success: true,
+            });
+
+            return response.text();
+        } catch (error: any) {
+            void recordLlmUsage({
+                modelId,
+                provider: 'google',
+                operation: 'phoneAgentProcessInput',
+                route: 'lib/phone/agent',
+                latencyMs: Date.now() - start,
+                success: false,
+                errorCode: error?.name || 'PHONE_INPUT_ERROR',
+            });
+            throw error;
+        }
     }
 
     /**
@@ -427,12 +463,15 @@ export class AdvancedPhoneFeatures {
         priority: 'low' | 'medium' | 'high' | 'urgent';
         suggestedAgent: string;
     }> {
+        const start = Date.now();
+        const modelId = AI_MODELS.GOOGLE.FLASH_2;
+
         // Use AI to determine best routing
         const { GoogleGenerativeAI } = await import('@google/generative-ai');
         const apiKey = getGoogleAIKey();
         if (!apiKey) throw new Error("Google AI Key is missing");
         const genAI = new GoogleGenerativeAI(apiKey);
-        const model = genAI.getGenerativeModel({ model: AI_MODELS.GOOGLE.FLASH_2 });
+        const model = genAI.getGenerativeModel({ model: modelId });
 
         const prompt = `Analyze this caller request and determine routing:
 
@@ -446,20 +485,56 @@ Return JSON with:
   "reason": "brief explanation"
 }`;
 
-        const result = await model.generateContent(prompt);
-        const response = result.response.text();
+        try {
+            const result = await model.generateContent(prompt);
+            const response = result.response;
+            const textResponse = response.text();
 
-        // Parse JSON from response
-        const jsonMatch = response.match(/\{[\s\S]*\}/);
-        if (jsonMatch) {
-            return JSON.parse(jsonMatch[0]);
+            const usageMeta = (response as any)?.usageMetadata;
+            const inputTokens = usageMeta?.promptTokenCount || 0;
+            const outputTokens = usageMeta?.candidatesTokenCount || 0;
+            const totalTokens = usageMeta?.totalTokenCount || (inputTokens + outputTokens);
+
+            void recordLlmUsage({
+                modelId,
+                provider: 'google',
+                operation: 'phoneAgentRouting',
+                route: 'lib/phone/agent',
+                inputTokens,
+                outputTokens,
+                totalTokens,
+                latencyMs: Date.now() - start,
+                success: true,
+            });
+
+            // Parse JSON from response
+            const jsonMatch = textResponse.match(/\{[\s\S]*\}/);
+            if (jsonMatch) {
+                return JSON.parse(jsonMatch[0]);
+            }
+
+            return {
+                department: 'general',
+                priority: 'medium',
+                suggestedAgent: 'Dr. Alvin West',
+            };
+        } catch (error: any) {
+            void recordLlmUsage({
+                modelId,
+                provider: 'google',
+                operation: 'phoneAgentRouting',
+                route: 'lib/phone/agent',
+                latencyMs: Date.now() - start,
+                success: false,
+                errorCode: error?.name || 'PHONE_ROUTING_ERROR',
+            });
+
+            return {
+                department: 'general',
+                priority: 'medium',
+                suggestedAgent: 'Dr. Alvin West',
+            };
         }
-
-        return {
-            department: 'general',
-            priority: 'medium',
-            suggestedAgent: 'Dr. Alvin West',
-        };
     }
 }
 

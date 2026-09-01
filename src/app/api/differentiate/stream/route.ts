@@ -11,11 +11,18 @@ import { getSession } from '@/lib/auth';
 import { TokenService } from '@/lib/services/token-service';
 import { ALABAMA_STRATEGIC_DIRECTIVE } from '@/lib/ai-resilience';
 import { lexileToGrade } from '@/types/differentiation';
+import { assertHumanRequest } from '@/lib/security/ironshield-gate';
+import { recordLlmUsage, extractUsageFromResult } from '@/lib/ai/token-meter';
 
 export const runtime = 'nodejs';
 
 export async function POST(request: NextRequest) {
   try {
+    const gate = await assertHumanRequest(request, { routeName: 'differentiate/stream' });
+    if (!gate.allowed && gate.response) {
+      return gate.response;
+    }
+
     const { 
       sourceInput, 
       targetLexile, 
@@ -122,23 +129,72 @@ The water cycle is the continuous movement of water on, above, and below the sur
     }
 
     // Use Gemini as primary and OpenAI as fallback
+    const primaryModel = googleApiKey ? AI_MODELS.GOOGLE.FLASH : AI_MODELS.OPENAI.PRIMARY;
+    const primaryProvider = googleApiKey ? 'google' : 'openai';
+    const streamStart = Date.now();
+
     try {
       const result = await streamText({
         model: googleApiKey ? googleProvider(AI_MODELS.GOOGLE.FLASH) : openaiProvider(AI_MODELS.OPENAI.PRIMARY),
         system: systemPrompt,
         prompt: `Differentiate this content to target Lexile ${targetLexile}L:\n\n${sourceInput}`,
         temperature: 0.5,
+        onFinish: (event) => {
+          const usage = extractUsageFromResult(event);
+          void recordLlmUsage({
+            modelId: primaryModel,
+            provider: primaryProvider,
+            operation: 'differentiate-stream',
+            route: 'differentiate/stream',
+            userId: user?.id,
+            inputTokens: usage.inputTokens,
+            outputTokens: usage.outputTokens,
+            totalTokens: usage.totalTokens,
+            latencyMs: Date.now() - streamStart,
+            success: true,
+          });
+        },
       });
 
       return result.toTextStreamResponse();
     } catch (streamError: any) {
       console.warn('[Stream Failover] Primary stream failed, pivoting. Error:', streamError.message);
+      void recordLlmUsage({
+        modelId: primaryModel,
+        provider: primaryProvider,
+        operation: 'differentiate-stream',
+        route: 'differentiate/stream',
+        userId: user?.id,
+        latencyMs: Date.now() - streamStart,
+        success: false,
+        errorCode: streamError?.name || 'PRIMARY_STREAM_FAIL',
+      });
+
+      const secondaryModel = googleApiKey && openaiApiKey ? AI_MODELS.OPENAI.PRIMARY : AI_MODELS.GOOGLE.FLASH;
+      const secondaryProvider = googleApiKey && openaiApiKey ? 'openai' : 'google';
+      const secondStreamStart = Date.now();
+
       // Failover to secondary
       const result = await streamText({
         model: googleApiKey && openaiApiKey ? openaiProvider(AI_MODELS.OPENAI.PRIMARY) : googleProvider(AI_MODELS.GOOGLE.FLASH),
         system: systemPrompt,
         prompt: `Differentiate this content to target Lexile ${targetLexile}L:\n\n${sourceInput}`,
         temperature: 0.5,
+        onFinish: (event) => {
+          const usage = extractUsageFromResult(event);
+          void recordLlmUsage({
+            modelId: secondaryModel,
+            provider: secondaryProvider,
+            operation: 'differentiate-stream',
+            route: 'differentiate/stream',
+            userId: user?.id,
+            inputTokens: usage.inputTokens,
+            outputTokens: usage.outputTokens,
+            totalTokens: usage.totalTokens,
+            latencyMs: Date.now() - secondStreamStart,
+            success: true,
+          });
+        },
       });
 
       return result.toTextStreamResponse();

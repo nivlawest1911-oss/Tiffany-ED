@@ -1,11 +1,15 @@
-﻿'use server'
+'use server'
 
 import { VertexAI } from '@google-cloud/vertexai';
+import { recordLlmUsage } from '@/lib/ai/token-meter';
 
 const project = process.env.GCP_PROJECT_ID || 'edintel-EdIntel';
 const location = 'us-central1';
 
 export async function generateGrantDraft(prompt: string) {
+    const start = Date.now();
+    const modelId = 'gemini-1.5-pro';
+
     try {
         if (!process.env.GCP_PRIVATE_KEY) {
             console.warn('VertexAI: Missing credentials, returning mock response.');
@@ -18,7 +22,7 @@ export async function generateGrantDraft(prompt: string) {
 
         const vertexAI = new VertexAI({ project: project, location: location });
         const generativeModel = vertexAI.getGenerativeModel({
-            model: 'gemini-1.5-pro',
+            model: modelId,
         });
 
         const request = {
@@ -29,9 +33,35 @@ export async function generateGrantDraft(prompt: string) {
         const response = result.response;
         const text = response.candidates?.[0]?.content?.parts?.[0]?.text || '';
 
+        const usageMeta = (response as any)?.usageMetadata;
+        const inputTokens = usageMeta?.promptTokenCount || 0;
+        const outputTokens = usageMeta?.candidatesTokenCount || 0;
+        const totalTokens = usageMeta?.totalTokenCount || (inputTokens + outputTokens);
+
+        void recordLlmUsage({
+            modelId,
+            provider: 'vertex',
+            operation: 'generateGrantDraft',
+            route: 'actions/vertex',
+            inputTokens,
+            outputTokens,
+            totalTokens,
+            latencyMs: Date.now() - start,
+            success: true,
+        });
+
         return { success: true, draft: text };
-    } catch (error) {
+    } catch (error: any) {
         console.error('Vertex AI Error:', error);
+        void recordLlmUsage({
+            modelId,
+            provider: 'vertex',
+            operation: 'generateGrantDraft',
+            route: 'actions/vertex',
+            latencyMs: Date.now() - start,
+            success: false,
+            errorCode: error?.name || 'VERTEX_GENERATE_ERROR',
+        });
         return { success: false, error: 'Failed to generate grant draft' };
     }
 }
