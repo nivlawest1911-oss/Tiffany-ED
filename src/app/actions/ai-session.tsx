@@ -1,4 +1,4 @@
-﻿/**
+/**
  * EdIntel Professional - Gemini 3 Pro Interactions API
  * Deep Research Agent with Thought Signatures
  * 
@@ -14,6 +14,8 @@ import { streamUI } from '@ai-sdk/rsc';
 import { sql } from '@vercel/postgres';
 import { z } from 'zod';
 import { withResilience, ALABAMA_STRATEGIC_DIRECTIVE } from '@/lib/ai-resilience';
+import { recordLlmUsage, extractUsageFromResult } from '@/lib/ai/token-meter';
+import { getSession } from '@/lib/auth';
 
 // Import Generative UI Components
 import { EvidenceFolderCard } from '@/components/artifacts/EvidenceFolderCard';
@@ -50,9 +52,13 @@ export async function startEdIntelSession(
     previousThoughtSignature?: string
 ) {
     try {
+        const session = await getSession();
+        const authenticatedUserId = session?.user?.id;
+        const effectiveUserId = authenticatedUserId || userId;
+
         // Check token balance
         const { rows: balanceRows } = await sql`
-      SELECT current_tokens FROM user_balances WHERE user_id = ${userId}
+      SELECT current_tokens FROM user_balances WHERE user_id = ${effectiveUserId}
     `;
 
         if (!balanceRows[0] || balanceRows[0].current_tokens < 1) {
@@ -178,6 +184,20 @@ export async function startEdIntelSession(
 
                 // Capture thought signature for next turn
                 onFinish: async ({ thoughtSignature, usage }: { thoughtSignature: any; usage: any }) => {
+                    const extracted = extractUsageFromResult(usage);
+                    void recordLlmUsage({
+                        modelId: 'gemini-1.5-pro',
+                        provider: 'google',
+                        operation: 'startEdIntelSession',
+                        route: 'actions/ai-session',
+                        inputTokens: extracted.inputTokens,
+                        outputTokens: extracted.outputTokens,
+                        totalTokens: extracted.totalTokens,
+                        isEstimated: extracted.isEstimated,
+                        userId: authenticatedUserId || undefined,
+                        success: true,
+                    });
+
                     // Save thought signature to database
                     await sql`
               INSERT INTO avatar_sessions (
@@ -189,7 +209,7 @@ export async function startEdIntelSession(
                 vertex_ai_model
               )
               VALUES (
-                ${userId},
+                ${effectiveUserId},
                 'Dr. Alvin West',
                 'Professional Educational Intelligence',
                 ${JSON.stringify([...conversationHistory, { role: 'assistant', thoughtSignature }])}::jsonb,
@@ -255,9 +275,14 @@ export async function startLiveChat(
     userId: string,
     message: string
 ) {
+    const start = Date.now();
+    const modelId = 'gemini-1.5-flash';
+    const session = await getSession();
+    const authenticatedUserId = session?.user?.id;
+
     const result = await withResilience(async () => {
         return await streamText({
-            model: google('gemini-1.5-flash') as any,
+            model: google(modelId) as any,
 
             // Low thinking for speed - removed non-standard property
             // experimental_thinking_level: 'low',
@@ -267,6 +292,22 @@ export async function startLiveChat(
         For complex legal questions, suggest using the Deep Research mode.`,
 
             messages: [{ role: 'user', content: message }],
+            onFinish: (event: any) => {
+                const usage = extractUsageFromResult(event);
+                void recordLlmUsage({
+                    modelId,
+                    provider: 'google',
+                    operation: 'startLiveChat',
+                    route: 'actions/ai-session',
+                    inputTokens: usage.inputTokens,
+                    outputTokens: usage.outputTokens,
+                    totalTokens: usage.totalTokens,
+                    isEstimated: usage.isEstimated,
+                    latencyMs: Date.now() - start,
+                    userId: authenticatedUserId || undefined,
+                    success: true,
+                });
+            },
         } as any);
     });
 

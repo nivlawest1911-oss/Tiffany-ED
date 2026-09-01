@@ -1,5 +1,6 @@
-﻿import { generateText } from 'ai';
+import { generateText } from 'ai';
 import { google } from '@ai-sdk/google';
+import { recordLlmUsage, extractUsageFromResult } from '@/lib/ai/token-meter';
 
 export type ParentUpdateType = 'celebratory' | 'restorative' | 'informational';
 
@@ -15,6 +16,9 @@ export async function generateParentUpdate(
     type: ParentUpdateType,
     context: ParentUpdateContext
 ): Promise<string> {
+    const start = Date.now();
+    const modelId = 'gemini-1.5-pro';
+
     const systemPrompt = `You are the Tiffany-ED Parent Bridge, a highly emotionally intelligent and culturally resonant communication assistant for teachers. 
   Your goal is to translate classroom observations into professional, supportive, and empowering messages for parents.
   
@@ -45,15 +49,38 @@ export async function generateParentUpdate(
   Generate the message:`;
 
     try {
-        const { text } = await generateText({
-            model: google('gemini-1.5-pro'),
+        const result = await generateText({
+            model: google(modelId),
             system: systemPrompt,
             prompt: userPrompt,
         });
 
-        return text;
-    } catch (error) {
+        const usage = extractUsageFromResult(result);
+        void recordLlmUsage({
+            modelId,
+            provider: 'google',
+            operation: 'generateParentUpdate',
+            route: 'utils/parent-comms',
+            inputTokens: usage.inputTokens,
+            outputTokens: usage.outputTokens,
+            totalTokens: usage.totalTokens,
+            isEstimated: usage.isEstimated,
+            latencyMs: Date.now() - start,
+            success: true,
+        });
+
+        return result.text;
+    } catch (error: any) {
         console.error("Parent update generation failed:", error);
+        void recordLlmUsage({
+            modelId,
+            provider: 'google',
+            operation: 'generateParentUpdate',
+            route: 'utils/parent-comms',
+            latencyMs: Date.now() - start,
+            success: false,
+            errorCode: error?.name || 'PARENT_UPDATE_ERROR',
+        });
         return `Subject: Update regarding ${context.studentName}\n\nDear Family,\n\nI wanted to share a quick update about ${context.studentName}. We are working on ${context.topic || 'their goals'} and I appreciate your partnership. Please contact me if you have questions.\n\nBest,\n[Teacher Name]`;
     }
 }

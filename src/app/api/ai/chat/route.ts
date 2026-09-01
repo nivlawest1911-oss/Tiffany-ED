@@ -4,6 +4,8 @@ import { queryEdIntelVault } from '@/lib/rag/rag-core';
 import { getBirthCertificate } from '@/lib/supabase';
 import { googleProvider, AI_MODELS } from '@/lib/ai-config';
 import { assertHumanRequest } from '@/lib/security/bot-gate';
+import { recordLlmUsage, extractUsageFromResult } from '@/lib/ai/token-meter';
+import { getSession } from '@/lib/auth';
 
 // BigQuery logic moved to proxy API to prevent SDK leakage
 export const runtime = 'nodejs';
@@ -11,8 +13,13 @@ export const runtime = 'nodejs';
 export async function POST(req: Request) {
     const start = Date.now();
     const requestId = req.headers.get('x-request-id') || `req_${Date.now()}`;
+    let authenticatedUserId: string | undefined;
+    let districtId: string | undefined;
 
     try {
+        const session = await getSession();
+        authenticatedUserId = session?.user?.id;
+        districtId = (session?.user as any)?.district || undefined;
         const gate = await assertHumanRequest(req, { routeName: 'ai/chat' });
         if (!gate.allowed && gate.response) {
             return gate.response;
@@ -88,6 +95,23 @@ export async function POST(req: Request) {
             8. Keep responses concise (under 3 sentences unless asked for a deep dive).`,
             messages,
             onFinish: async (event) => {
+                const usage = extractUsageFromResult(event);
+                void recordLlmUsage({
+                    modelId: AI_MODELS.GOOGLE.PRO,
+                    provider: 'google',
+                    operation: 'companionChatStream',
+                    route: 'api/ai/chat',
+                    inputTokens: usage.inputTokens,
+                    outputTokens: usage.outputTokens,
+                    totalTokens: usage.totalTokens,
+                    isEstimated: usage.isEstimated,
+                    latencyMs: Date.now() - start,
+                    userId: authenticatedUserId || undefined,
+                    districtId,
+                    requestId,
+                    success: true,
+                });
+
                 // Log Assistant Response to BigQuery via Proxy API
                 await logToBigQueryProxy({
                     role: 'assistant',
@@ -107,6 +131,18 @@ export async function POST(req: Request) {
         return result.toTextStreamResponse();
     } catch (error: any) {
         console.error(`[AI_CHAT_ERROR] (Request ID: ${requestId}):`, error?.message);
+        void recordLlmUsage({
+            modelId: AI_MODELS.GOOGLE.PRO,
+            provider: 'google',
+            operation: 'companionChatStream',
+            route: 'api/ai/chat',
+            latencyMs: Date.now() - start,
+            userId: authenticatedUserId || undefined,
+            districtId,
+            requestId,
+            success: false,
+            errorCode: error?.name || 'AI_CHAT_ERROR',
+        });
 
         return new Response(JSON.stringify({ error: 'Neural Link Interrupted', requestId }), {
             status: 500,

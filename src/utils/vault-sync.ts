@@ -3,6 +3,7 @@ import { generateObject } from 'ai';
 import { googleProvider, AI_MODELS } from '@/lib/ai-config';
 import { PortfolioComplianceSchema } from '@/lib/ai/signatures';
 import { z } from 'zod';
+import { recordLlmUsage, extractUsageFromResult } from '@/lib/ai/token-meter';
 
 export type PortfolioCompliance = z.infer<typeof PortfolioComplianceSchema>;
 
@@ -34,9 +35,12 @@ export async function uploadPortfolioToVault(
 }
 
 export async function validateCompliance(portfolioText: string): Promise<PortfolioCompliance> {
+    const start = Date.now();
+    const modelId = AI_MODELS.GOOGLE.PRO;
+
     try {
-        const { object } = await generateObject({
-            model: googleProvider(AI_MODELS.GOOGLE.PRO),
+        const result = await generateObject({
+            model: googleProvider(modelId),
             schema: PortfolioComplianceSchema,
             system: `You are the Sentinel Auditor for EdIntel. 
       Your job is to verify that the Student Portfolio narrative complies with Alabama State Code for Special Education.
@@ -51,9 +55,32 @@ export async function validateCompliance(portfolioText: string): Promise<Portfol
             prompt: `Review this text: "${portfolioText}"`,
         });
 
-        return object;
-    } catch (error) {
+        const usage = extractUsageFromResult(result);
+        void recordLlmUsage({
+            modelId,
+            provider: 'google',
+            operation: 'validateCompliance',
+            route: 'utils/vault-sync',
+            inputTokens: usage.inputTokens,
+            outputTokens: usage.outputTokens,
+            totalTokens: usage.totalTokens,
+            isEstimated: usage.isEstimated,
+            latencyMs: Date.now() - start,
+            success: true,
+        });
+
+        return result.object;
+    } catch (error: any) {
         console.error("Compliance check failed:", error);
+        void recordLlmUsage({
+            modelId,
+            provider: 'google',
+            operation: 'validateCompliance',
+            route: 'utils/vault-sync',
+            latencyMs: Date.now() - start,
+            success: false,
+            errorCode: error?.name || 'COMPLIANCE_CHECK_ERROR',
+        });
         // Fail safe: assume non-compliant if check fails to force manual review
         return { compliant: false, issues: ["Automated compliance check failed. Manual review required."] };
     }

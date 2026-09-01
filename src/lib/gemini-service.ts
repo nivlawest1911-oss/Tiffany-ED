@@ -3,7 +3,7 @@ import Replicate from "replicate";
 import { put } from "@vercel/blob";
 import { UserContext, protocolRouter } from "./protocol-router";
 import { getGoogleAIKey, AI_MODELS } from "@/lib/ai-config";
-import { recordLlmUsage } from "@/lib/ai/token-meter";
+import { recordLlmUsage, estimateTokens } from "@/lib/ai/token-meter";
 
 const getApiKey = () => getGoogleAIKey();
 
@@ -135,6 +135,9 @@ export class GeminiService {
     }
 
     async generateMultimodal(prompt: string, mediaData: { data: string; mimeType: string }[]) {
+        const start = Date.now();
+        const currentModel = this.model?.model || GEMINI_CONFIG.model;
+
         const parts = [
             { text: prompt },
             ...mediaData.map(m => ({
@@ -142,12 +145,45 @@ export class GeminiService {
             }))
         ];
 
-        const result = await this.model.generateContent(parts);
-        const response = await result.response;
-        return response.text();
+        try {
+            const result = await this.model.generateContent(parts);
+            const response = await result.response;
+            const latencyMs = Date.now() - start;
+
+            const usageMeta = (response as any)?.usageMetadata;
+            const inputTokens = usageMeta?.promptTokenCount || 0;
+            const outputTokens = usageMeta?.candidatesTokenCount || 0;
+            const totalTokens = usageMeta?.totalTokenCount || (inputTokens + outputTokens);
+
+            void recordLlmUsage({
+                modelId: currentModel,
+                provider: 'google',
+                operation: 'generateMultimodal',
+                inputTokens,
+                outputTokens,
+                totalTokens,
+                latencyMs,
+                success: true,
+            });
+
+            return response.text();
+        } catch (error: any) {
+            void recordLlmUsage({
+                modelId: currentModel,
+                provider: 'google',
+                operation: 'generateMultimodal',
+                latencyMs: Date.now() - start,
+                success: false,
+                errorCode: error?.name || 'GENERATE_MULTIMODAL_ERROR',
+            });
+            throw error;
+        }
     }
 
     async streamText(prompt: string, history: any[] = []) {
+        const start = Date.now();
+        const currentModel = this.model?.model || GEMINI_CONFIG.model;
+
         const chat = this.model.startChat({
             history: history.map(h => ({
                 role: h.role === 'user' ? 'user' : 'model',
@@ -155,7 +191,54 @@ export class GeminiService {
             })),
         });
 
-        return await chat.sendMessageStream(prompt);
+        try {
+            const streamResult = await chat.sendMessageStream(prompt);
+            const inputTokens = estimateTokens(prompt + history.map(h => h.content).join(' '));
+
+            // Background meter upon response resolution
+            streamResult.response.then((res: any) => {
+                const usageMeta = (res as any)?.usageMetadata;
+                const outTokens = usageMeta?.candidatesTokenCount || estimateTokens(res.text() || '');
+                const inTokens = usageMeta?.promptTokenCount || inputTokens;
+                const totTokens = usageMeta?.totalTokenCount || (inTokens + outTokens);
+
+                void recordLlmUsage({
+                    modelId: currentModel,
+                    provider: 'google',
+                    operation: 'geminiStreamText',
+                    route: 'lib/gemini-service',
+                    inputTokens: inTokens,
+                    outputTokens: outTokens,
+                    totalTokens: totTokens,
+                    isEstimated: !usageMeta,
+                    latencyMs: Date.now() - start,
+                    success: true,
+                });
+            }).catch((err: any) => {
+                void recordLlmUsage({
+                    modelId: currentModel,
+                    provider: 'google',
+                    operation: 'geminiStreamText',
+                    route: 'lib/gemini-service',
+                    latencyMs: Date.now() - start,
+                    success: false,
+                    errorCode: err?.name || 'STREAM_TEXT_ERROR',
+                });
+            });
+
+            return streamResult;
+        } catch (error: any) {
+            void recordLlmUsage({
+                modelId: currentModel,
+                provider: 'google',
+                operation: 'geminiStreamText',
+                route: 'lib/gemini-service',
+                latencyMs: Date.now() - start,
+                success: false,
+                errorCode: error?.name || 'STREAM_TEXT_INIT_ERROR',
+            });
+            throw error;
+        }
     }
 
     // --- NEW: ADVANCED GENERATION METHODS ---

@@ -1,7 +1,8 @@
-﻿import { generateObject } from 'ai';
+import { generateObject } from 'ai';
 import { googleProvider, AI_MODELS } from '@/lib/ai-config';
 import { GrowthNarrativeSchema } from '@/lib/ai/signatures';
 import { z } from 'zod';
+import { recordLlmUsage, extractUsageFromResult } from '@/lib/ai/token-meter';
 
 export type GrowthNarrative = z.infer<typeof GrowthNarrativeSchema>;
 
@@ -66,6 +67,9 @@ export async function aggregateStudentData(studentId: string): Promise<StudentPo
 }
 
 export async function generateGrowthNarrative(data: StudentPortfolioData): Promise<GrowthNarrative> {
+    const startTime = Date.now();
+    const modelId = AI_MODELS.GOOGLE.PRO;
+
     try {
         const prompt = `
       Act as Tiffany, a veteran Special Education Director and Master Teacher.
@@ -86,15 +90,39 @@ export async function generateGrowthNarrative(data: StudentPortfolioData): Promi
       - Include actionable next steps for the next grade level.
     `;
 
-        const { object } = await generateObject({
-            model: googleProvider(AI_MODELS.GOOGLE.PRO),
+        const result = await generateObject({
+            model: googleProvider(modelId),
             schema: GrowthNarrativeSchema,
             prompt: prompt,
         });
 
-        return object;
-    } catch (error) {
+        const usage = extractUsageFromResult(result);
+        void recordLlmUsage({
+            modelId,
+            provider: 'google',
+            operation: 'generateGrowthNarrative',
+            route: 'tiffany/portfolio',
+            inputTokens: usage.inputTokens,
+            outputTokens: usage.outputTokens,
+            totalTokens: usage.totalTokens,
+            isEstimated: usage.isEstimated,
+            latencyMs: Date.now() - startTime,
+            success: true,
+        });
+
+        return result.object;
+    } catch (error: any) {
         console.error('Error generating narrative, using fallback:', error);
+        void recordLlmUsage({
+            modelId,
+            provider: 'google',
+            operation: 'generateGrowthNarrative',
+            route: 'tiffany/portfolio',
+            latencyMs: Date.now() - startTime,
+            success: false,
+            errorCode: error?.name || 'GROWTH_NARRATIVE_ERROR',
+        });
+
         return {
             executiveSummary: `${data.studentName} is showing steady progress and developmental growth.`,
             strengths: ["Resilience", "Engagement", "Consistency"],

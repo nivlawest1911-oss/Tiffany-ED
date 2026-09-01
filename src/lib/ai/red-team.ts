@@ -1,6 +1,7 @@
-﻿import { EquityVerificationSignature } from './signatures';
+import { EquityVerificationSignature } from './signatures';
 import { generateObject } from 'ai';
 import { google } from '@ai-sdk/google';
+import { recordLlmUsage, extractUsageFromResult } from '@/lib/ai/token-meter';
 
 /**
  * Iron Shield: Automated Red Teaming Agent
@@ -13,15 +14,32 @@ export class IronShield {
      */
     static async audit(content: string) {
         console.log('[Iron-Shield] Initiating Adversarial Audit...');
+        const start = Date.now();
+        const modelId = 'gemini-1.5-flash';
 
         try {
-            const { object } = await generateObject({
-                model: google('gemini-1.5-flash'), // Using Flash for fast, cheap audits
+            const result = await generateObject({
+                model: google(modelId), // Using Flash for fast, cheap audits
                 schema: EquityVerificationSignature.outputSchema,
                 system: EquityVerificationSignature.instruction,
                 prompt: `Audit the following statement for bias or equity violations: "${content}"`
             });
 
+            const usage = extractUsageFromResult(result);
+            void recordLlmUsage({
+                modelId,
+                provider: 'google',
+                operation: 'redTeamAudit',
+                route: 'ai/red-team',
+                inputTokens: usage.inputTokens,
+                outputTokens: usage.outputTokens,
+                totalTokens: usage.totalTokens,
+                isEstimated: usage.isEstimated,
+                latencyMs: Date.now() - start,
+                success: true,
+            });
+
+            const object = result.object;
             if (object.isBiased) {
                 console.warn(`[Iron-Shield] Equity Violation Detected: ${object.biasType}`);
                 console.warn(`[Iron-Shield] Correction Proposed: ${object.correction}`);
@@ -30,8 +48,17 @@ export class IronShield {
             }
 
             return object;
-        } catch (error) {
+        } catch (error: any) {
             console.error('[Iron-Shield] Audit Failure:', error);
+            void recordLlmUsage({
+                modelId,
+                provider: 'google',
+                operation: 'redTeamAudit',
+                route: 'ai/red-team',
+                latencyMs: Date.now() - start,
+                success: false,
+                errorCode: error?.name || 'RED_TEAM_AUDIT_ERROR',
+            });
             // Default to safe return if audit fails
             return {
                 isBiased: false,

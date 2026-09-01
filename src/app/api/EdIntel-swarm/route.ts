@@ -3,6 +3,8 @@ import { streamText } from 'ai';
 import { openaiProvider, AI_MODELS } from '@/lib/ai-config';
 import { rateLimit } from '@/lib/EdIntel-connections';
 import { assertHumanRequest } from '@/lib/security/ironshield-gate';
+import { recordLlmUsage, extractUsageFromResult } from '@/lib/ai/token-meter';
+import { getSession } from '@/lib/auth';
 
 // Initialize Supabase client
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -13,7 +15,13 @@ const _supabase = supabaseUrl && supabaseKey
     : null;
 
 export async function POST(req: Request) {
+    const start = Date.now();
+    const modelId = AI_MODELS.OPENAI.PRIMARY;
+
     try {
+        const session = await getSession();
+        const authenticatedUserId = session?.user?.id;
+
         const gate = await assertHumanRequest(req, { routeName: 'EdIntel-swarm' });
         if (!gate.allowed && gate.response) {
             return gate.response;
@@ -40,13 +48,9 @@ export async function POST(req: Request) {
             console.warn('Rate Limit Check Failed (Fail Open):', e);
         }
 
-        const { intent, userId: _userId, loadScore, context } = await req.json();
+        const { intent, loadScore, context } = await req.json();
 
         // 1. NEURAL MAPPING: Connect to the 100+ Engine Hub (Simulated or Real RPC)
-        // In a real scenario, this would fetch active engines from Supabase
-        // const { data: engines } = await supabase.rpc('get_active_engines', { user_id: userId });
-
-        // For now, we simulate the EdIntel Engine context
         const _engines = ['Literacy_Engine_Alpha', 'Behavior_Reform_Module', 'Executive_Briefing_Node'];
 
         // 2. DECISION FATIGUE FILTER
@@ -75,15 +79,40 @@ export async function POST(req: Request) {
         // 3. GENERATIVE OUTPUT
         // Using Vercel AI SDK to stream the response
         const result = streamText({
-            model: openaiProvider(AI_MODELS.OPENAI.PRIMARY),
+            model: openaiProvider(modelId),
             system: systemPrompt,
             prompt: `Execute protocol for: ${intent}.`,
+            onFinish: (event) => {
+                const usage = extractUsageFromResult(event);
+                void recordLlmUsage({
+                    modelId,
+                    provider: 'openai',
+                    operation: 'EdIntelSwarmStream',
+                    route: 'api/EdIntel-swarm',
+                    inputTokens: usage.inputTokens,
+                    outputTokens: usage.outputTokens,
+                    totalTokens: usage.totalTokens,
+                    isEstimated: usage.isEstimated,
+                    latencyMs: Date.now() - start,
+                    userId: authenticatedUserId || undefined,
+                    success: true,
+                });
+            },
         });
 
         return result.toTextStreamResponse();
 
-    } catch (error) {
+    } catch (error: any) {
         console.error('EdIntel Swarm Error:', error);
+        void recordLlmUsage({
+            modelId,
+            provider: 'openai',
+            operation: 'EdIntelSwarmStream',
+            route: 'api/EdIntel-swarm',
+            latencyMs: Date.now() - start,
+            success: false,
+            errorCode: error?.name || 'SWARM_STREAM_ERROR',
+        });
         return new Response(JSON.stringify({ error: 'EdIntel Swarm Uplink Failed' }), {
             status: 500,
             headers: { 'Content-Type': 'application/json' },

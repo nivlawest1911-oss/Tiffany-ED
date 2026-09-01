@@ -313,6 +313,7 @@ export class IntelligenceEngine {
     async generateWithFailover(systemPrompt: string, userPrompt: string, modelTier: 'standard' | 'premium' = 'standard') {
         const errors: any[] = [];
         const TIMEOUT_MS = 15000; // 15s Hard Timeout for AI calls
+        const start = Date.now();
 
         const withTimeout = (promise: Promise<any>, ms: number, provider: string) => {
             return Promise.race([
@@ -322,11 +323,10 @@ export class IntelligenceEngine {
         };
 
         // 1. Primary Vector: OpenAI (GPT-4o / GPT-4o-mini)
+        const openaiModel = modelTier === 'premium' ? AI_MODELS.OPENAI.PRIMARY : AI_MODELS.OPENAI.ROUTINE;
         try {
             const openai = getOpenAIClient();
             if (!openai) throw new Error("OpenAI Key Missing");
-
-            const model = modelTier === 'premium' ? AI_MODELS.OPENAI.PRIMARY : AI_MODELS.OPENAI.ROUTINE;
 
             const completion = await withTimeout(
                 openai.chat.completions.create({
@@ -334,30 +334,54 @@ export class IntelligenceEngine {
                         { role: "system", content: systemPrompt },
                         { role: "user", content: userPrompt }
                     ],
-                    model: model,
+                    model: openaiModel,
                     temperature: 0.7,
                 }),
                 TIMEOUT_MS,
                 'OpenAI'
             );
 
+            const inputTokens = completion.usage?.prompt_tokens || 0;
+            const outputTokens = completion.usage?.completion_tokens || 0;
+            const totalTokens = completion.usage?.total_tokens || (inputTokens + outputTokens);
+
+            void recordLlmUsage({
+                modelId: openaiModel,
+                provider: 'openai',
+                operation: 'generateWithFailover',
+                inputTokens,
+                outputTokens,
+                totalTokens,
+                latencyMs: Date.now() - start,
+                success: true,
+            });
+
             return {
                 content: completion.choices[0].message.content,
                 provider: 'openai',
-                model: model
+                model: openaiModel
             };
 
         } catch (err: any) {
             console.warn(`[AI Failover] Primary (${modelTier}) failed. Switching to Secondary. Reason: ${err.message}`);
             errors.push({ provider: 'openai', error: err.message });
+            void recordLlmUsage({
+                modelId: openaiModel,
+                provider: 'openai',
+                operation: 'generateWithFailover',
+                latencyMs: Date.now() - start,
+                success: false,
+                errorCode: err?.name || 'PRIMARY_FAILOVER',
+            });
         }
 
         // 2. Secondary Vector: Google Gemini (Flash / Pro)
+        const googleStart = Date.now();
+        const modelName = modelTier === 'premium' ? AI_MODELS.GOOGLE.PRO : AI_MODELS.GOOGLE.FLASH;
         try {
             const genAI = getGoogleGenAIClient();
             if (!genAI) throw new Error("Google AI Key Missing");
 
-            const modelName = modelTier === 'premium' ? AI_MODELS.GOOGLE.PRO : AI_MODELS.GOOGLE.FLASH;
             const model = genAI.getGenerativeModel({
                 model: modelName,
                 systemInstruction: systemPrompt
@@ -370,6 +394,21 @@ export class IntelligenceEngine {
             );
 
             const response = result.response;
+            const usageMeta = (response as any)?.usageMetadata;
+            const inputTokens = usageMeta?.promptTokenCount || 0;
+            const outputTokens = usageMeta?.candidatesTokenCount || 0;
+            const totalTokens = usageMeta?.totalTokenCount || (inputTokens + outputTokens);
+
+            void recordLlmUsage({
+                modelId: modelName,
+                provider: 'google',
+                operation: 'generateWithFailover',
+                inputTokens,
+                outputTokens,
+                totalTokens,
+                latencyMs: Date.now() - googleStart,
+                success: true,
+            });
 
             return {
                 content: response.text(),
@@ -380,6 +419,14 @@ export class IntelligenceEngine {
         } catch (err: any) {
             console.warn(`[AI Failover] Secondary failed. Switching to Emergency Fallback. Reason: ${err.message}`);
             errors.push({ provider: 'google', error: err.message });
+            void recordLlmUsage({
+                modelId: modelName,
+                provider: 'google',
+                operation: 'generateWithFailover',
+                latencyMs: Date.now() - googleStart,
+                success: false,
+                errorCode: err?.name || 'SECONDARY_FAILOVER',
+            });
         }
 
         // 3. Emergency Fallback: Safe Mode

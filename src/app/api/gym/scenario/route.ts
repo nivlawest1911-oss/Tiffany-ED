@@ -3,11 +3,20 @@ import { generateObject } from 'ai';
 import { googleProvider, AI_MODELS } from '@/lib/ai-config';
 import { GymScenarioSchema } from '@/lib/ai/signatures';
 import { assertHumanRequest } from '@/lib/security/bot-gate';
+import { recordLlmUsage, extractUsageFromResult } from '@/lib/ai/token-meter';
+import { getSession } from '@/lib/auth';
 
 export const runtime = 'nodejs';
 
 export async function GET(req: Request) {
+    const startTime = Date.now();
+    const modelId = AI_MODELS.GOOGLE.FLASH;
+
     try {
+        const session = await getSession();
+        const authenticatedUserId = session?.user?.id;
+        const districtId = (session?.user as any)?.district || undefined;
+
         const gate = await assertHumanRequest(req, { routeName: 'gym/scenario' });
         if (!gate.allowed && gate.response) {
             return gate.response;
@@ -25,16 +34,43 @@ Examples:
 - Resilience Zone: A scenario testing emotional endurance dealing with hostile stakeholders or a severe public relations issue.
 - Memory Vault: A situation requiring the recall and application of specific compliance codes (IDEA, FERPA) to a nuanced case.`;
 
-        const { object } = await generateObject({
-            model: googleProvider(AI_MODELS.GOOGLE.FLASH),
+        const result = await generateObject({
+            model: googleProvider(modelId),
             schema: GymScenarioSchema,
             prompt,
         });
 
-        return NextResponse.json(object);
+        const usage = extractUsageFromResult(result);
+        void recordLlmUsage({
+            modelId,
+            provider: 'google',
+            operation: 'generateGymScenario',
+            route: 'gym/scenario',
+            inputTokens: usage.inputTokens,
+            outputTokens: usage.outputTokens,
+            totalTokens: usage.totalTokens,
+            isEstimated: usage.isEstimated,
+            latencyMs: Date.now() - startTime,
+            userId: authenticatedUserId || undefined,
+            districtId,
+            success: true,
+            metadata: { zone },
+        });
+
+        return NextResponse.json(result.object);
 
     } catch (error: any) {
         console.error("Gym Scenario API Error:", error);
+        void recordLlmUsage({
+            modelId,
+            provider: 'google',
+            operation: 'generateGymScenario',
+            route: 'gym/scenario',
+            latencyMs: Date.now() - startTime,
+            success: false,
+            errorCode: error?.name || 'GYM_SCENARIO_ERROR',
+        });
+
         return NextResponse.json(
             { error: error.message || 'Failed to generate scenario' },
             { status: 500 }
