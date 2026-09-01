@@ -215,65 +215,99 @@ export class MetaAIClient {
      * Chat completion for Replicate
      */
     private async chatReplicate(request: ChatCompletionRequest, options?: { signal?: AbortSignal }): Promise<ChatCompletionResponse> {
+        const start = Date.now();
+        const modelId = request.model || this.model;
+
         // Format messages for Replicate
         const prompt = request.messages
             .map(m => `${m.role}: ${m.content}`)
             .join('\n\n');
 
-        const response = await this.request('/predictions', {
-            method: 'POST',
-            body: JSON.stringify({
-                version: this.model,
-                input: {
-                    prompt,
-                    max_tokens: request.max_tokens || 2048,
-                    temperature: request.temperature || 0.7,
-                },
-            }),
-            signal: options?.signal
-        });
-
-        // Poll for completion
-        const prediction: any = response;
-        let attempts = 0;
-
-        while (attempts < 60 && prediction.status !== 'succeeded') {
-            if (options?.signal?.aborted) {
-                throw new DOMException('Aborted', 'AbortError');
-            }
-
-            // Wait 1s with abort support
-            await new Promise((resolve, reject) => {
-                const timeout = setTimeout(resolve, 1000);
-                if (options?.signal) {
-                    options.signal.addEventListener('abort', () => {
-                        clearTimeout(timeout);
-                        reject(new DOMException('Aborted', 'AbortError'));
-                    }, { once: true });
-                }
-            });
-
-            const status = await this.request(`/predictions/${prediction.id}`, {
+        try {
+            const response = await this.request('/predictions', {
+                method: 'POST',
+                body: JSON.stringify({
+                    version: modelId,
+                    input: {
+                        prompt,
+                        max_tokens: request.max_tokens || 2048,
+                        temperature: request.temperature || 0.7,
+                    },
+                }),
                 signal: options?.signal
             });
-            Object.assign(prediction, status);
-            attempts++;
-        }
 
-        if (prediction.status !== 'succeeded' && !options?.signal?.aborted) {
-            throw new Error(`Replicate prediction failed or timed out: ${prediction.status}`);
-        }
+            // Poll for completion
+            const prediction: any = response;
+            let attempts = 0;
 
-        return {
-            id: prediction.id,
-            choices: [{
-                message: {
-                    role: 'assistant',
-                    content: prediction.output?.join('') || '',
-                },
-                finish_reason: 'stop',
-            }],
-        };
+            while (attempts < 60 && prediction.status !== 'succeeded') {
+                if (options?.signal?.aborted) {
+                    throw new DOMException('Aborted', 'AbortError');
+                }
+
+                // Wait 1s with abort support
+                await new Promise((resolve, reject) => {
+                    const timeout = setTimeout(resolve, 1000);
+                    if (options?.signal) {
+                        options.signal.addEventListener('abort', () => {
+                            clearTimeout(timeout);
+                            reject(new DOMException('Aborted', 'AbortError'));
+                        }, { once: true });
+                    }
+                });
+
+                const status = await this.request(`/predictions/${prediction.id}`, {
+                    signal: options?.signal
+                });
+                Object.assign(prediction, status);
+                attempts++;
+            }
+
+            if (prediction.status !== 'succeeded' && !options?.signal?.aborted) {
+                throw new Error(`Replicate prediction failed or timed out: ${prediction.status}`);
+            }
+
+            const outputText = prediction.output?.join('') || '';
+            const inputTokens = estimateTokens(prompt);
+            const outputTokens = estimateTokens(outputText);
+            const totalTokens = inputTokens + outputTokens;
+
+            void recordLlmUsage({
+                modelId,
+                provider: 'replicate',
+                operation: 'metaAiChatReplicate',
+                route: 'meta-ai/chat',
+                inputTokens,
+                outputTokens,
+                totalTokens,
+                isEstimated: true,
+                latencyMs: Date.now() - start,
+                success: true,
+            });
+
+            return {
+                id: prediction.id,
+                choices: [{
+                    message: {
+                        role: 'assistant',
+                        content: outputText,
+                    },
+                    finish_reason: 'stop',
+                }],
+            };
+        } catch (error: any) {
+            void recordLlmUsage({
+                modelId,
+                provider: 'replicate',
+                operation: 'metaAiChatReplicate',
+                route: 'meta-ai/chat',
+                latencyMs: Date.now() - start,
+                success: false,
+                errorCode: error?.name || 'REPLICATE_CHAT_ERROR',
+            });
+            throw error;
+        }
     }
 
     /**
@@ -282,6 +316,8 @@ export class MetaAIClient {
     async *chatStream(request: ChatCompletionRequest): AsyncGenerator<string> {
         const start = Date.now();
         const modelId = request.model || this.model;
+        const promptText = request.messages ? request.messages.map(m => `${m.role}: ${m.content}`).join('\n') : '';
+        const inputTokens = estimateTokens(promptText);
         let streamedText = '';
 
         try {
@@ -321,13 +357,15 @@ export class MetaAIClient {
                         const data = line.slice(6);
                         if (data === '[DONE]') {
                             const outputTokens = estimateTokens(streamedText);
+                            const totalTokens = inputTokens + outputTokens;
                             void recordLlmUsage({
                                 modelId,
                                 provider: this.provider,
                                 operation: 'chatStream',
                                 route: 'meta-ai/chatStream',
+                                inputTokens,
                                 outputTokens,
-                                totalTokens: outputTokens,
+                                totalTokens,
                                 isEstimated: true,
                                 latencyMs: Date.now() - start,
                                 success: true,
@@ -350,13 +388,15 @@ export class MetaAIClient {
             }
 
             const outputTokens = estimateTokens(streamedText);
+            const totalTokens = inputTokens + outputTokens;
             void recordLlmUsage({
                 modelId,
                 provider: this.provider,
                 operation: 'chatStream',
                 route: 'meta-ai/chatStream',
+                inputTokens,
                 outputTokens,
-                totalTokens: outputTokens,
+                totalTokens,
                 isEstimated: true,
                 latencyMs: Date.now() - start,
                 success: true,

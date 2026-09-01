@@ -15,6 +15,7 @@ import { sql } from '@vercel/postgres';
 import { z } from 'zod';
 import { withResilience, ALABAMA_STRATEGIC_DIRECTIVE } from '@/lib/ai-resilience';
 import { recordLlmUsage, extractUsageFromResult } from '@/lib/ai/token-meter';
+import { getSession } from '@/lib/auth';
 
 // Import Generative UI Components
 import { EvidenceFolderCard } from '@/components/artifacts/EvidenceFolderCard';
@@ -51,9 +52,13 @@ export async function startEdIntelSession(
     previousThoughtSignature?: string
 ) {
     try {
+        const session = await getSession();
+        const authenticatedUserId = session?.user?.id;
+        const effectiveUserId = authenticatedUserId || userId;
+
         // Check token balance
         const { rows: balanceRows } = await sql`
-      SELECT current_tokens FROM user_balances WHERE user_id = ${userId}
+      SELECT current_tokens FROM user_balances WHERE user_id = ${effectiveUserId}
     `;
 
         if (!balanceRows[0] || balanceRows[0].current_tokens < 1) {
@@ -189,7 +194,7 @@ export async function startEdIntelSession(
                         outputTokens: extracted.outputTokens,
                         totalTokens: extracted.totalTokens,
                         isEstimated: extracted.isEstimated,
-                        userId,
+                        userId: authenticatedUserId || undefined,
                         success: true,
                     });
 
@@ -204,7 +209,7 @@ export async function startEdIntelSession(
                 vertex_ai_model
               )
               VALUES (
-                ${userId},
+                ${effectiveUserId},
                 'Dr. Alvin West',
                 'Professional Educational Intelligence',
                 ${JSON.stringify([...conversationHistory, { role: 'assistant', thoughtSignature }])}::jsonb,
@@ -272,6 +277,8 @@ export async function startLiveChat(
 ) {
     const start = Date.now();
     const modelId = 'gemini-1.5-flash';
+    const session = await getSession();
+    const authenticatedUserId = session?.user?.id;
 
     const result = await withResilience(async () => {
         return await streamText({
@@ -297,7 +304,7 @@ export async function startLiveChat(
                     totalTokens: usage.totalTokens,
                     isEstimated: usage.isEstimated,
                     latencyMs: Date.now() - start,
-                    userId,
+                    userId: authenticatedUserId || undefined,
                     success: true,
                 });
             },

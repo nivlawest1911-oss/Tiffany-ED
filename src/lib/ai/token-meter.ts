@@ -511,6 +511,77 @@ export async function getRouteUsageAggregates(options: {
 }
 
 /**
+ * Returns aggregated LLM usage metrics grouped by organization / district.
+ */
+export async function getOrgUsageAggregates(orgId: string, options: {
+  from?: Date;
+  to?: Date;
+} = {}): Promise<{
+  orgId: string;
+  totalRequests: number;
+  totalTokens: number;
+  inputTokens: number;
+  outputTokens: number;
+  modelsUsed: string[];
+}> {
+  try {
+    const prisma = await getPrismaClient();
+    if (!prisma || !(prisma as any).llmUsageEvent?.findMany) {
+      return { orgId, totalRequests: 0, totalTokens: 0, inputTokens: 0, outputTokens: 0, modelsUsed: [] };
+    }
+
+    const where: any = {
+      OR: [
+        { metadata: { path: ['orgId'], equals: orgId } },
+        { metadata: { path: ['districtId'], equals: orgId } },
+      ],
+    };
+
+    if (options.from || options.to) {
+      where.createdAt = {};
+      if (options.from) where.createdAt.gte = options.from;
+      if (options.to) where.createdAt.lte = options.to;
+    }
+
+    const events = await (prisma as any).llmUsageEvent.findMany({
+      where,
+      select: {
+        modelId: true,
+        inputTokens: true,
+        outputTokens: true,
+        totalTokens: true,
+      },
+    });
+
+    const modelsSet = new Set<string>();
+    let totalRequests = 0;
+    let totalTokens = 0;
+    let inputTokens = 0;
+    let outputTokens = 0;
+
+    for (const ev of events) {
+      totalRequests += 1;
+      inputTokens += ev.inputTokens || 0;
+      outputTokens += ev.outputTokens || 0;
+      totalTokens += ev.totalTokens || 0;
+      if (ev.modelId) modelsSet.add(ev.modelId);
+    }
+
+    return {
+      orgId,
+      totalRequests,
+      totalTokens,
+      inputTokens,
+      outputTokens,
+      modelsUsed: Array.from(modelsSet),
+    };
+  } catch (err) {
+    console.error('[TokenMeter:OrgAggregateError]', err);
+    return { orgId, totalRequests: 0, totalTokens: 0, inputTokens: 0, outputTokens: 0, modelsUsed: [] };
+  }
+}
+
+/**
  * Checks if a user or organization has exceeded their soft token quota.
  * Default is meter-only mode (returns allowed: true unless ENFORCE_LLM_SOFT_QUOTA=true).
  */
@@ -529,7 +600,10 @@ export async function checkSoftQuota(options: SoftQuotaOptions): Promise<SoftQuo
   let currentUsage = 0;
 
   try {
-    if (options.userId) {
+    if (options.orgId) {
+      const orgAggs = await getOrgUsageAggregates(options.orgId, { from });
+      currentUsage = orgAggs.totalTokens;
+    } else if (options.userId) {
       const userAggs = await getUserUsageAggregates(options.userId, { from });
       currentUsage = userAggs.totalTokens;
     }
@@ -548,7 +622,7 @@ export async function checkSoftQuota(options: SoftQuotaOptions): Promise<SoftQuo
       limit,
       remaining: Math.max(0, limit - currentUsage),
       enforced: true,
-      reason: `Monthly token soft quota of ${limit.toLocaleString()} exceeded (Current: ${currentUsage.toLocaleString()})`,
+      reason: `${options.orgId ? 'Organization' : 'User'} monthly token soft quota of ${limit.toLocaleString()} exceeded (Current: ${currentUsage.toLocaleString()})`,
     };
   }
 

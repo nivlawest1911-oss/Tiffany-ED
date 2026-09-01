@@ -92,6 +92,7 @@ async function runTests() {
     { modelId: 'gemini-1.5-pro', provider: 'google', operation: 'generateBurnoutResponse', route: 'services/burnout-service' },
     { modelId: 'gpt-4o', provider: 'openai', operation: 'antigravityOrchestration', route: 'lib/antigravity-orchestrator' },
     { modelId: 'meta-llama/Llama-3.3-70B-Instruct-Turbo', provider: 'together', operation: 'metaAiChat', route: 'meta-ai/chat' },
+    { modelId: 'meta/llama-2-70b-chat', provider: 'replicate', operation: 'metaAiChatReplicate', route: 'meta-ai/chat' },
     { modelId: 'gemini-2.0-flash', provider: 'google', operation: 'workspaceAnalyzeContent', route: 'lib/gemini/workspace' },
     { modelId: 'gemini-2.0-flash', provider: 'google', operation: 'phoneAgentProcessInput', route: 'lib/phone/agent' },
   ];

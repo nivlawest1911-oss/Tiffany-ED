@@ -4,6 +4,7 @@ import { googleProvider, AI_MODELS } from '@/lib/ai-config';
 import { GymScenarioSchema } from '@/lib/ai/signatures';
 import { assertHumanRequest } from '@/lib/security/bot-gate';
 import { recordLlmUsage, extractUsageFromResult } from '@/lib/ai/token-meter';
+import { getSession } from '@/lib/auth';
 
 export const runtime = 'nodejs';
 
@@ -12,6 +13,10 @@ export async function GET(req: Request) {
     const modelId = AI_MODELS.GOOGLE.FLASH;
 
     try {
+        const session = await getSession();
+        const authenticatedUserId = session?.user?.id;
+        const districtId = (session?.user as any)?.district || undefined;
+
         const gate = await assertHumanRequest(req, { routeName: 'gym/scenario' });
         if (!gate.allowed && gate.response) {
             return gate.response;
@@ -46,6 +51,8 @@ Examples:
             totalTokens: usage.totalTokens,
             isEstimated: usage.isEstimated,
             latencyMs: Date.now() - startTime,
+            userId: authenticatedUserId || undefined,
+            districtId,
             success: true,
             metadata: { zone },
         });

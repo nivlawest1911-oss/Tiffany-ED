@@ -32,6 +32,7 @@ export async function GET(req: NextRequest) {
     const groupBy = searchParams.get('groupBy') || 'model';
     const modelId = searchParams.get('modelId') || undefined;
     const targetUserId = searchParams.get('userId') || undefined;
+    const orgId = searchParams.get('orgId') || undefined;
     const route = searchParams.get('route') || undefined;
     const fromParam = searchParams.get('from');
     const toParam = searchParams.get('to');
@@ -40,10 +41,16 @@ export async function GET(req: NextRequest) {
     const from = fromParam ? new Date(fromParam) : undefined;
     const to = toParam ? new Date(toParam) : undefined;
 
+    // Check administrative privilege to prevent IDOR on telemetry ownership
+    const isAdmin = (user as any).role === 'admin' || (user as any).role === 'director' || (user as any).position === 'Superintendent';
+    const effectiveUserId = isAdmin ? (targetUserId || user.id) : user.id;
+    const effectiveOrgId = isAdmin ? orgId : ((user as any).district || undefined);
+
     // Optional Soft Quota Check
     if (quotaCheck) {
       const quotaResult = await checkSoftQuota({
-        userId: targetUserId || user.id,
+        userId: effectiveUserId,
+        orgId: effectiveOrgId,
       });
       return NextResponse.json({
         success: true,
@@ -70,8 +77,8 @@ export async function GET(req: NextRequest) {
     }
 
     // Group By User
-    if (groupBy === 'user' && (targetUserId || user.id)) {
-      const userData = await getUserUsageAggregates(targetUserId || user.id, { from, to });
+    if (groupBy === 'user') {
+      const userData = await getUserUsageAggregates(effectiveUserId, { from, to });
       return NextResponse.json({
         success: true,
         groupBy: 'user',
@@ -88,7 +95,7 @@ export async function GET(req: NextRequest) {
       from,
       to,
       modelId,
-      userId: targetUserId,
+      userId: isAdmin ? targetUserId : user.id,
       route,
     });
 

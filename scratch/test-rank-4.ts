@@ -3,8 +3,7 @@ import {
   withGovernanceEnvelope, 
   assertHumanFinalized, 
   isHighStakes, 
-  AI_DISCLOSURE_NOTICE,
-  HIGH_STAKES_DOMAINS 
+  AI_DISCLOSURE_NOTICE
 } from '../src/lib/ai/governance-gate';
 
 async function runTests() {

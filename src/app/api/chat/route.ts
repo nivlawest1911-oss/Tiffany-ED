@@ -4,6 +4,7 @@ import { streamText } from 'ai';
 import { ALABAMA_STRATEGIC_DIRECTIVE, EdIntel_PERSONA, SOVEREIGN_PERSONAS, type Persona } from '@/lib/ai-resilience';
 import { assertHumanRequest } from '@/lib/security/bot-gate';
 import { recordLlmUsage, extractUsageFromResult } from '@/lib/ai/token-meter';
+import { getSession } from '@/lib/auth';
 
 export const runtime = 'nodejs';
 
@@ -19,8 +20,14 @@ const USER_CREDENTIALS = {
 export async function POST(request: NextRequest) {
     const startTime = Date.now();
     const modelId = 'gemini-1.5-pro';
+    let authenticatedUserId: string | undefined;
+    let districtId: string | undefined;
 
     try {
+        const session = await getSession();
+        authenticatedUserId = session?.user?.id;
+        districtId = (session?.user as any)?.district || undefined;
+
         const gate = await assertHumanRequest(request, { routeName: 'chat' });
         if (!gate.allowed && gate.response) {
             return gate.response;
@@ -91,6 +98,8 @@ export async function POST(request: NextRequest) {
                     totalTokens: usage.totalTokens,
                     isEstimated: usage.isEstimated,
                     latencyMs: Date.now() - startTime,
+                    userId: authenticatedUserId || undefined,
+                    districtId,
                     success: true,
                     metadata: { pathname: pathname || 'default' },
                 });
@@ -107,6 +116,8 @@ export async function POST(request: NextRequest) {
             operation: 'chatStream',
             route: 'chat',
             latencyMs: Date.now() - startTime,
+            userId: authenticatedUserId || undefined,
+            districtId,
             success: false,
             errorCode: error?.name || 'CHAT_STREAM_ERROR',
         });

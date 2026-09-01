@@ -4,6 +4,7 @@ import { openaiProvider, AI_MODELS } from '@/lib/ai-config';
 import { rateLimit } from '@/lib/EdIntel-connections';
 import { assertHumanRequest } from '@/lib/security/ironshield-gate';
 import { recordLlmUsage, extractUsageFromResult } from '@/lib/ai/token-meter';
+import { getSession } from '@/lib/auth';
 
 // Initialize Supabase client
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -18,6 +19,9 @@ export async function POST(req: Request) {
     const modelId = AI_MODELS.OPENAI.PRIMARY;
 
     try {
+        const session = await getSession();
+        const authenticatedUserId = session?.user?.id;
+
         const gate = await assertHumanRequest(req, { routeName: 'EdIntel-swarm' });
         if (!gate.allowed && gate.response) {
             return gate.response;
@@ -44,7 +48,7 @@ export async function POST(req: Request) {
             console.warn('Rate Limit Check Failed (Fail Open):', e);
         }
 
-        const { intent, userId, loadScore, context } = await req.json();
+        const { intent, loadScore, context } = await req.json();
 
         // 1. NEURAL MAPPING: Connect to the 100+ Engine Hub (Simulated or Real RPC)
         const _engines = ['Literacy_Engine_Alpha', 'Behavior_Reform_Module', 'Executive_Briefing_Node'];
@@ -90,7 +94,7 @@ export async function POST(req: Request) {
                     totalTokens: usage.totalTokens,
                     isEstimated: usage.isEstimated,
                     latencyMs: Date.now() - start,
-                    userId,
+                    userId: authenticatedUserId || undefined,
                     success: true,
                 });
             },

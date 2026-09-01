@@ -3,6 +3,7 @@ import { NextRequest } from 'next/server';
 import { ANTIGRAVITY_PROMPT } from '@/lib/google-antigravity';
 import { googleProvider, AI_MODELS } from '@/lib/ai-config';
 import { recordLlmUsage, extractUsageFromResult } from '@/lib/ai/token-meter';
+import { getSession } from '@/lib/auth';
 
 export const dynamic = 'force-dynamic';
 export const runtime = 'nodejs';
@@ -12,6 +13,10 @@ export async function POST(req: NextRequest) {
     const modelId = AI_MODELS.GOOGLE.FLASH_2;
 
     try {
+        const session = await getSession();
+        const authenticatedUserId = session?.user?.id;
+        const districtId = (session?.user as any)?.district || undefined;
+
         const { messages } = await req.json();
 
         const result = streamText({
@@ -31,6 +36,8 @@ export async function POST(req: NextRequest) {
                     totalTokens: usage.totalTokens,
                     isEstimated: usage.isEstimated,
                     latencyMs: Date.now() - start,
+                    userId: authenticatedUserId || undefined,
+                    districtId,
                     success: true,
                 });
             },

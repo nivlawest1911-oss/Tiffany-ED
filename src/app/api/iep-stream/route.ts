@@ -9,6 +9,7 @@ import {
 } from '@/lib/ai-config';
 import { assertHumanRequest } from '@/lib/security/bot-gate';
 import { recordLlmUsage, extractUsageFromResult } from '@/lib/ai/token-meter';
+import { getSession } from '@/lib/auth';
 
 // Resolve model using canonical providers
 function getModel(provider: string = 'google') {
@@ -34,6 +35,10 @@ export const runtime = 'nodejs';
 export async function POST(req: NextRequest) {
     const requestId = req.headers.get('x-request-id') || `req_${Date.now()}`;
     try {
+        const session = await getSession();
+        const authenticatedUserId = session?.user?.id;
+        const districtId = (session?.user as any)?.district || undefined;
+
         const gate = await assertHumanRequest(req, { routeName: 'iep-stream' });
         if (!gate.allowed && gate.response) {
             return gate.response;
@@ -58,15 +63,8 @@ export async function POST(req: NextRequest) {
             2. MANDATE SMART goals using Webb's DOK 3/4 reasoning.
             3. Integrate Science of Reading (SOR) principles for any literacy-related goals.
             4. Cite Alabama Administrative Code (AAC) requirements for IEP development.
-            5. Provide specific, data-driven accommodations.
-            6. All goals must be research-based (Hattie/Marzano alignment).
-
-            Always structure IEPs with:
-            - Present Levels of Performance (PLOP)
-            - Annual Goals (SMART format)
-            - Accommodations & Modifications
-            - Services & Support
-            - Progress Monitoring Plan
+            5. Provide actionable accommodations aligned with Alabama Literacy & Numeracy Acts.
+            6. Structure output with: Present Level -> Measurable Annual Goals -> Accommodations -> Progress Monitoring.
         `;
 
         const start = Date.now();
@@ -95,6 +93,8 @@ export async function POST(req: NextRequest) {
                     totalTokens: usage.totalTokens,
                     isEstimated: usage.isEstimated,
                     latencyMs: Date.now() - start,
+                    userId: authenticatedUserId || undefined,
+                    districtId,
                     requestId,
                     success: true,
                 });

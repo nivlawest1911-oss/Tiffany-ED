@@ -5,6 +5,7 @@ import { getBirthCertificate } from '@/lib/supabase';
 import { googleProvider, AI_MODELS } from '@/lib/ai-config';
 import { assertHumanRequest } from '@/lib/security/bot-gate';
 import { recordLlmUsage, extractUsageFromResult } from '@/lib/ai/token-meter';
+import { getSession } from '@/lib/auth';
 
 // BigQuery logic moved to proxy API to prevent SDK leakage
 export const runtime = 'nodejs';
@@ -12,8 +13,13 @@ export const runtime = 'nodejs';
 export async function POST(req: Request) {
     const start = Date.now();
     const requestId = req.headers.get('x-request-id') || `req_${Date.now()}`;
+    let authenticatedUserId: string | undefined;
+    let districtId: string | undefined;
 
     try {
+        const session = await getSession();
+        authenticatedUserId = session?.user?.id;
+        districtId = (session?.user as any)?.district || undefined;
         const gate = await assertHumanRequest(req, { routeName: 'ai/chat' });
         if (!gate.allowed && gate.response) {
             return gate.response;
@@ -100,6 +106,8 @@ export async function POST(req: Request) {
                     totalTokens: usage.totalTokens,
                     isEstimated: usage.isEstimated,
                     latencyMs: Date.now() - start,
+                    userId: authenticatedUserId || undefined,
+                    districtId,
                     requestId,
                     success: true,
                 });
@@ -129,6 +137,8 @@ export async function POST(req: Request) {
             operation: 'companionChatStream',
             route: 'api/ai/chat',
             latencyMs: Date.now() - start,
+            userId: authenticatedUserId || undefined,
+            districtId,
             requestId,
             success: false,
             errorCode: error?.name || 'AI_CHAT_ERROR',

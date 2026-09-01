@@ -5,6 +5,7 @@ import {
   withLlmMeter,
   getLlmUsageAggregates,
   getUserUsageAggregates,
+  getOrgUsageAggregates,
   getRouteUsageAggregates,
   checkSoftQuota 
 } from '../src/lib/ai/token-meter';
@@ -92,25 +93,48 @@ async function runTests() {
   }
   assert(recordErrorThrown === false, 'recordLlmUsage executes non-blockingly without throwing');
 
-  // 6. Test withLlmMeter wrapper
+  // 5. Test withLlmMeter wrapper
   const testFn = async () => {
     return {
-      output: 'Differentiated passage result',
-      usage: { inputTokens: 50, outputTokens: 150, totalTokens: 200 }
+      text: "Wrapped LLM execution result",
+      usage: {
+        promptTokens: 50,
+        completionTokens: 25,
+        totalTokens: 75,
+      }
     };
   };
 
-  const wrappedResult = await withLlmMeter({
+  const fnResult = await withLlmMeter({
     modelId: 'gemini-1.5-flash',
     provider: 'google',
-    operation: 'wrappedTest',
+    operation: 'wrapped-operation',
     route: 'test/wrapped',
-    userId: 'user_wrapped_1',
+    userId: 'test_user_002',
   }, testFn);
 
-  assert(wrappedResult.output === 'Differentiated passage result', 'withLlmMeter transparently returns function result');
+  assert(fnResult.text === "Wrapped LLM execution result", 'withLlmMeter preserves original return value');
 
-  // 7. Test checkSoftQuota in default meter-only mode
+  // 6. Test withLlmMeter error recording and rethrow
+  const errorFn = async () => {
+    throw new Error('Upstream provider timeout');
+  };
+
+  let caughtError: Error | null = null;
+  try {
+    await withLlmMeter({
+      modelId: 'gemini-1.5-flash',
+      provider: 'google',
+      operation: 'wrapped-error-operation',
+      route: 'test/error',
+    }, errorFn);
+  } catch (err: any) {
+    caughtError = err;
+  }
+  assert(caughtError !== null, 'withLlmMeter rethrows original error to caller');
+  assert(caughtError?.message === 'Upstream provider timeout', 'withLlmMeter preserves original error message');
+
+  // 7. Test checkSoftQuota in default meter-only mode (observational)
   const defaultQuota = await checkSoftQuota({
     userId: 'user_quota_test',
     requestedTokens: 50000
@@ -121,6 +145,8 @@ async function runTests() {
   // 8. Test checkSoftQuota in enforced mode
   process.env.ENFORCE_LLM_SOFT_QUOTA = 'true';
   process.env.LLM_DEFAULT_USER_SOFT_QUOTA_TOKENS = '1000';
+  process.env.LLM_DEFAULT_ORG_SOFT_QUOTA_TOKENS = '10000';
+
   const enforcedQuotaExceeded = await checkSoftQuota({
     userId: 'user_quota_test_2',
     requestedTokens: 5000 // Exceeds limit of 1000
@@ -128,6 +154,12 @@ async function runTests() {
   assert(enforcedQuotaExceeded.allowed === false, 'checkSoftQuota blocks when quota is exceeded in enforced mode');
   assert(enforcedQuotaExceeded.quotaExceeded === true, 'checkSoftQuota sets quotaExceeded: true');
   assert(enforcedQuotaExceeded.enforced === true, 'checkSoftQuota sets enforced: true');
+
+  const enforcedOrgQuotaExceeded = await checkSoftQuota({
+    orgId: 'org_quota_test_1',
+    requestedTokens: 20000 // Exceeds org limit of 10000
+  });
+  assert(enforcedOrgQuotaExceeded.allowed === false, 'checkSoftQuota blocks when org quota is exceeded in enforced mode');
 
   const enforcedQuotaAllowed = await checkSoftQuota({
     userId: 'user_quota_test_3',
@@ -144,6 +176,9 @@ async function runTests() {
 
   const userAggs = await getUserUsageAggregates('test-user-123');
   assert(typeof userAggs.totalTokens === 'number', 'getUserUsageAggregates returns user metrics object');
+
+  const orgAggs = await getOrgUsageAggregates('org-mobile-county');
+  assert(typeof orgAggs.totalTokens === 'number', 'getOrgUsageAggregates returns org metrics object');
 
   const routeAggs = await getRouteUsageAggregates();
   assert(Array.isArray(routeAggs), 'getRouteUsageAggregates returns an array');
