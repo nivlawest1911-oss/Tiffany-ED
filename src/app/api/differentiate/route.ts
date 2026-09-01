@@ -4,11 +4,18 @@ import { TokenService } from '@/lib/services/token-service';
 import { differentiationEngine } from '@/lib/differentiation-engine';
 import { DifferentiationRequest } from '@/types/differentiation';
 import { trackCost } from '@/lib/usage/track-cost';
+import { assertHumanRequest } from '@/lib/security/ironshield-gate';
+import { withGovernanceEnvelope } from '@/lib/ai/governance-gate';
 
 export const runtime = 'nodejs';
 
 export async function POST(request: NextRequest) {
   try {
+    const gate = await assertHumanRequest(request, { routeName: 'differentiate' });
+    if (!gate.allowed && gate.response) {
+      return gate.response;
+    }
+
     const body = await request.json();
     const { 
       sourceInput, 
@@ -142,7 +149,8 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    return NextResponse.json(result);
+    const envelopedResult = withGovernanceEnvelope(result as any, { domain: 'differentiation' });
+    return NextResponse.json(envelopedResult);
   } catch (error: any) {
     console.error('[API Differentiate] Error:', error);
     return NextResponse.json(

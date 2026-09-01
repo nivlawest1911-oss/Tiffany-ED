@@ -55,17 +55,19 @@ export async function generateIEPWithToken(studentName: string) {
       });
 
       // 4. Archive in DocumentVault (VaultDocument)
-      await tx.vaultDocument.create({
-        data: {
-          userId,
-          fileName: `IEP_Record_${studentName.replace(/\s+/g, '_')}_${Date.now()}.json`,
-          fileSize: 0, // Metadata only for now
-          fileType: 'application/json',
-          storagePath: 'internal://generation-ref',
-          securityLevel: 'confidential',
-          tags: ['IEP', 'AI_GENERATED'],
-        },
-      });
+      if (tx.vault_documents) {
+        await tx.vault_documents.create({
+          data: {
+            userId,
+            fileName: `IEP_Record_${studentName.replace(/\s+/g, '_')}_${Date.now()}.json`,
+            fileSize: 0,
+            fileType: 'application/json',
+            storagePath: 'internal://generation-ref',
+            securityLevel: 'confidential',
+            tags: ['IEP', 'AI_GENERATED', 'HUMAN_REVIEW_REQUIRED'],
+          },
+        });
+      }
 
       return { success: true, newBalance: updatedWallet.balance };
     });
@@ -86,3 +88,53 @@ export async function generateIEPWithToken(studentName: string) {
     };
   }
 }
+
+import { assertHumanFinalized } from '@/lib/ai/governance-gate';
+
+/**
+ * finalizeIEPRecord
+ * 
+ * Enforces the AI Governance requirement: High-stakes records (such as IEPs)
+ * require explicit human educator review and confirmation before final status adoption.
+ */
+export async function finalizeIEPRecord(input: {
+  documentId: string;
+  confirmedByHuman: boolean;
+  notes?: string;
+}) {
+  const session = await getSession();
+  if (!session?.user?.id) {
+    return { success: false, error: 'UNAUTHORIZED', message: 'Authentication required.' };
+  }
+
+  const check = assertHumanFinalized({
+    confirmedByHuman: input.confirmedByHuman,
+    reviewerId: session.user.id,
+    reviewerRole: (session.user as any).role || 'EDUCATOR',
+    notes: input.notes
+  });
+
+  if (!check.valid) {
+    return {
+      success: false,
+      error: 'GOVERNANCE_HUMAN_REVIEW_REQUIRED',
+      message: check.error || 'Human educator confirmation required to finalize this record.'
+    };
+  }
+
+  try {
+    const updated = await (prisma.vault_documents as any).update({
+      where: { id: input.documentId },
+      data: {
+        tags: ['IEP', 'AI_GENERATED', 'HUMAN_VERIFIED', 'FINALIZED'],
+      }
+    });
+
+    revalidatePath('/dashboard');
+    return { success: true, document: updated };
+  } catch (err: any) {
+    console.error('Failed to finalize IEP record:', err);
+    return { success: false, error: 'DATABASE_ERROR', message: 'Failed to update record status.' };
+  }
+}
+

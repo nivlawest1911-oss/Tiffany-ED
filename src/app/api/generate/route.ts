@@ -47,12 +47,13 @@ function auditLogResponse(response: Response, user: any, prompt: string, generat
     return response;
 }
 
+import { assertHumanRequest } from '@/lib/security/ironshield-gate';
+
 export async function POST(request: NextRequest) {
     try {
-        const { checkBotId } = require('botid/server');
-        const verification = await checkBotId();
-        if (verification.isBot) {
-            return NextResponse.json({ error: 'Access denied' }, { status: 403 });
+        const gate = await assertHumanRequest(request, { routeName: 'generate' });
+        if (!gate.allowed && gate.response) {
+            return gate.response;
         }
 
         const { prompt, generatorId, delegate } = await request.json();

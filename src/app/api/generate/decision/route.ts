@@ -2,11 +2,18 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getSession } from '@/lib/auth';
 import { generateDecisionAction } from '@/lib/gemini-service';
 import { prisma } from '@/lib/prisma';
+import { assertHumanRequest } from '@/lib/security/bot-gate';
+import { withGovernanceEnvelope } from '@/lib/ai/governance-gate';
 
 export const runtime = 'nodejs';
 
 export async function POST(request: NextRequest) {
     try {
+        const gate = await assertHumanRequest(request, { routeName: 'generate/decision' });
+        if (!gate.allowed && gate.response) {
+            return gate.response;
+        }
+
         const params = await request.json();
         const { scenario } = params;
 
@@ -33,19 +40,22 @@ export async function POST(request: NextRequest) {
             schoolId: dbUser?.school_id || undefined
         };
 
-        // Token enforcement is temporarily disabled for Phase 2 implementation.
-
         const result = await generateDecisionAction({
             ...params,
             protocolContext
         });
 
-        return NextResponse.json({ content: result });
+        const enveloped = withGovernanceEnvelope(
+            { content: result },
+            { domain: 'fiscal_determination', isHighStakes: true }
+        );
+
+        return NextResponse.json(enveloped);
     } catch (error: any) {
         console.error('[Decision Engine API] Error:', error);
 
         if (error.message?.includes('503') || error.message?.includes('overloaded') || error.message?.includes('exhausted')) {
-            return NextResponse.json({
+            const fallbackEnveloped = withGovernanceEnvelope({
                 content: `# [SIMULATION PROTOCOL ACTIVE]
 **Note:** AI capacity is temporarily exhausted. The following is a high-fidelity mock Decision Matrix.
 
@@ -57,8 +67,10 @@ The proposed changes impact core scheduling and budgeting constraints.
 2. Phased Rollout (Moderate Risk, Slower Adoption)
 3. Maintain Status Quo (Low Risk, Missed Opportunity)
 
-*EdIntel System Status: AWAITING_BANDWIDTH â€” Please retry in a moment.*`
-            });
+*EdIntel System Status: AWAITING_BANDWIDTH — Please retry in a moment.*`
+            }, { domain: 'fiscal_determination', isHighStakes: true });
+
+            return NextResponse.json(fallbackEnveloped);
         }
 
         return NextResponse.json({ error: 'Generation failed' }, { status: 500 });
