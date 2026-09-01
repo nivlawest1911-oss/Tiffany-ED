@@ -1,4 +1,4 @@
-﻿/**
+/**
  * EdIntel AI Governance Gate
  * 
  * Implements human-in-the-loop controls, clear AI-use disclosure,
@@ -17,7 +17,12 @@ export const HIGH_STAKES_DOMAINS = [
   'fiscal_determination',
   'discipline_restorative',
   'legal_audit',
-  'student_portfolio_compliance'
+  'student_portfolio_compliance',
+  'growth_narrative',
+  'restorative_reset',
+  'differentiation',
+  'iep_stream',
+  'special_education'
 ] as const;
 
 export type HighStakesDomain = typeof HIGH_STAKES_DOMAINS[number] | string;
@@ -121,3 +126,11 @@ export function assertHumanFinalized(
 
   return { valid: true };
 }
+
+/** Internal alias for governance check */
+export const aiGovernanceGate = {
+  isHighStakes,
+  withEnvelope: withGovernanceEnvelope,
+  assertFinalized: assertHumanFinalized,
+  disclosureNotice: AI_DISCLOSURE_NOTICE,
+};

@@ -1,10 +1,11 @@
 import { streamText } from 'ai';
 import { getGoogleAIKey, googleProvider, AI_MODELS } from '@/lib/ai-config';
-import { assertHumanRequest } from '@/lib/security/ironshield-gate';
+import { assertHumanRequest } from '@/lib/security/bot-gate';
 
 export const runtime = 'nodejs';
 
 export async function POST(req: Request) {
+    const requestId = req.headers.get('x-request-id') || `req_${Date.now()}`;
     try {
         const gate = await assertHumanRequest(req, { routeName: 'chat/gemini' });
         if (!gate.allowed && gate.response) {
@@ -14,7 +15,7 @@ export async function POST(req: Request) {
         const { messages } = await req.json();
 
         if (!getGoogleAIKey()) {
-            return new Response(JSON.stringify({ error: 'Missing Neural Key (GOOGLE_GENERATIVE_AI_API_KEY)' }), { status: 500 });
+            return new Response(JSON.stringify({ error: 'AI Service Temporarily Unavailable' }), { status: 503 });
         }
 
         const result = await streamText({
@@ -29,7 +30,7 @@ export async function POST(req: Request) {
 
         return result.toTextStreamResponse();
     } catch (error: any) {
-        console.error('[GEMINI_ERROR]', error);
-        return new Response(JSON.stringify({ error: 'Neural Link Interrupted', details: error.message }), { status: 500 });
+        console.error(`[GEMINI_ERROR] (Request ID: ${requestId}):`, error?.message);
+        return new Response(JSON.stringify({ error: 'Neural Link Interrupted', requestId }), { status: 500 });
     }
 }

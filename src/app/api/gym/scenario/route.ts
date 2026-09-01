@@ -2,11 +2,17 @@ import { NextResponse } from 'next/server';
 import { generateObject } from 'ai';
 import { googleProvider, AI_MODELS } from '@/lib/ai-config';
 import { GymScenarioSchema } from '@/lib/ai/signatures';
+import { assertHumanRequest } from '@/lib/security/bot-gate';
 
-export const runtime = 'edge';
+export const runtime = 'nodejs';
 
 export async function GET(req: Request) {
     try {
+        const gate = await assertHumanRequest(req, { routeName: 'gym/scenario' });
+        if (!gate.allowed && gate.response) {
+            return gate.response;
+        }
+
         const { searchParams } = new URL(req.url);
         const zone = searchParams.get('zone') || 'General';
 

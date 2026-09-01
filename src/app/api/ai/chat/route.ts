@@ -3,13 +3,14 @@ import { INTELLIGENCE_MAP } from '@/lib/intelligence-engine';
 import { queryEdIntelVault } from '@/lib/rag/rag-core';
 import { getBirthCertificate } from '@/lib/supabase';
 import { googleProvider, AI_MODELS } from '@/lib/ai-config';
-import { assertHumanRequest } from '@/lib/security/ironshield-gate';
+import { assertHumanRequest } from '@/lib/security/bot-gate';
 
 // BigQuery logic moved to proxy API to prevent SDK leakage
 export const runtime = 'nodejs';
 
 export async function POST(req: Request) {
     const start = Date.now();
+    const requestId = req.headers.get('x-request-id') || `req_${Date.now()}`;
 
     try {
         const gate = await assertHumanRequest(req, { routeName: 'ai/chat' });
@@ -78,7 +79,7 @@ export async function POST(req: Request) {
 
             Directives:
             1. Speak with precision, authority, and empathy. You are a doctoral-level advisor.
-            2. Prioritize "Instructional Agency"â€”returning time and choices to educators.
+            2. Prioritize "Instructional Agency" — returning time and choices to educators.
             3. Use terminology aligned with Alabama State Department of Education (ALSDE).
             4. If asked about compliance, cite FERPA and specific AL Acts (Literacy, Numeracy, RAISE).
             5. INTELLIGENCE FUSION: If the user's request aligns with an existing platform feature (listed above), proactively include a Protocol Token at the END of your response in the format: [PROTOCOL: ID]. Replace ID with the exact key from the feature list.
@@ -105,13 +106,9 @@ export async function POST(req: Request) {
 
         return result.toTextStreamResponse();
     } catch (error: any) {
-        console.error("[AI_CHAT_ERROR]", error);
+        console.error(`[AI_CHAT_ERROR] (Request ID: ${requestId}):`, error?.message);
 
-        const errorMessage = error.message?.includes('API key')
-            ? 'Missing Neural Key (GOOGLE_GENAI_API_KEY)'
-            : 'Neural Link Severed';
-
-        return new Response(JSON.stringify({ error: errorMessage, details: error.message }), {
+        return new Response(JSON.stringify({ error: 'Neural Link Interrupted', requestId }), {
             status: 500,
             headers: { 'Content-Type': 'application/json' }
         });

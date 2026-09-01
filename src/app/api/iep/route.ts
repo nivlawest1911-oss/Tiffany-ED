@@ -1,11 +1,18 @@
-﻿import { NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import { generateProfessionalResponse } from '@/lib/leadership-ai';
+import { assertHumanRequest } from '@/lib/security/bot-gate';
+import { withGovernanceEnvelope } from '@/lib/ai/governance-gate';
 
 export const dynamic = 'force-dynamic';
 export const runtime = 'nodejs';
 
 export async function POST(req: Request) {
   try {
+    const gate = await assertHumanRequest(req, { routeName: 'iep' });
+    if (!gate.allowed && gate.response) {
+      return gate.response;
+    }
+
     const body = await req.json();
 
     // EdIntel IEP ARCHITECT: ENFORCING CLINICAL PRECISION & STATE COMPLIANCE
@@ -22,10 +29,12 @@ export async function POST(req: Request) {
 
     const output = await generateProfessionalResponse(prompt, 'iep-architect');
 
-    return NextResponse.json({ output });
+    const enveloped = withGovernanceEnvelope({ output }, { domain: 'iep', isHighStakes: true });
+    return NextResponse.json(enveloped);
   } catch (error: any) {
     console.error('IEP Generation Error:', error);
     const fallback = await generateProfessionalResponse("Fallback IEP Request", "iep-architect");
-    return NextResponse.json({ output: fallback });
+    const fallbackEnveloped = withGovernanceEnvelope({ output: fallback }, { domain: 'iep', isHighStakes: true });
+    return NextResponse.json(fallbackEnveloped);
   }
 }

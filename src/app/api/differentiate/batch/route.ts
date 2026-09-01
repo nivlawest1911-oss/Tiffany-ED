@@ -4,7 +4,8 @@ import { TokenService } from '@/lib/services/token-service';
 import { differentiationEngine } from '@/lib/differentiation-engine';
 import { BatchDifferentiationRequest, DifferentiationResponse } from '@/types/differentiation';
 import { prisma } from '@/lib/prisma';
-import { assertHumanRequest } from '@/lib/security/ironshield-gate';
+import { assertHumanRequest } from '@/lib/security/bot-gate';
+import { withGovernanceEnvelope } from '@/lib/ai/governance-gate';
 
 export const runtime = 'nodejs';
 
@@ -147,12 +148,14 @@ export async function POST(request: NextRequest) {
       result: resultsMap[target.lexile]
     }));
 
-    return NextResponse.json({
+    const enveloped = withGovernanceEnvelope({
       success: true,
       levelsGenerated: uniqueLexiles.length,
       tokensDeducted: batchCost,
       results: responseList
-    });
+    }, { domain: 'differentiation' });
+
+    return NextResponse.json(enveloped);
   } catch (error: any) {
     console.error('[API Differentiate Batch] Error:', error);
     return NextResponse.json(

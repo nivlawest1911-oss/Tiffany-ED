@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import Stripe from 'stripe';
+import { assertHumanRequest } from '@/lib/security/bot-gate';
 
 // Lazy initialization to avoid build-time crashes when STRIPE_SECRET_KEY is absent
 function getStripe() {
@@ -13,19 +14,18 @@ function getStripe() {
 
 export async function POST(req: Request) {
     try {
-        const { checkBotId } = require('botid/server');
-        const verification = await checkBotId();
-        if (verification.isBot) {
-            return NextResponse.json({ error: 'Access denied' }, { status: 403 });
+        const gate = await assertHumanRequest(req, { routeName: 'checkout_sessions' });
+        if (!gate.allowed && gate.response) {
+            return gate.response;
         }
         
         const { orgId, tokenAmount, priceInCents, tierName } = await req.json();
 
         if (!priceInCents || priceInCents < 50) {
-            throw new Error("Invalid Price: Payment amount is too low.");
+            return NextResponse.json({ error: 'Invalid Price: Payment amount is too low.' }, { status: 400 });
         }
         if (!tokenAmount || tokenAmount <= 0) {
-            throw new Error("Invalid Token Amount.");
+            return NextResponse.json({ error: 'Invalid Token Amount.' }, { status: 400 });
         }
 
         const stripe = getStripe();
@@ -57,6 +57,6 @@ export async function POST(req: Request) {
         return NextResponse.json({ id: session.id });
     } catch (err: any) {
         console.error("Stripe Session Creation Error:", err);
-        return NextResponse.json({ error: err.message }, { status: 500 });
+        return NextResponse.json({ error: 'Payment initialization failed' }, { status: 500 });
     }
 }

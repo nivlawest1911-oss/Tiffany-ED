@@ -4,12 +4,12 @@ import type { NextRequest } from 'next/server';
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  // Always allow Better Auth routes
+  // 1. Frozen Auth: Always allow Better Auth routes without obstruction
   if (pathname.startsWith('/api/auth')) {
     return NextResponse.next();
   }
 
-  // Always allow public pages
+  // 2. Public / Marketing Pages: Soft, SEO-friendly pass-through
   if (
     pathname === '/' ||
     pathname.startsWith('/login') ||
@@ -22,13 +22,17 @@ export async function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
-  // TEMPORARY: pass everything through.
-  // The previous getSessionCookie check was still redirecting after a
-  // successful Google OAuth (cookie not always visible on the first
-  // post-callback request / RSC prefetch on Vercel). Client-side page
-  // is now passive (no auto-redirect), so the session can settle.
-  // Re-enable a robust guard later once the bounce is confirmed gone.
-  return NextResponse.next();
+  // 3. Request correlation header for production safety
+  const requestHeaders = new Headers(request.headers);
+  if (!requestHeaders.get('x-request-id')) {
+    requestHeaders.set('x-request-id', `req_${Date.now()}_${Math.random().toString(36).substring(2, 9)}`);
+  }
+
+  return NextResponse.next({
+    request: {
+      headers: requestHeaders,
+    },
+  });
 }
 
 export const config = {

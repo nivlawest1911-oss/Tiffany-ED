@@ -7,6 +7,7 @@ import {
     xaiProvider, 
     AI_MODELS 
 } from '@/lib/ai-config';
+import { assertHumanRequest } from '@/lib/security/bot-gate';
 
 // Resolve model using canonical providers
 function getModel(provider: string = 'google') {
@@ -27,11 +28,10 @@ function getModel(provider: string = 'google') {
     }
 }
 
-import { assertHumanRequest } from '@/lib/security/ironshield-gate';
-
 export const runtime = 'nodejs';
 
 export async function POST(req: NextRequest) {
+    const requestId = req.headers.get('x-request-id') || `req_${Date.now()}`;
     try {
         const gate = await assertHumanRequest(req, { routeName: 'iep-stream' });
         if (!gate.allowed && gate.response) {
@@ -75,15 +75,24 @@ export async function POST(req: NextRequest) {
             messages,
             temperature: 0.7,
             maxOutputTokens: 2000,
+            headers: {
+                'x-ai-assisted': 'true',
+                'x-human-review-required': 'true',
+            }
         });
 
-        return result.toTextStreamResponse();
-    } catch (error) {
-        console.error('IEP Generation Error:', error);
+        return result.toTextStreamResponse({
+            headers: {
+                'x-ai-assisted': 'true',
+                'x-human-review-required': 'true',
+            }
+        });
+    } catch (error: any) {
+        console.error(`[IEP Generation Error] (Request ID: ${requestId}):`, error?.message);
         return new Response(
             JSON.stringify({
                 error: 'Failed to generate IEP',
-                details: error instanceof Error ? error.message : 'Unknown error'
+                requestId
             }),
             {
                 status: 500,
